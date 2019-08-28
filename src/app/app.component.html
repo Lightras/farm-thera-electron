@@ -1,1 +1,7 @@
-<app-file-loader (fileChange)="onFileChange($event)"></app-file-loader>
+<section>
+   <app-file-loader (fileChange)="onFileChange($event)"></app-file-loader>
+</section>
+
+<section>
+   <app-data-viewer [dataObj]="dataObj" *ngIf="dataObj"></app-data-viewer>
+</section>

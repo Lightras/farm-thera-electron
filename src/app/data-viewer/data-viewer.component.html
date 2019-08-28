@@ -1,1 +1,15 @@
-<p>data-viewer works!</p>
+<div class="data-viewer">
+   <table>
+      <thead>
+      <tr>
+         <th *ngFor="let field of dataObj.meta.fields">{{field}}</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let dataRow of dataObj.data">
+         <td *ngFor="let field of dataObj.meta.fields">{{dataRow[field]}}</td>
+      </tr>
+      </tbody>
+   </table>
+</div>

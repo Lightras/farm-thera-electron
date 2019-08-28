@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {DataObj} from '../app.interfaces';
 
 @Component({
-  selector: 'app-data-viewer',
-  templateUrl: './data-viewer.component.html',
-  styleUrls: ['./data-viewer.component.css']
+   selector: 'app-data-viewer',
+   templateUrl: './data-viewer.component.html',
+   styleUrls: ['./data-viewer.component.sass']
 })
 export class DataViewerComponent implements OnInit {
 
-  constructor() { }
+   @Input('dataObj') dataObj: DataObj;
 
-  ngOnInit() {
-  }
+   constructor() { }
+
+   ngOnInit() {
+
+   }
 
 }

@@ -1,0 +1,442 @@
+{
+   "data": [
+      {
+         "virus": "Ні",
+         "therapy": "Так",
+         "days": "22"
+      },
+      {
+         "virus": "Ні",
+         "therapy": "Так",
+         "days": "19"
+      },
+      {
+         "virus": "Ні",
+         "therapy": "Так",
+         "days": "43"
+      },
+      {
+         "virus": "Ні",
+         "therapy": "Так",
+         "days": "14"
+      },
+      {
+         "virus": "Ні",
+         "therapy": "Так",
+         "days": "27"
+      },
+      {
+         "virus": "Ні",
+         "therapy": "Так",
+         "days": "26"
+      },
+      {
+         "virus": "Ні",
+         "therapy": "Так",
+         "days": "22"
+      },
+      {
+         "virus": "Ні",
+         "therapy": "Так",
+         "days": "36"
+      },
+      {
+         "virus": "Ні",
+         "therapy": "Так",
+         "days": "23"
+      },
+      {
+         "virus": "Ні",
+         "therapy": "Так",
+         "days": "14"
+      },
+      {
+         "virus": "Ні",
+         "therapy": "Так",
+         "days": "15"
+      },
+      {
+         "virus": "Ні",
+         "therapy": "Так",
+         "days": "16"
+      },
+      {
+         "virus": "Ні",
+         "therapy": "Так",
+         "days": "15"
+      },
+      {
+         "virus": "Ні",
+         "therapy": "Так",
+         "days": "28"
+      },
+      {
+         "virus": "Ні",
+         "therapy": "Так",
+         "days": "7"
+      },
+      {
+         "virus": "Ні",
+         "therapy": "Так",
+         "days": "14"
+      },
+      {
+         "virus": "Ні",
+         "therapy": "Ні",
+         "days": "62"
+      },
+      {
+         "virus": "Ні",
+         "therapy": "Ні",
+         "days": "50"
+      },
+      {
+         "virus": "Ні",
+         "therapy": "Ні",
+         "days": "33"
+      },
+      {
+         "virus": "Ні",
+         "therapy": "Ні",
+         "days": "26"
+      },
+      {
+         "virus": "Ні",
+         "therapy": "Ні",
+         "days": "43"
+      },
+      {
+         "virus": "Ні",
+         "therapy": "Ні",
+         "days": "49"
+      },
+      {
+         "virus": "Ні",
+         "therapy": "Ні",
+         "days": "21"
+      },
+      {
+         "virus": "Ні",
+         "therapy": "Ні",
+         "days": "45"
+      },
+      {
+         "virus": "Ні",
+         "therapy": "Ні",
+         "days": "29"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "25"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "33"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "12"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "13"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "9"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "39"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "15"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "18"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "13"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "15"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "17"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "9"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "43"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "17"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "22"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "22"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "27"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "24"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "17"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "42"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "7"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "15"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "52"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "15"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "4"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "9"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "14"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "18"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "22"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "22"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "32"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Так",
+         "days": "24"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "21"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "25"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "36"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "21"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "72"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "17"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "56"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "14"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "66"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "18"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "11"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "16"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "82"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "29"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "21"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "15"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "15"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "57"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "19"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "51"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "12"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "21"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "33"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "29"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "23"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "93"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "21"
+      },
+      {
+         "virus": "Так",
+         "therapy": "Ні",
+         "days": "64"
+      }
+   ],
+   "errors": [],
+   "meta": {
+      "delimiter": ",",
+      "linebreak": "\r\n",
+      "aborted": false,
+      "truncated": false,
+      "cursor": 970,
+      "fields": [
+         "virus",
+         "therapy",
+         "days"
+      ]
+   }
+}
