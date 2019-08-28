@@ -1,21 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Component({
-  selector: 'app-file-loader',
-  templateUrl: './file-loader.component.html',
-  styleUrls: ['./file-loader.component.css']
+   selector: 'app-file-loader',
+   templateUrl: './file-loader.component.html',
+   styleUrls: ['./file-loader.component.css']
 })
 export class FileLoaderComponent implements OnInit {
+   @Output() fileChange: EventEmitter<any> = new EventEmitter();
 
-  constructor() { }
+   constructor() { }
 
-  file: any;
+   file: any;
 
-  ngOnInit() {
-  }
+   ngOnInit() {
+   }
 
-  inputFile(e: Event) {
-    const file = (e.target as HTMLInputElement).files[0];
-    const reader = new FileReader();
-  }
+   inputFile(e: Event) {
+      const file = (e.target as HTMLInputElement).files[0];
+      this.fileChange.emit(file);
+   }
 }
