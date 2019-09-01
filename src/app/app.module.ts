@@ -6,17 +6,23 @@ import { FileLoaderComponent } from './file-loader/file-loader.component';
 import { DataViewerComponent } from './data-viewer/data-viewer.component';
 import { BasicChartsComponent } from './basic-charts/basic-charts.component';
 import {HttpClientModule} from '@angular/common/http';
+import { PieChartComponent } from './charts/pie-chart/pie-chart.component';
+import {HighchartsChartModule} from 'highcharts-angular';
+import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
 
 @NgModule({
    declarations: [
       AppComponent,
       FileLoaderComponent,
       DataViewerComponent,
-      BasicChartsComponent
+      BasicChartsComponent,
+      PieChartComponent,
+      BarChartComponent,
    ],
    imports: [
       BrowserModule,
-      HttpClientModule
+      HttpClientModule,
+      HighchartsChartModule,
    ],
    providers: [],
    bootstrap: [AppComponent]

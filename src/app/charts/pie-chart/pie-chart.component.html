@@ -1,0 +1,8 @@
+<div class="pie-chart-wrapper">
+   <highcharts-chart *ngIf="showChart"
+                     [(update)]="updateFlag"
+                     [Highcharts]="Highcharts"
+                     [options]="pieChartOptions"
+                     (chartInstance)="chart = $event"
+   ></highcharts-chart>
+</div>

@@ -19,9 +19,6 @@ export class AppComponent implements OnInit {
    ngOnInit(): void {
       this.dataService.getMockData().subscribe(data => {
          this.dataObj = data;
-
-         const a = z.getCol('virus', this.dataObj.data);
-         console.log('a: ', a);
       });
 
       this.parsingResult.subscribe(result => {
