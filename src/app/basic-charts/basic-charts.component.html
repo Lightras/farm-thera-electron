@@ -1,1 +1,17 @@
-<p>basic-charts works!</p>
+<app-pie-chart
+   *ngIf="rviData"
+   [pieData]="rviData"
+   chartTitle="Ротавірус"
+></app-pie-chart>
+
+<app-pie-chart
+   *ngIf="therapyData"
+   [pieData]="therapyData"
+   chartTitle="Інтерферон альфа-2б"
+></app-pie-chart>
+
+<app-bar-chart
+   *ngIf="daysDistribution"
+   [barData]="daysDistribution"
+   [titles]="daysChartTitles"
+></app-bar-chart>
