@@ -2,10 +2,7 @@
    <app-file-loader (fileChange)="onFileChange($event)"></app-file-loader>
 </section>
 
-<section>
+<section class="flex-row">
    <app-data-viewer [dataObj]="dataObj" *ngIf="dataObj"></app-data-viewer>
-</section>
-
-<section>
    <app-basic-charts [dataObj]="dataObj"></app-basic-charts>
 </section>

@@ -12,6 +12,8 @@ export class BasicChartsComponent implements OnInit, OnChanges {
    rviData: PieData;
    therapyData: PieData;
 
+   pieCategories = ['Так', 'Ні'];
+
    @Input() dataObj: DataObj;
    daysDistribution: number[];
 
@@ -34,12 +36,14 @@ export class BasicChartsComponent implements OnInit, OnChanges {
       if (changes.dataObj.currentValue) {
          const dataObj = changes.dataObj.currentValue;
 
-         this.rviData = this.getPieData(dataObj, 'virus');
-         this.therapyData = this.getPieData(dataObj, 'therapy');
+         this.rviData = this.getPieData(dataObj, 'virus').sort(this.sortYesNo);
+         this.therapyData = this.getPieData(dataObj, 'therapy').sort(this.sortYesNo);
 
          this.daysDistribution = this.dataService.buildDistribution(z.getCol('days', dataObj.data));
       }
    }
+
+   private sortYesNo = (a, b) => this.pieCategories.indexOf(a[0]) - this.pieCategories.indexOf(b[0]);
 
    private getPieData(dataObj: DataObj, field: string): PieData {
       const dataGrouped = z.groupBy(x => x[field], dataObj.data);

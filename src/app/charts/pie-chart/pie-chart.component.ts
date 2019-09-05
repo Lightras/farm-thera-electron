@@ -39,7 +39,11 @@ export class PieChartComponent implements OnInit, OnChanges {
                size: 150,
                dataLabels: {
                   format: '{point.y}',
-                  distance: -30
+                  distance: -30,
+                  style: {
+                     fontSize: '20px',
+                     color: 'white'
+                  }
                },
                showInLegend: true
             }
@@ -56,6 +60,8 @@ export class PieChartComponent implements OnInit, OnChanges {
 
    ngOnChanges(changes: SimpleChanges): void {
       if (changes.pieData && changes.pieData.currentValue) {
+         console.log('pieData: ', changes.pieData);
+
          (this.pieChartOptions.series as SeriesPieOptions[])[0].data = this.pieData as SeriesPieDataOptions[];
          this.showChart = true;
          this.cdr.detectChanges();

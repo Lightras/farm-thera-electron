@@ -5,13 +5,14 @@ let win;
 function createWindow() {
    // Create the browser window.
    win = new BrowserWindow({
-      height: 670,
+      height: 750,
       icon: `file://${__dirname}/dist/assets/logo.png`,
       width: 800,
    });
 
    // win.loadURL(`file://${__dirname}/dist/index.html`);
    win.loadURL(`http://localhost:4200/`);
+   win.removeMenu();
 
    // uncomment below to open the DevTools.
    win.webContents.openDevTools();
