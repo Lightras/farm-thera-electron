@@ -1,8 +1,10 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import * as Highcharts from 'highcharts';
+import * as HighchartsGroupedCategories from 'highcharts-grouped-categories';
 import {Chart, SeriesBarOptions} from 'highcharts';
 import {ChartsService} from '../charts.service';
 
+HighchartsGroupedCategories(Highcharts);
 
 @Component({
    selector: 'app-grouped-categories-chart',
@@ -25,7 +27,31 @@ export class GroupedCategoriesChartComponent implements OnInit, OnChanges {
       this.Highcharts = chartService.Highcharts;
       this.barChartOptions = {
          chart: {
-            type: 'column'
+            width: 950,
+            height: 500,
+            type: 'column',
+            style: {
+               fontFamily: 'Arial',
+               color: 'black'
+            }
+         },
+
+         title: {
+            text: ''
+         },
+
+         yAxis: {
+            title: {
+               text: ''
+            }
+         },
+
+         plotOptions: {
+            column: {
+               dataLabels: {
+                  enabled: true
+               }
+            }
          },
 
          legend: {
@@ -38,16 +64,39 @@ export class GroupedCategoriesChartComponent implements OnInit, OnChanges {
    }
 
    ngOnChanges(changes: SimpleChanges): void {
-      if (changes.categories) {
-         this.barChartOptions.xAxis = {
-            categories: this.categories
+      console.log('changes: ', changes);
+      if (changes.categories.currentValue) {
+         console.log('changes.categories: ', changes.categories);
+         (this.barChartOptions.xAxis as any) = {
+            categories: this.categories,
+            labels: {
+               groupedOptions: [
+                  {
+                     rotation: 0,
+                     style: {
+                        color: 'black',
+                        fontSize: '11px'
+                     }
+                  }
+               ],
+               rotation: -90,
+               align: 'right',
+               y: 3,
+               padding: 20,
+               style: {
+                  color: 'black',
+                  fontSize: '14px',
+                  fontFamily: 'Arial'
+               }
+            },
          };
       }
 
-      if (changes.data) {
+      if (changes.data.currentValue) {
          this.barChartOptions.series = [{
             data: this.data
-         }] as SeriesBarOptions[];
+         }
+         ] as SeriesBarOptions[];
       }
 
       if (this.barChartOptions.xAxis && this.barChartOptions.series) {

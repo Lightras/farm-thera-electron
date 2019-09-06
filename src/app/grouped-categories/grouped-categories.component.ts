@@ -6,123 +6,47 @@ import { Component, OnInit } from '@angular/core';
    styleUrls: ['./grouped-categories.component.sass']
 })
 export class GroupedCategoriesComponent implements OnInit {
-   categories1: [
+
+   categories1 = [
       {
          name: 'Стать',
-         categories: [
-            {
-               name: 'Чоловіча'
-            },
-            {
-               name: 'Жіноча'
-            }
-         ]
+         categories: ['Чоловіча', 'Жіноча']
       },
       {
          name: 'Вік',
-         categories: [
-            {
-               name: '<1 року'
-            },
-            {
-               name: '1-2 роки'
-            },
-            {
-               name: '2-3 роки'
-            },
-            {
-               name: '>3 років'
-            }
-         ]
+         categories: ['<1 року', '1-2 роки', '2-3 роки', '>3 років']
       },
       {
          name: 'Вага',
-         categories: [
-            {
-               name: '<10 кг'
-            },
-            {
-               name: '>10 кг'
-            }
-         ]
+         categories: ['<10 кг', '>10 кг']
       },
       {
          name: 'Зріст',
-         categories: [
-            {
-               name: '<75 см'
-            },
-            {
-               name: '>75 см'
-            }
-         ]
+         categories: ['<75 см', '>75 см']
       },
       {
          name: 'Блювота',
-         categories: [
-            {
-               name: 'Так'
-            },
-            {
-               name: 'Ні'
-            }
-         ]
+         categories: ['Так', 'Ні']
       },
       {
          name: 'Випорожнення(с/к)',
-         categories: [
-            {
-               name: 'Так/Так'
-            },
-            {
-               name: 'Так/Ні'
-            },
-            {
-               name: 'Ні/Так'
-            },
-            {
-               name: 'Ні/Ні'
-            }
-         ]
+         categories: ['Так/Так', 'Так/Ні', 'Ні/Так', 'Ні/Ні']
       },
       {
          name: 't',
-         categories: [
-            {
-               name: 'Понижена'
-            },
-            {
-               name: 'Нормальна'
-            },
-            {
-               name: 'Підвищена'
-            }
-         ]
+         categories: ['Понижена', 'Нормальна', 'Підвищена']
       },
       {
          name: 'Зневоднення',
-         categories: [
-            {
-               name: 'Так'
-            },
-            {
-               name: 'Ні'
-            }
-         ]
+         categories: ['Так', 'Ні']
       },
       {
          name: 'Ротавірус',
-         categories: [
-            {
-               name: 'Так'
-            },
-            {
-               name: 'Ні'
-            }
-         ]
+         categories: ['Так', 'Ні']
       }
    ];
-   categories1: [
+
+   categories2 = [
       {
          name: 'Стать',
          categories: [
@@ -223,10 +147,10 @@ export class GroupedCategoriesComponent implements OnInit {
    ];
 
 
-      categories3: [
+   categories3 = [
       {
-         name: 'Термін госпіталізації (вибірка №3)',
-         categories:[
+         name: 'Термін госпіталізації (вибірка №1)',
+         categories: [
             {
                name: '<7 днів'
             },
@@ -245,8 +169,8 @@ export class GroupedCategoriesComponent implements OnInit {
          ]
       },
       {
-         name: 'Термін госпіталізації (вибірка №4)',
-         categories:[
+         name: 'Термін госпіталізації (вибірка №2)',
+         categories: [
             {
                name: '<7 днів'
             },
@@ -264,16 +188,14 @@ export class GroupedCategoriesComponent implements OnInit {
             },
          ]
       },
-   ]
-   this.data1 = [568, 396, 495, 310, 96, 63, 705, 259, 574, 390, 687, 277, 36, 254, 9, 664, 5, 614, 345, 757, 207, 459, 505];
-   this.data2 = [558, 395, 508, 340, 80, 55, 742, 241, 570, 413, 716, 267, 2, 591, 388, 789, 194, 519, 464];
-   this.data3 = [878, 67, 13, 4, 2, 892, 78, 10, 1, 2];
-}
-   data1: any;
+   ];
+
+   data1 = [568, 396, 495, 310, 96, 63, 705, 259, 574, 390, 687, 277, 36, 254, 9, 664, 5, 614, 345, 757, 207, 459, 505];
+   data2 = [558, 395, 508, 340, 80, 55, 742, 241, 570, 413, 716, 267, 2, 591, 388, 789, 194, 519, 464];
+   data3 = [878, 67, 13, 4, 2, 892, 78, 10, 1, 2];
 
    constructor() { }
 
    ngOnInit() {
    }
-
 }
