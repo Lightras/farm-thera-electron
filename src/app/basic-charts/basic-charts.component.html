@@ -15,3 +15,12 @@
    [barData]="daysDistribution"
    [titles]="daysChartTitles"
 ></app-bar-chart>
+
+<div class="subsets-distributions" *ngIf="daysDistribution">
+   <app-bar-chart
+      *ngFor="let distr of [dvaDistr, dvbDistr, dnaDistr, dnbDistr]"
+      [barData]="distr"
+   ></app-bar-chart>
+</div>
+
+

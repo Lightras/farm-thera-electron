@@ -27,6 +27,6 @@ export class DataService {
 
      const distributionNormalized = distribution.map(x => x / max);
 
-     return distributionNormalized;
+     return distribution;
   }
 }

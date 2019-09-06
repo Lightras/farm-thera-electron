@@ -9,6 +9,8 @@ import {HttpClientModule} from '@angular/common/http';
 import { PieChartComponent } from './charts/pie-chart/pie-chart.component';
 import {HighchartsChartModule} from 'highcharts-angular';
 import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
+import { GroupedCategoriesChartComponent } from './charts/grouped-categories-chart/grouped-categories-chart.component';
+import { GroupedCategoriesComponent } from './grouped-categories/grouped-categories.component';
 
 @NgModule({
    declarations: [
@@ -18,6 +20,8 @@ import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
       BasicChartsComponent,
       PieChartComponent,
       BarChartComponent,
+      GroupedCategoriesChartComponent,
+      GroupedCategoriesComponent,
    ],
    imports: [
       BrowserModule,

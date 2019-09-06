@@ -16,6 +16,10 @@ export class BasicChartsComponent implements OnInit, OnChanges {
    daysDistribution: number[];
 
    daysChartTitles: ChartTitles;
+   private dvaDistr: number[];
+   private dnaDistr: number[];
+   private dvbDistr: number[];
+   private dnbDistr: number[];
 
    constructor(
       private dataService: DataService,
@@ -37,8 +41,20 @@ export class BasicChartsComponent implements OnInit, OnChanges {
          this.rviData = this.getPieData(dataObj, 'virus');
          this.therapyData = this.getPieData(dataObj, 'therapy');
 
-         this.daysDistribution = this.dataService.buildDistribution(z.getCol('days', dataObj.data));
+         const dva = z.filter(r => r.virus === 'Так' && r.therapy === 'Так', dataObj.data);
+         const dna = z.filter(r => r.virus === 'Ні' && r.therapy === 'Так', dataObj.data);
+         const dvb = z.filter(r => r.virus === 'Так' && r.therapy === 'Ні', dataObj.data);
+         const dnb = z.filter(r => r.virus === 'Ні' && r.therapy === 'Ні', dataObj.data);
+
+         [this.dvaDistr, this.dnaDistr, this.dvbDistr, this.dnbDistr] =
+         this.buildDaysDistribution([dva, dna, dvb, dnb]);
+
+         [this.daysDistribution] = this.buildDaysDistribution([dataObj.data]);
       }
+   }
+
+   private buildDaysDistribution(dataArray: any[]): any[] {
+      return dataArray.map(data => this.dataService.buildDistribution(z.getCol('days', data)));
    }
 
    private getPieData(dataObj: DataObj, field: string): PieData {
