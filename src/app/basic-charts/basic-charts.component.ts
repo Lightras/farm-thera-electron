@@ -14,6 +14,8 @@ export class BasicChartsComponent implements OnInit, OnChanges {
 
    @Input() dataObj: DataObj;
    daysDistribution: number[];
+   cumulativeDaysDistribution: number[];
+   sickDaysDistribution: number[];
 
    daysChartTitles: ChartTitles;
    private dvaDistr: number[];
@@ -50,6 +52,9 @@ export class BasicChartsComponent implements OnInit, OnChanges {
          this.buildDaysDistribution([dva, dna, dvb, dnb]);
 
          [this.daysDistribution] = this.buildDaysDistribution([dataObj.data]);
+         this.cumulativeDaysDistribution = z.cumulative(z.sum, this.daysDistribution);
+         const totalPatients = Math.max(...this.cumulativeDaysDistribution);
+         this.sickDaysDistribution = this.cumulativeDaysDistribution.map(x => totalPatients - x);
       }
    }
 

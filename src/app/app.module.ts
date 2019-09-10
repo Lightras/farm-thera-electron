@@ -11,6 +11,7 @@ import {HighchartsChartModule} from 'highcharts-angular';
 import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
 import { GroupedCategoriesChartComponent } from './charts/grouped-categories-chart/grouped-categories-chart.component';
 import { GroupedCategoriesComponent } from './grouped-categories/grouped-categories.component';
+import { YesNoTranslatePipe } from './yes-no-translate.pipe';
 
 @NgModule({
    declarations: [
@@ -22,6 +23,7 @@ import { GroupedCategoriesComponent } from './grouped-categories/grouped-categor
       BarChartComponent,
       GroupedCategoriesChartComponent,
       GroupedCategoriesComponent,
+      YesNoTranslatePipe,
    ],
    imports: [
       BrowserModule,

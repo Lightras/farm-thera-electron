@@ -64,9 +64,7 @@ export class GroupedCategoriesChartComponent implements OnInit, OnChanges {
    }
 
    ngOnChanges(changes: SimpleChanges): void {
-      console.log('changes: ', changes);
       if (changes.categories.currentValue) {
-         console.log('changes.categories: ', changes.categories);
          (this.barChartOptions.xAxis as any) = {
             categories: this.categories,
             labels: {

@@ -16,7 +16,7 @@ export class DataService {
      return this.http.get('assets/mock-data.json');
   }
 
-  buildDistribution(data: number[]): number[] {
+  buildDistribution(data: number[], isNormalized?: boolean): number[] {
      const max = Math.max(...data);
      const valueCounts = Z.valueCounts(data);
      const distribution = [];
@@ -27,6 +27,6 @@ export class DataService {
 
      const distributionNormalized = distribution.map(x => x / max);
 
-     return distribution;
+     return isNormalized ? distributionNormalized : distribution;
   }
 }

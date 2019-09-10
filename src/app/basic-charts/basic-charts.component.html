@@ -16,6 +16,18 @@
    [titles]="daysChartTitles"
 ></app-bar-chart>
 
+<app-bar-chart
+   *ngIf="cumulativeDaysDistribution"
+   [barData]="cumulativeDaysDistribution"
+   [titles]="daysChartTitles"
+></app-bar-chart>
+
+<app-bar-chart
+   *ngIf="sickDaysDistribution"
+   [barData]="sickDaysDistribution"
+   [titles]="daysChartTitles"
+></app-bar-chart>
+
 <div class="subsets-distributions" *ngIf="daysDistribution">
    <app-bar-chart
       *ngFor="let distr of [dvaDistr, dvbDistr, dnaDistr, dnbDistr]"

@@ -2,13 +2,13 @@
    <table>
       <thead>
       <tr>
-         <th *ngFor="let field of dataObj.meta.fields">{{field}}</th>
+         <th *ngFor="let title of this.titles">{{title}}</th>
       </tr>
       </thead>
 
       <tbody>
       <tr *ngFor="let dataRow of dataObj.data">
-         <td *ngFor="let field of dataObj.meta.fields">{{dataRow[field]}}</td>
+         <td *ngFor="let item of dataRow">{{item | yesNoTranslate}}</td>
       </tr>
       </tbody>
    </table>

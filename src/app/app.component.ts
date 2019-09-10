@@ -31,7 +31,8 @@ export class AppComponent implements OnInit {
          complete: (result) => {
             this.parsingResult.emit(result);
          },
-         header: true
+         header: false,
+         encoding: 'cp1251'
       });
    }
 }
