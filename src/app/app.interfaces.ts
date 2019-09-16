@@ -25,6 +25,7 @@ export interface Column {
    meta?: {
       title: string;
       type: ColAddMode;
+      mainCol?: boolean;
       observation?: {
          id: number;
          day: number;

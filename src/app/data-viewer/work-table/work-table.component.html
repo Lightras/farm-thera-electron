@@ -1,1 +1,40 @@
-<p>work-table works!</p>
+<div class="work-table" *ngIf="showTable">
+   <table>
+      <thead *ngIf="withIndicator; else withoutIndicator">
+      <tr>
+         <ng-container *ngFor="let col of workTableData">
+            <th *ngIf="col.meta.type !== 'indicator' || col.meta.mainCol"
+               [colSpan]="col.meta.type === 'indicator' ? 3 : 1"
+               [rowSpan]="col.meta.type === 'indicator' ? 1 : 2"
+            >
+               {{col.meta.title}}
+            </th>
+         </ng-container>
+
+      </tr>
+      <tr>
+         <ng-container *ngFor="let col of workTableData">
+            <th *ngIf="col.meta.type === 'indicator'">
+               {{col.meta.observation.title}}
+            </th>
+         </ng-container>
+      </tr>
+      </thead>
+
+      <ng-template #withoutIndicator>
+         <thead>
+         <tr *ngFor="let col of workTableData">{{col.meta.title}}</tr>
+         </thead>
+      </ng-template>
+
+      <tbody>
+      <tr *ngFor="let row of workTableData[0].data; let i = index">
+         <td *ngFor="let col of workTableData">
+            {{(col.meta.type === 'virus' || col.meta.type === 'therapy') ?
+             (col.data[i] | yesNoTranslate) : col.data[i]
+            }}
+         </td>
+      </tr>
+      </tbody>
+   </table>
+</div>

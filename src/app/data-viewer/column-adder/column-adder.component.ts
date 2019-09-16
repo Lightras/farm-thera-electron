@@ -54,6 +54,8 @@ export class ColumnAdderComponent implements OnInit, OnChanges {
 
             case 'virus':
             case 'therapy': {
+               this.colTitle = this.selectedCol.meta.title;
+
                this.uniqueValues = [...(new Set(this.selectedCol.data)).values()].sort().map(
                   x => ({
                      value: x,
@@ -145,6 +147,7 @@ export class ColumnAdderComponent implements OnInit, OnChanges {
             }
          };
       } else if (this.addingMode === 'indicator') {
+         this.indicatorColumnsForAdding.forEach(c => c.meta.title = this.colTitle);
          this.addColChange.emit(this.indicatorColumnsForAdding);
          console.log('this.indicatorColumnsForAdding: ', this.indicatorColumnsForAdding);
          this.cancelAddingColumn();
