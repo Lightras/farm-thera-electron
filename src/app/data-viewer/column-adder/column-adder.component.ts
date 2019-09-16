@@ -11,6 +11,7 @@ export class ColumnAdderComponent implements OnInit, OnChanges {
 
    @Output() addColChange: EventEmitter<Column[]> = new EventEmitter<Column[]>();
    @Output() addingModeChange: EventEmitter<ColAddMode> = new EventEmitter<ColAddMode>();
+   @Output() finishAdding: EventEmitter<any> = new EventEmitter<any>();
 
    columnTypes: ColAddMode[] = ['days', 'virus', 'therapy', 'indicator'];
    addingMode: ColAddMode;
@@ -75,6 +76,10 @@ export class ColumnAdderComponent implements OnInit, OnChanges {
             }
          }
       }
+   }
+
+   finishAddingMode() {
+      this.finishAdding.emit();
    }
 
    getNewIndicatorId(): number {

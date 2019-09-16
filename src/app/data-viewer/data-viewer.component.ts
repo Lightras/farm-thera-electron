@@ -1,4 +1,4 @@
-import {AfterViewChecked, AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {ColAddMode, Column} from '../app.interfaces';
 import {ColumnAdderComponent} from './column-adder/column-adder.component';
 
@@ -16,6 +16,7 @@ export class DataViewerComponent implements OnInit, OnChanges, AfterViewInit {
    addedColumns: Column[];
    titles: string[];
    addingMode: ColAddMode;
+   showWorkTable: boolean;
 
    constructor() { }
 
@@ -25,6 +26,10 @@ export class DataViewerComponent implements OnInit, OnChanges, AfterViewInit {
    ngAfterViewInit(): void {
       this.columnAdder.addColChange.subscribe(c => {
          this.addedColumns = c;
+      });
+
+      this.columnAdder.finishAdding.subscribe(() => {
+         this.showWorkTable = true;
       });
    }
 

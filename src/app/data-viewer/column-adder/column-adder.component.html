@@ -5,6 +5,8 @@
       >
          {{colType | translate}}
       </button>
+
+      <button (click)="finishAddingMode()">Завершити вибір даних</button>
    </div>
 
    <div class="col-add-area" [ngSwitch]="addingMode">

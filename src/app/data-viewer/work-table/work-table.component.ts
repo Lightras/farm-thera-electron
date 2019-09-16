@@ -8,9 +8,9 @@ import {Column} from '../../app.interfaces';
 })
 export class WorkTableComponent implements OnInit, OnChanges {
    @Input() addedColumns: Column[];
+   @Input() showWorkTable: boolean;
 
    workTableData: Column[] = [];
-   showTable: boolean;
    withIndicator: boolean;
 
    constructor() { }
@@ -26,12 +26,8 @@ export class WorkTableComponent implements OnInit, OnChanges {
 
          this.workTableData = this.workTableData.concat(this.addedColumns);
 
-         if (this.workTableData.length === 6) {
-
-            console.log('this.workTableData: ', this.workTableData);
-
+         if (this.workTableData.some(d => d.meta.type === 'indicator')) {
             this.withIndicator = true;
-            this.showTable = true;
          }
       }
    }

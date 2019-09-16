@@ -1,25 +1,27 @@
-<app-column-adder [selectedCol]="selectedCol" (addingModeChange)="onAddingModeChange($event)"></app-column-adder>
+<div *ngIf="!showWorkTable" class="data-viewer">
+   <app-column-adder [selectedCol]="selectedCol" (addingModeChange)="onAddingModeChange($event)"></app-column-adder>
 
-<div class="data-viewer">
-   <table>
-      <thead>
-      <tr>
-         <th></th>
-         <th *ngFor="let title of this.titles, let i = index"
-             (click)="selectColumn(i)"
-         >{{title}}</th>
-      </tr>
-      </thead>
+   <div class="table-wrapper">
+      <table>
+         <thead>
+         <tr>
+            <th></th>
+            <th *ngFor="let title of this.titles, let i = index"
+                (click)="selectColumn(i)"
+            >{{title}}</th>
+         </tr>
+         </thead>
 
-      <tbody>
-      <tr *ngFor="let dataRow of fileData, let i = index">
-         <td>{{i+1}}</td>
-         <td *ngFor="let item of dataRow">{{item}}</td>
-      </tr>
-      </tbody>
-   </table>
+         <tbody>
+         <tr *ngFor="let dataRow of fileData, let i = index">
+            <td>{{i + 1}}</td>
+            <td *ngFor="let item of dataRow">{{item}}</td>
+         </tr>
+         </tbody>
+      </table>
 
+   </div>
 </div>
 
-<app-work-table [addedColumns]="addedColumns"></app-work-table>
+<app-work-table [addedColumns]="addedColumns" [showWorkTable]="showWorkTable"></app-work-table>
 

@@ -1,4 +1,4 @@
-<div class="work-table" *ngIf="showTable">
+<div class="work-table table-wrapper" *ngIf="showWorkTable">
    <table>
       <thead *ngIf="withIndicator; else withoutIndicator">
       <tr>
@@ -23,7 +23,9 @@
 
       <ng-template #withoutIndicator>
          <thead>
-         <tr *ngFor="let col of workTableData">{{col.meta.title}}</tr>
+         <tr>
+            <th *ngFor="let col of workTableData">{{col.meta.title}}</th>
+         </tr>
          </thead>
       </ng-template>
 
