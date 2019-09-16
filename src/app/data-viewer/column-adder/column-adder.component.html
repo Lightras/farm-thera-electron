@@ -1,0 +1,50 @@
+<div class="column-adder">
+   <div class="column-add-btns">
+      <button *ngFor="let colType of columnTypes"
+              (click)="startAddingColumn(colType)"
+      >
+         {{colType | translate}}
+      </button>
+   </div>
+
+   <div class="col-add-area" [ngSwitch]="addingMode">
+      <div class="col-add-editor" *ngSwitchCase="'days'">
+         <input type="text" [(ngModel)]="colTitle">
+         <div class="days-range" *ngIf="maxDays">
+            <div>Мінімальне значення:  {{minDays}}</div>
+            <div>Максимальне значення: {{maxDays}}</div>
+         </div>
+      </div>
+
+      <div class="col-add-editor" *ngSwitchCase="addingMode === 'virus' || addingMode === 'therapy' ? addingMode : ''">
+         <input type="text" [(ngModel)]="colTitle">
+         <div>Значення та інтерпретація</div>
+         <div class="value-translate" *ngFor="let value of this.uniqueValues, let i = index">
+            <div class="unique-value">{{value.value}}</div>
+            <div class="yes-no">
+               <button class="yes" (click)="translateValue(i, 1)" [class.active]="value.translateValue === 1">Так</button>
+               <button class="no" (click)="translateValue(i, 0)" [class.active]="value.translateValue === 0">Ні</button>
+            </div>
+         </div>
+      </div>
+
+      <div class="col-add-editor" *ngSwitchCase="'indicator'">
+         <input type="text" [(ngModel)]="colTitle">
+         <div class="indicator-day" *ngFor="let indicatorDay of indicatorColumnsForAdding">
+            <div class="indicator-day-value">{{indicatorDay.meta.observation.day}}</div>
+            <div class="indicator-day-title" *ngIf="indicatorDay.meta.observation.title">{{indicatorDay.meta.observation.title}}</div>
+            <div class="indicator-controls">
+               <button (click)="selectIndicatorCol(indicatorDay.meta.observation.day)" *ngIf="!indicatorDay.meta.observation.title else removeIndicatorTitle">Обрати колонку</button>
+               <ng-template #removeIndicatorTitle>
+                  <button (click)="removeIndicatorCol(indicatorDay.meta.observation.day)">&#10006;</button>
+               </ng-template>
+            </div>
+         </div>
+      </div>
+
+      <div class="col-add-controls" *ngIf="addingMode">
+         <button (click)="addColumn()">Додати</button>
+         <button (click)="cancelAddingColumn()">Відміна</button>
+      </div>
+   </div>
+</div>

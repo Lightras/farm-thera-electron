@@ -1,6 +1,5 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {DataObj} from '../app.interfaces';
-import * as z from 'zebras';
+import {ColAddMode, Column} from '../app.interfaces';
 
 @Component({
    selector: 'app-data-viewer',
@@ -8,9 +7,12 @@ import * as z from 'zebras';
    styleUrls: ['./data-viewer.component.sass']
 })
 export class DataViewerComponent implements OnInit, OnChanges {
-   titles: string[];
 
-   @Input() dataObj: DataObj;
+   @Input() fileData: string[][];
+
+   selectedCol: Column;
+   titles: string[];
+   addingMode: ColAddMode;
 
    constructor() { }
 
@@ -18,10 +20,23 @@ export class DataViewerComponent implements OnInit, OnChanges {
    }
 
    ngOnChanges(changes: SimpleChanges): void {
-      const dataObj = changes.dataObj.currentValue;
-      if (dataObj) {
-         console.log('dataObj: ', dataObj);
-         this.titles = dataObj[0];
+      const fileData = changes.fileData.currentValue;
+      if (fileData) {
+         this.titles = fileData.shift();
       }
+   }
+
+   selectColumn(i: number) {
+      this.selectedCol = {
+         data: this.fileData.map(x => x[i]),
+         meta: {
+            title: this.titles[i],
+            type: this.addingMode
+         }
+      };
+   }
+
+   onAddingModeChange(addingMode) {
+      this.addingMode = addingMode;
    }
 }

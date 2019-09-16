@@ -13,7 +13,7 @@ export class DataService {
   ) { }
 
   getMockData(): Observable<any> {
-     return this.http.get('assets/mock-data.json');
+     return this.http.get('<assets/mock-data.json');
   }
 
   buildDistribution(data: number[], isNormalized?: boolean): number[] {

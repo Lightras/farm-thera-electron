@@ -1,15 +1,22 @@
+<app-column-adder [selectedCol]="selectedCol" (addingModeChange)="onAddingModeChange($event)"></app-column-adder>
+
 <div class="data-viewer">
    <table>
       <thead>
       <tr>
-         <th *ngFor="let title of this.titles">{{title}}</th>
+         <th></th>
+         <th *ngFor="let title of this.titles, let i = index"
+             (click)="selectColumn(i)"
+         >{{title}}</th>
       </tr>
       </thead>
 
       <tbody>
-      <tr *ngFor="let dataRow of dataObj.data">
-         <td *ngFor="let item of dataRow">{{item | yesNoTranslate}}</td>
+      <tr *ngFor="let dataRow of fileData, let i = index">
+         <td>{{i+1}}</td>
+         <td *ngFor="let item of dataRow">{{item}}</td>
       </tr>
       </tbody>
    </table>
+
 </div>

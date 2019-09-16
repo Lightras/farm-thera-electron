@@ -19,3 +19,27 @@ export interface ChartTitles {
    xAxisTitle: string;
    yAxisTitle: string;
 }
+
+export interface Column {
+   data: any[];
+   meta?: {
+      title: string;
+      type: ColAddMode;
+      observation?: {
+         id: number;
+         day: number;
+         title: string;
+      }
+   };
+}
+
+export interface Indicators {
+   days: number[];
+   ids: number[];
+   indicators: {
+      id: number;
+      title: string;
+   }[];
+}
+
+export type ColAddMode = 'days' | 'virus' | 'therapy' | 'indicator';

@@ -1,4 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import * as papa from 'papaparse';
+
 
 @Component({
    selector: 'app-file-loader',
@@ -17,6 +19,17 @@ export class FileLoaderComponent implements OnInit {
 
    inputFile(e: Event) {
       const file = (e.target as HTMLInputElement).files[0];
-      this.fileChange.emit(file);
+
+      papa.parse(file, {
+         complete: (result) => {
+            const lastRow = result.data[result.data.length - 1];
+            if (lastRow && lastRow.length === 1) {
+               result.data.pop();
+            }
+            this.fileChange.emit(result.data);
+         },
+         header: false,
+         encoding: 'cp1251'
+      });
    }
 }
