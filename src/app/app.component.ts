@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
    fileData: string[][];
    dataObj: any;
    parsingResult: EventEmitter<any> = new EventEmitter();
+   workData: Column[];
 
    constructor(
       private dataService: DataService,
@@ -22,6 +23,10 @@ export class AppComponent implements OnInit {
    }
 
    ngOnInit(): void {
+      this.dataService.getMockData().subscribe(data => {
+         this.workData = data;
+      });
+
       this.dataService.getMockData().subscribe(data => {
          this.dataObj = data;
       });

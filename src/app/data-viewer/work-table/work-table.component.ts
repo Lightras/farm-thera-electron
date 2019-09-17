@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Column} from '../../app.interfaces';
 
 @Component({
@@ -9,6 +9,8 @@ import {Column} from '../../app.interfaces';
 export class WorkTableComponent implements OnInit, OnChanges {
    @Input() addedColumns: Column[];
    @Input() showWorkTable: boolean;
+
+   @Output() workData = new EventEmitter<Column[]>();
 
    workTableData: Column[] = [];
    withIndicator: boolean;
@@ -29,6 +31,10 @@ export class WorkTableComponent implements OnInit, OnChanges {
          if (this.workTableData.some(d => d.meta.type === 'indicator')) {
             this.withIndicator = true;
          }
+      }
+
+      if (changes.showWorkTable && changes.showWorkTable.currentValue) {
+         this.workData.emit(this.workTableData);
       }
    }
 }

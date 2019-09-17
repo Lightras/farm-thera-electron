@@ -25,7 +25,7 @@ export class BasicChartsComponent implements OnInit, OnChanges {
 
    constructor(
       private dataService: DataService,
-) {
+   ) {
       this.daysChartTitles = {
          chartTitle: 'Розподіл днів одужання',
          xAxisTitle: 'Дні',

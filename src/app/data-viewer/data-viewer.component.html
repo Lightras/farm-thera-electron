@@ -23,5 +23,9 @@
    </div>
 </div>
 
-<app-work-table [addedColumns]="addedColumns" [showWorkTable]="showWorkTable"></app-work-table>
+<app-work-table
+   [addedColumns]="addedColumns"
+   [showWorkTable]="showWorkTable"
+   (workData)="fixateWorkData($event)"
+></app-work-table>
 

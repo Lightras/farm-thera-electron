@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
 import {ColAddMode, Column} from '../app.interfaces';
 import {ColumnAdderComponent} from './column-adder/column-adder.component';
 
@@ -11,6 +11,7 @@ export class DataViewerComponent implements OnInit, OnChanges, AfterViewInit {
 
    @Input() fileData: string[][];
    @ViewChild(ColumnAdderComponent, {static: false}) columnAdder: ColumnAdderComponent;
+   @Output() workData = new EventEmitter<Column[]>();
 
    selectedCol: Column;
    addedColumns: Column[];
@@ -52,5 +53,9 @@ export class DataViewerComponent implements OnInit, OnChanges, AfterViewInit {
 
    onAddingModeChange(addingMode) {
       this.addingMode = addingMode;
+   }
+
+   fixateWorkData(workData: Column[]) {
+      this.workData.emit(workData);
    }
 }

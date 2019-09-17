@@ -17,6 +17,7 @@ import { WorkTableComponent } from './data-viewer/work-table/work-table.componen
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {FormsModule} from '@angular/forms';
+import { CalculationComponent } from './calculation/calculation.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
    return new TranslateHttpLoader(http);
@@ -35,6 +36,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       YesNoTranslatePipe,
       ColumnAdderComponent,
       WorkTableComponent,
+      CalculationComponent,
    ],
    imports: [
       BrowserModule,

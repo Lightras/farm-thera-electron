@@ -5,6 +5,13 @@
 <section>
    <app-data-viewer
       [fileData]="fileData"
+      (workData)="workData = $event"
       *ngIf="fileData"
    ></app-data-viewer>
+</section>
+
+<section>
+   <app-calculation
+      [workData]="workData"
+   ></app-calculation>
 </section>
