@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
    dataObj: any;
    parsingResult: EventEmitter<any> = new EventEmitter();
    workData: Column[];
+   calcResults: any;
 
    constructor(
       private dataService: DataService,

@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Column} from '../app.interfaces';
 import * as Z from 'zebras';
 import * as random from 'random';
@@ -10,6 +10,8 @@ import * as random from 'random';
 })
 export class CalculationComponent implements OnInit, OnChanges {
    @Input() workData: Column[];
+   @Output() calcResults: EventEmitter<any> = new EventEmitter<any>();
+
    dna: number[];
    dva: number[];
    dnb: number[];
@@ -69,6 +71,11 @@ export class CalculationComponent implements OnInit, OnChanges {
             costCriteriaDBResults.push(calcResults.costCriteriaDB);
             pBoundaryDBResults.push(calcResults.pBoundaryDB);
             pRange.push(calcResults.pBoundaryDB - calcResults.pBoundaryDA);
+         });
+
+         this.calcResults.emit({
+            costCriteriaBResults,
+            pBoundaryBResults
          });
 
          console.log('costCriteriaBResults: ', costCriteriaBResults);

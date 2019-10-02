@@ -13,5 +13,10 @@
 <section>
    <app-calculation
       [workData]="workData"
+      (calcResults)="calcResults = $event"
    ></app-calculation>
+</section>
+
+<section>
+   <app-continuous-bar-chart [data]="calcResults.pBoundaryBResults" [bins]="30"></app-continuous-bar-chart>
 </section>

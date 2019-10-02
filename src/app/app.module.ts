@@ -18,6 +18,7 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {FormsModule} from '@angular/forms';
 import { CalculationComponent } from './calculation/calculation.component';
+import { ContinuousBarChartComponent } from './charts/continuous-bar-chart/continuous-bar-chart.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
    return new TranslateHttpLoader(http);
@@ -37,6 +38,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       ColumnAdderComponent,
       WorkTableComponent,
       CalculationComponent,
+      ContinuousBarChartComponent,
    ],
    imports: [
       BrowserModule,
