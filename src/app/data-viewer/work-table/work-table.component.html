@@ -32,9 +32,7 @@
       <tbody>
       <tr *ngFor="let row of workTableData[0].data; let i = index">
          <td *ngFor="let col of workTableData">
-            {{(col.meta.type === 'virus' || col.meta.type === 'therapy') ?
-             (col.data[i] | yesNoTranslate) : col.data[i]
-            }}
+            {{col.data[i] | yesNoTranslate:col.meta.type}}
          </td>
       </tr>
       </tbody>

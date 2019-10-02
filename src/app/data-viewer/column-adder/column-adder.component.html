@@ -42,6 +42,17 @@
                </ng-template>
             </div>
          </div>
+
+         <ng-container *ngIf="showValuesInterpretation">
+            <div>Значення та інтерпретація</div>
+            <div class="value-translate" *ngFor="let value of this.uniqueValues, let i = index">
+               <div class="unique-value">{{value.value}}</div>
+               <div class="yes-no">
+                  <button class="yes" (click)="translateValue(i, 1)" [class.active]="value.translateValue === 1">Норма</button>
+                  <button class="no" (click)="translateValue(i, 0)" [class.active]="value.translateValue === 0">Не норма</button>
+               </div>
+            </div>
+         </ng-container>
       </div>
 
       <div class="col-add-controls" *ngIf="addingMode">

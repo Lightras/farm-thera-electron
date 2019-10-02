@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ColAddMode, Column, Indicators} from '../../app.interfaces';
+import * as Z from 'zebras';
+import {isNull} from 'util';
 
 @Component({
    selector: 'app-column-adder',
@@ -29,6 +31,7 @@ export class ColumnAdderComponent implements OnInit, OnChanges {
    };
 
    currentIndicatorDay: number;
+   showValuesInterpretation: boolean;
 
    constructor() { }
 
@@ -71,6 +74,21 @@ export class ColumnAdderComponent implements OnInit, OnChanges {
                const currentDay = this.indicatorColumnsForAdding.find(d => d.meta.observation.day === this.currentIndicatorDay);
                currentDay.meta.observation.title = this.selectedCol.meta.title;
                currentDay.data = this.selectedCol.data.map(x => parseInt(x, 10));
+
+               console.log('this.indicatorColumnsForAdding: ', this.indicatorColumnsForAdding);
+               if (this.indicatorColumnsForAdding.every(col => !!col.data)) {
+                  this.showValuesInterpretation = true;
+
+                  const allValues = this.indicatorColumnsForAdding.reduce((allVals, col) => allVals.concat(col.data), []);
+                  console.log('allValues: ', allValues);
+                  this.uniqueValues = Z.unique(allValues).map(x => ({
+                     value: x,
+                     translatedValue: null
+                  }));
+               } else {
+                  this.showValuesInterpretation = false;
+               }
+
 
                break;
             }
@@ -152,9 +170,11 @@ export class ColumnAdderComponent implements OnInit, OnChanges {
             }
          };
       } else if (this.addingMode === 'indicator') {
-         this.indicatorColumnsForAdding.forEach(c => c.meta.title = this.colTitle);
+         this.indicatorColumnsForAdding.forEach(c => {
+            c.meta.title = this.colTitle;
+            c.data = c.data.map(x => this.uniqueValues.find(v => v.value === x).translateValue);
+         });
          this.addColChange.emit(this.indicatorColumnsForAdding);
-         console.log('this.indicatorColumnsForAdding: ', this.indicatorColumnsForAdding);
          this.cancelAddingColumn();
          return;
       }
@@ -162,6 +182,7 @@ export class ColumnAdderComponent implements OnInit, OnChanges {
       this.columnForAdding.meta.type = this.addingMode;
       this.addColChange.emit([this.columnForAdding]);
       this.columnForAdding = null;
+      this.cancelAddingColumn();
    }
 
    selectIndicatorCol(indicatorDay: number) {

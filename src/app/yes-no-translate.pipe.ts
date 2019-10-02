@@ -1,12 +1,32 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import {ColAddMode} from './app.interfaces';
 
 @Pipe({
-  name: 'yesNoTranslate'
+   name: 'yesNoTranslate'
 })
 export class YesNoTranslatePipe implements PipeTransform {
 
-  transform(value: number, ...args: any[]): any {
-    return value ? 'Так' : 'Ні';
-  }
+   transform(value: number, valueType: ColAddMode): any {
+      let translation = '';
+
+      switch (valueType) {
+         case 'virus':
+         case 'therapy': {
+            translation = value ? 'Так' : 'Ні';
+            break;
+         }
+
+         case 'indicator': {
+            translation = value ? 'Норма' : 'Не норма';
+            break;
+         }
+
+         default: {
+            translation = value as any;
+         }
+      }
+
+      return translation;
+   }
 
 }
