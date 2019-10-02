@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Column} from '../app.interfaces';
 import * as Z from 'zebras';
+// @ts-ignore
 import * as random from 'random';
 
 @Component({
@@ -74,8 +75,11 @@ export class CalculationComponent implements OnInit, OnChanges {
          });
 
          this.calcResults.emit({
-            costCriteriaBResults,
-            pBoundaryBResults
+            costCriteriaB: costCriteriaBResults,
+            costCriteriaDB: costCriteriaDBResults,
+            costCriteriaDA: costCriteriaDAResults,
+            pRange,
+            pBoundaryB: pBoundaryBResults,
          });
 
          console.log('costCriteriaBResults: ', costCriteriaBResults);
@@ -97,7 +101,6 @@ export class CalculationComponent implements OnInit, OnChanges {
       const dnb: number[] = [];
 
       if (data) {
-         console.log('data: ', data);
          let daysColData;
          let virusColData;
          let therapyColData;

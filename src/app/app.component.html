@@ -17,6 +17,11 @@
    ></app-calculation>
 </section>
 
-<section>
-   <app-continuous-bar-chart [data]="calcResults.pBoundaryBResults" [bins]="30"></app-continuous-bar-chart>
+<section *ngIf="calcResults">
+   <app-continuous-bar-chart [data]="calcResults.costCriteriaB" [bins]="30" [titles]="{chartTitle: 'CT_to_C B'}"></app-continuous-bar-chart>
+   <app-continuous-bar-chart [data]="calcResults.pBoundaryB" [bins]="30" [titles]="{chartTitle: 'p boundary B'}"></app-continuous-bar-chart>
+
+   <app-continuous-bar-chart [data]="calcResults.costCriteriaDB" [bins]="30" [titles]="{chartTitle: 'CT_to_C DB'}"></app-continuous-bar-chart>
+   <app-continuous-bar-chart [data]="calcResults.costCriteriaDA" [bins]="30" [titles]="{chartTitle: 'CT_to_C DA'}"></app-continuous-bar-chart>
+   <app-continuous-bar-chart [data]="calcResults.pRange" [bins]="30" [titles]="{chartTitle: 'p2 - p1'}"></app-continuous-bar-chart>
 </section>

@@ -47,7 +47,6 @@ export class ContinuousBarChartComponent implements OnInit, OnChanges {
    ngOnChanges(changes: SimpleChanges): void {
       if (this.data && this.bins) {
          const barData = this.convertData(changes.data.currentValue);
-         console.log('barData: ', barData);
          this.barChartOptions.series = [{
             data: barData
          }] as SeriesBarOptions[];
@@ -77,9 +76,7 @@ export class ContinuousBarChartComponent implements OnInit, OnChanges {
 
    convertData(data: number[]): {x: number, y: number}[] {
       const convertedData: {x: number, y: number}[] = [];
-      console.log('data: ', data);
       const dataFiltered = data.filter(v => !isNaN(v));
-      console.log('dataFiltered: ', dataFiltered);
       const min = Math.min(...dataFiltered);
       const max = Math.max(...dataFiltered);
       const binStep = (max - min) / this.bins;

@@ -80,7 +80,6 @@ export class ColumnAdderComponent implements OnInit, OnChanges {
                   this.showValuesInterpretation = true;
 
                   const allValues = this.indicatorColumnsForAdding.reduce((allVals, col) => allVals.concat(col.data), []);
-                  console.log('allValues: ', allValues);
                   this.uniqueValues = Z.unique(allValues).map(x => ({
                      value: x,
                      translatedValue: null
@@ -105,7 +104,6 @@ export class ColumnAdderComponent implements OnInit, OnChanges {
          return 0;
       } else {
          const lastId = this.indicators.ids.slice(-1)[0];
-         console.log('lastId: ', lastId);
          return lastId + 1;
       }
    }

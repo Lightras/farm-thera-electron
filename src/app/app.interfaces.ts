@@ -16,8 +16,8 @@ export interface BarData extends Array<number> {
 
 export interface ChartTitles {
    chartTitle: string;
-   xAxisTitle: string;
-   yAxisTitle: string;
+   xAxisTitle?: string;
+   yAxisTitle?: string;
 }
 
 export interface Column {
