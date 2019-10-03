@@ -27,14 +27,6 @@ export class AppComponent implements OnInit {
       this.dataService.getMockData().subscribe(data => {
          this.workData = data;
       });
-
-      this.dataService.getMockData().subscribe(data => {
-         this.dataObj = data;
-      });
-
-      this.parsingResult.subscribe(result => {
-         this.dataObj = result;
-      });
    }
 
    onFileChange(data) {
