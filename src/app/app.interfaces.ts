@@ -30,6 +30,10 @@ export interface Column {
          id: number;
          day: number;
          title: string;
+      },
+      norm?: {
+         boundaryValue: number,
+         isGreaterThanBoundary: boolean
       }
    };
 }

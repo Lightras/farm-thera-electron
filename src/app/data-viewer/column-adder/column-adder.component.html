@@ -45,13 +45,16 @@
 
          <ng-container *ngIf="showValuesInterpretation">
             <div>Значення та інтерпретація</div>
-            <div class="value-translate" *ngFor="let value of this.uniqueValues, let i = index">
-               <div class="unique-value">{{value.value}}</div>
-               <div class="yes-no">
-                  <button class="yes" (click)="translateValue(i, 1)" [class.active]="value.translateValue === 1">Норма</button>
-                  <button class="no" (click)="translateValue(i, 0)" [class.active]="value.translateValue === 0">Не норма</button>
-               </div>
+            <div>Мінімальне значення: {{minIndicatorValue}}</div>
+            <div>Максимальне значення: {{maxIndicatorValue}}</div>
+            <div>
+               Норма: від
+               <input class="indicator-boundary-value-input" type="text" [(ngModel)]="boundaryIndicatorValue">
+               і
+               <button class="indicator-norm-radio-btn" [class.active]="isIndicatorNormHigher">вище</button>
+               <button class="indicator-norm-radio-btn" [class.active]="!isIndicatorNormHigher">нижче</button>
             </div>
+
          </ng-container>
       </div>
 
