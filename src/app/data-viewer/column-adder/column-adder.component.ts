@@ -32,6 +32,10 @@ export class ColumnAdderComponent implements OnInit, OnChanges {
 
    currentIndicatorDay: number;
    showValuesInterpretation: boolean;
+   minIndicatorValue: number;
+   maxIndicatorValue: number;
+   boundaryIndicatorValue: number;
+   isIndicatorNormHigher: boolean;
 
    constructor() { }
 
@@ -80,11 +84,13 @@ export class ColumnAdderComponent implements OnInit, OnChanges {
                   this.showValuesInterpretation = true;
 
                   const allValues = this.indicatorColumnsForAdding.reduce((allVals, col) => allVals.concat(col.data), []);
-                  console.log('allValues: ', allValues);
                   this.uniqueValues = Z.unique(allValues).map(x => ({
                      value: x,
                      translatedValue: null
                   }));
+
+                  this.minIndicatorValue = Z.min(allValues);
+                  this.maxIndicatorValue = Z.max(allValues);
                } else {
                   this.showValuesInterpretation = false;
                }
@@ -105,7 +111,6 @@ export class ColumnAdderComponent implements OnInit, OnChanges {
          return 0;
       } else {
          const lastId = this.indicators.ids.slice(-1)[0];
-         console.log('lastId: ', lastId);
          return lastId + 1;
       }
    }
@@ -172,6 +177,10 @@ export class ColumnAdderComponent implements OnInit, OnChanges {
       } else if (this.addingMode === 'indicator') {
          this.indicatorColumnsForAdding.forEach(c => {
             c.meta.title = this.colTitle;
+            c.meta.norm = {
+               boundaryValue: this.boundaryIndicatorValue,
+               isGreaterThanBoundary: this.isIndicatorNormHigher
+            };
             c.data = c.data.map(x => this.uniqueValues.find(v => v.value === x).translateValue);
          });
          this.addColChange.emit(this.indicatorColumnsForAdding);

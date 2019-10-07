@@ -1,12 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import {ColAddMode} from './app.interfaces';
+import {isNull} from 'util';
 
 @Pipe({
    name: 'yesNoTranslate'
 })
 export class YesNoTranslatePipe implements PipeTransform {
 
-   transform(value: number, valueType: ColAddMode): any {
+   transform(value: number, valueType: ColAddMode, normBound?: number, isNormHigher?: boolean): any {
       let translation = '';
 
       switch (valueType) {
@@ -17,7 +18,11 @@ export class YesNoTranslatePipe implements PipeTransform {
          }
 
          case 'indicator': {
-            translation = value ? 'Норма' : 'Не норма';
+            if (value === normBound) {
+               translation = 'Норма';
+            } else {
+               translation = !((value > normBound) || isNormHigher) ? 'Норма' : 'Не норма';
+            }
             break;
          }
 

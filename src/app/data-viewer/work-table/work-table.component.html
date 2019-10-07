@@ -32,7 +32,7 @@
       <tbody>
       <tr *ngFor="let row of workTableData[0].data; let i = index">
          <td *ngFor="let col of workTableData">
-            {{col.data[i] | yesNoTranslate:col.meta.type}}
+            {{col.data[i] | yesNoTranslate:col.meta.type:col.meta.norm?.boundaryValue:col.meta.norm?.isGreaterThanBoundary}}
          </td>
       </tr>
       </tbody>

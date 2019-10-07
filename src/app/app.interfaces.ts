@@ -16,8 +16,8 @@ export interface BarData extends Array<number> {
 
 export interface ChartTitles {
    chartTitle: string;
-   xAxisTitle: string;
-   yAxisTitle: string;
+   xAxisTitle?: string;
+   yAxisTitle?: string;
 }
 
 export interface Column {
@@ -30,6 +30,10 @@ export interface Column {
          id: number;
          day: number;
          title: string;
+      },
+      norm?: {
+         boundaryValue: number,
+         isGreaterThanBoundary: boolean
       }
    };
 }
