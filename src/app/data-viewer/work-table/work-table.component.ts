@@ -9,6 +9,8 @@ import {Column} from '../../app.interfaces';
 export class WorkTableComponent implements OnInit, OnChanges {
    @Input() addedColumns: Column[];
    @Input() showWorkTable: boolean;
+   @Input() showNormDays: boolean;
+   @Input() normDays: number[];
 
    @Output() workData = new EventEmitter<Column[]>();
 

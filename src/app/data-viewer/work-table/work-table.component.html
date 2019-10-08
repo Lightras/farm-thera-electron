@@ -10,14 +10,16 @@
                {{col.meta.title}}
             </th>
          </ng-container>
-
+            <th *ngIf="showNormDays" rowspan="2">Дні нормалізації показників</th>
       </tr>
+
       <tr>
          <ng-container *ngFor="let col of workTableData">
             <th *ngIf="col.meta.type === 'indicator'">
                {{col.meta.observation.title}}
             </th>
          </ng-container>
+
       </tr>
       </thead>
 
@@ -32,8 +34,10 @@
       <tbody>
       <tr *ngFor="let row of workTableData[0].data; let i = index">
          <td *ngFor="let col of workTableData">
-            {{col.data[i] | yesNoTranslate:col.meta.type:col.meta.norm?.boundaryValue:col.meta.norm?.isGreaterThanBoundary}}
+            {{col.data[i] | yesNoTranslate:col.meta.type}}
          </td>
+
+         <td *ngIf="showNormDays">{{normDays[i]}}</td>
       </tr>
       </tbody>
    </table>

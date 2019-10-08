@@ -23,9 +23,22 @@
    </div>
 </div>
 
-<app-work-table
-   [addedColumns]="addedColumns"
-   [showWorkTable]="showWorkTable"
-   (workData)="fixateWorkData($event)"
-></app-work-table>
+<div>
+   <app-work-table
+      [addedColumns]="addedColumns"
+      [showWorkTable]="showWorkTable"
+      [showNormDays]="showNormDays"
+      [normDays]="normDays"
+      (workData)="fixateWorkData($event)"
+   ></app-work-table>
+</div>
+
+<div>
+   <app-norm-config
+      *ngIf="isWithNormConfig"
+      [normConfig]="normConfig"
+      (showNormDays)="showNormDays = $event"
+      (normConfigChange)="recalcNormDays($event)"
+   ></app-norm-config>
+</div>
 

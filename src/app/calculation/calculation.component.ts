@@ -37,7 +37,7 @@ export class CalculationComponent implements OnInit, OnChanges {
       window.s = this;
 
       if (changes.workData && changes.workData.currentValue) {
-         console.log('this.workData calc: ', this.workData);
+         console.log('this.workDataChange calc: ', this.workData);
          [this.dna, this.dva, this.dnb, this.dvb] = this.getSubsets(this.workData);
 
          this.dnaDistr = this.buildDistribution(this.dna);

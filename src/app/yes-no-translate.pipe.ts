@@ -7,7 +7,7 @@ import {isNull} from 'util';
 })
 export class YesNoTranslatePipe implements PipeTransform {
 
-   transform(value: number, valueType: ColAddMode, normBound?: number, isNormHigher?: boolean): any {
+   transform(value: number, valueType: ColAddMode): any {
       let translation = '';
 
       switch (valueType) {
@@ -18,11 +18,7 @@ export class YesNoTranslatePipe implements PipeTransform {
          }
 
          case 'indicator': {
-            if (value === normBound) {
-               translation = 'Норма';
-            } else {
-               translation = !((value > normBound) || isNormHigher) ? 'Норма' : 'Не норма';
-            }
+            translation = value ? 'Норма' : 'Не норма';
             break;
          }
 

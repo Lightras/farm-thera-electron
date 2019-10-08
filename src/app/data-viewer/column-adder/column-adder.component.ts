@@ -108,9 +108,11 @@ export class ColumnAdderComponent implements OnInit, OnChanges {
 
    getNewIndicatorId(): number {
       if (this.indicators.ids.length === 0) {
+         this.indicators.ids.push(0);
          return 0;
       } else {
          const lastId = this.indicators.ids.slice(-1)[0];
+         this.indicators.ids.push(lastId + 1);
          return lastId + 1;
       }
    }
@@ -179,9 +181,9 @@ export class ColumnAdderComponent implements OnInit, OnChanges {
             c.meta.title = this.colTitle;
             c.meta.norm = {
                boundaryValue: this.boundaryIndicatorValue,
-               isGreaterThanBoundary: this.isIndicatorNormHigher
+               isGreaterThanBoundary: !!this.isIndicatorNormHigher
             };
-            c.data = c.data.map(x => this.uniqueValues.find(v => v.value === x).translateValue);
+            c.data = c.data.map(x => this.translateNorm(x, c.meta.norm.boundaryValue, c.meta.norm.isGreaterThanBoundary));
          });
          this.addColChange.emit(this.indicatorColumnsForAdding);
          this.cancelAddingColumn();
@@ -192,6 +194,19 @@ export class ColumnAdderComponent implements OnInit, OnChanges {
       this.addColChange.emit([this.columnForAdding]);
       this.columnForAdding = null;
       this.cancelAddingColumn();
+   }
+
+   translateNorm(value: number, boundaryValue: number, isGreaterThanBoundary: boolean): number {
+      let isNorm;
+      if (value === boundaryValue) {
+         isNorm = true;
+      } else {
+         // @ts-ignore
+         // tslint:disable-next-line:no-bitwise
+         isNorm = !((value > boundaryValue) ^ isGreaterThanBoundary);
+      }
+
+      return Number(isNorm);
    }
 
    selectIndicatorCol(indicatorDay: number) {
