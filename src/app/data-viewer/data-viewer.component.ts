@@ -2,6 +2,7 @@ import {AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output
 import {ColAddMode, Column} from '../app.interfaces';
 import {ColumnAdderComponent} from './column-adder/column-adder.component';
 import {DataService} from '../data.service';
+import * as Z from 'zebras';
 
 @Component({
    selector: 'app-data-viewer',
@@ -89,9 +90,6 @@ export class DataViewerComponent implements OnInit, OnChanges, AfterViewInit {
    }
 
    recalcNormDays(normConfig) {
-      console.log('normConfig: ', normConfig);
-      console.log('this.workData: ', this.workData);
-
       this.normDays = [];
 
       this.workData[0].data.forEach((v, i) => {
@@ -101,24 +99,15 @@ export class DataViewerComponent implements OnInit, OnChanges, AfterViewInit {
          this.indicatorDays.some(d => {
             let isNorm = true;
 
-            console.log('d: ', d);
-
             this.normConfig.forEach(indicator => {
                if (indicator.normConfig) {
-                  console.log('indicator.id: ', indicator.id);
-
                   indicatorDayCol = this.workData.find(col => {
                      return col.meta.observation.id === indicator.id && col.meta.observation.day === d;
                   });
 
-                  console.log('indicatorDayCol.data[i]: ', indicatorDayCol.data[i]);
-                  console.log('indicator.normConfig: ', indicator.normConfig);
-
                   isNorm = isNorm && !!indicatorDayCol.data[i];
                }
             });
-
-            console.log('isNorm: ', isNorm);
 
             if (isNorm) {
                normDay = d;
@@ -129,6 +118,16 @@ export class DataViewerComponent implements OnInit, OnChanges, AfterViewInit {
          this.normDays.push(normDay);
       });
 
-      console.log('this.normDays: ', this.normDays);
+      this.normSimulation(this.normDays);
+   }
+
+   normSimulation(normDays) {
+      const counts = Z.valueCounts(normDays);
+      const total = normDays.length;
+      console.log('total: ', total);
+      const countsPercent = {};
+      [0, 5, 14].forEach(d => countsPercent[d] = counts[d] ? (counts[d] / total) : 0);
+      console.log('countsPercent: ', countsPercent);
+      console.log('counts: ', counts);
    }
 }
