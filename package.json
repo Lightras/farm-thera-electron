@@ -24,7 +24,7 @@
       "@angular/router": "~8.1.2",
       "@ngx-translate/core": "^11.0.1",
       "@ngx-translate/http-loader": "^4.0.0",
-      "electron": "^6.0.7",
+      "electron": "^6.0.12",
       "highcharts": "^7.1.3",
       "highcharts-angular": "^2.4.0",
       "highcharts-grouped-categories": "^1.1.3",
