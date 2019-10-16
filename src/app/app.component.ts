@@ -10,10 +10,7 @@ import {Column} from './app.interfaces';
 })
 export class AppComponent implements OnInit {
    fileData: string[][];
-   dataObj: any;
-   parsingResult: EventEmitter<any> = new EventEmitter();
    workData: Column[];
-   calcResults: any;
 
    constructor(
       private dataService: DataService,

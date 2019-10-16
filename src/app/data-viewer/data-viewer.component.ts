@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
 import {ColAddMode, Column} from '../app.interfaces';
 import {ColumnAdderComponent} from './column-adder/column-adder.component';
+import {DataService} from '../data.service';
 
 @Component({
    selector: 'app-data-viewer',
@@ -26,9 +27,11 @@ export class DataViewerComponent implements OnInit, OnChanges, AfterViewInit {
 
    indicatorDays = [0, 5, 14];
 
-   constructor() { }
+   constructor(
+   ) { }
 
    ngOnInit() {
+
    }
 
    ngAfterViewInit(): void {
@@ -75,6 +78,7 @@ export class DataViewerComponent implements OnInit, OnChanges, AfterViewInit {
                   this.normConfig.push({
                      id: col.meta.observation.id,
                      title: col.meta.title,
+                     normConfig: false
                   });
                }
             }
@@ -97,13 +101,24 @@ export class DataViewerComponent implements OnInit, OnChanges, AfterViewInit {
          this.indicatorDays.some(d => {
             let isNorm = true;
 
-            this.normConfig.forEach(indicator => {
-               indicatorDayCol = this.workData.find(col => {
-                  return col.meta.observation.id === indicator.id && col.meta.observation.day === d;
-               });
+            console.log('d: ', d);
 
-               isNorm = isNorm && (!!indicatorDayCol.data[i] === indicator.normConfig);
+            this.normConfig.forEach(indicator => {
+               if (indicator.normConfig) {
+                  console.log('indicator.id: ', indicator.id);
+
+                  indicatorDayCol = this.workData.find(col => {
+                     return col.meta.observation.id === indicator.id && col.meta.observation.day === d;
+                  });
+
+                  console.log('indicatorDayCol.data[i]: ', indicatorDayCol.data[i]);
+                  console.log('indicator.normConfig: ', indicator.normConfig);
+
+                  isNorm = isNorm && !!indicatorDayCol.data[i];
+               }
             });
+
+            console.log('isNorm: ', isNorm);
 
             if (isNorm) {
                normDay = d;

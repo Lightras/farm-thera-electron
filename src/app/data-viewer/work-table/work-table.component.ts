@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Column} from '../../app.interfaces';
+import {DataService} from '../../data.service';
 
 @Component({
    selector: 'app-work-table',
@@ -17,9 +18,17 @@ export class WorkTableComponent implements OnInit, OnChanges {
    workTableData: Column[] = [];
    withIndicator: boolean;
 
-   constructor() { }
+   constructor(
+      private dataService: DataService
+   ) { }
 
    ngOnInit() {
+      this.dataService.getMockData().subscribe(data => {
+         this.workTableData = data;
+         this.workData.emit(this.workTableData);
+         this.withIndicator = true;
+         this.showWorkTable = true;
+      });
    }
 
    ngOnChanges(changes: SimpleChanges): void {
@@ -36,6 +45,7 @@ export class WorkTableComponent implements OnInit, OnChanges {
       }
 
       if (changes.showWorkTable && changes.showWorkTable.currentValue) {
+         console.log(JSON.stringify(this.workTableData));
          this.workData.emit(this.workTableData);
       }
    }
