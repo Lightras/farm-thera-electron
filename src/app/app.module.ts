@@ -20,6 +20,7 @@ import {FormsModule} from '@angular/forms';
 import { CalculationComponent } from './calculation/calculation.component';
 import { ContinuousBarChartComponent } from './charts/continuous-bar-chart/continuous-bar-chart.component';
 import { NormConfigComponent } from './data-viewer/norm-config/norm-config.component';
+import { LineChartComponent } from './charts/line-chart/line-chart.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
    return new TranslateHttpLoader(http);
@@ -41,6 +42,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       CalculationComponent,
       ContinuousBarChartComponent,
       NormConfigComponent,
+      LineChartComponent,
    ],
    imports: [
       BrowserModule,

@@ -159,9 +159,9 @@ export class CalculationComponent implements OnInit, OnChanges {
       return isNormalized ? distributionNormalized : distribution;
    }
 
-   randomizeFromDistribution(distr: number[], N: number): number[] {
+   randomizeFromDistribution(distr: number[], N: number, isCumulative?: boolean): number[] {
       const rand = [];
-      const cumulativeDistr = Z.cumulative(Z.sum, distr);
+      const cumulativeDistr = isCumulative ? distr : Z.cumulative(Z.sum, distr);
       const max = Z.max(cumulativeDistr);
 
       for (let j = 0; j < N; j++) {

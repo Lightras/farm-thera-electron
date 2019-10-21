@@ -1,44 +1,76 @@
-<div *ngIf="!showWorkTable" class="data-viewer">
-   <app-column-adder [selectedCol]="selectedCol" (addingModeChange)="onAddingModeChange($event)"></app-column-adder>
+<div class="f-col">
+   <div *ngIf="!showWorkTable" class="data-viewer">
+      <app-column-adder [selectedCol]="selectedCol" (addingModeChange)="onAddingModeChange($event)"></app-column-adder>
 
-   <div class="table-wrapper">
-      <table>
-         <thead>
-         <tr>
-            <th></th>
-            <th *ngFor="let title of this.titles, let i = index"
-                (click)="selectColumn(i)"
-            >{{title}}</th>
-         </tr>
-         </thead>
+      <div class="table-wrapper">
+         <table>
+            <thead>
+            <tr>
+               <th></th>
+               <th *ngFor="let title of this.titles, let i = index"
+                   (click)="selectColumn(i)"
+               >{{title}}</th>
+            </tr>
+            </thead>
 
-         <tbody>
-         <tr *ngFor="let dataRow of fileData, let i = index">
-            <td>{{i + 1}}</td>
-            <td *ngFor="let item of dataRow">{{item}}</td>
-         </tr>
-         </tbody>
-      </table>
+            <tbody>
+            <tr *ngFor="let dataRow of fileData, let i = index">
+               <td>{{i + 1}}</td>
+               <td *ngFor="let item of dataRow">{{item}}</td>
+            </tr>
+            </tbody>
+         </table>
 
+      </div>
+   </div>
+
+   <div class="row">
+      <app-work-table
+         [addedColumns]="addedColumns"
+         [showWorkTable]="showWorkTable"
+         [showNormDays]="showNormDays"
+         [normDays]="normDays"
+         (workData)="fixateWorkData($event)"
+      ></app-work-table>
+   </div>
+
+   <div class="row">
+      <app-norm-config
+         *ngIf="isWithNormConfig"
+         [normConfig]="normConfig"
+         (showNormDays)="showNormDays = $event"
+         (normConfigChange)="performCalc($event)"
+      ></app-norm-config>
+   </div>
+
+   <div *ngIf="normCalcResults">
+      <div>
+         <app-line-chart
+            [lineData]="[normCalcResults.byNorm.simulatedCohortDistrA, normCalcResults.byNorm.simulatedCohortDistrB]"
+            [cumulative]="true">
+         </app-line-chart>
+      </div>
+
+      <div>
+         <app-bar-chart [barData]="normCalcResults.byNorm.criteriaDistrB" [cumulative]="false"></app-bar-chart>
+      </div>
+   </div>
+
+   <div *ngIf="normCalcResults">
+      <app-line-chart
+         [lineData]="[normCalcResults.byDays.simulatedCohortDistrA, normCalcResults.byDays.simulatedCohortDistrB]"
+         [cumulative]="true">
+      </app-line-chart>
+
+      <div>
+         <app-bar-chart [barData]="normCalcResults.byDays.criteriaDistrB" [cumulative]="false"></app-bar-chart>
+      </div>
+   </div>
+
+   <div *ngIf="normCalcResults">
+      <app-line-chart
+         [lineData]="[normCalcResults.byNorm.simulatedCohortDistrTotal, normCalcResults.byDays.simulatedCohortDistrTotal]"
+         [cumulative]="true">
+      </app-line-chart>
    </div>
 </div>
-
-<div>
-   <app-work-table
-      [addedColumns]="addedColumns"
-      [showWorkTable]="showWorkTable"
-      [showNormDays]="showNormDays"
-      [normDays]="normDays"
-      (workData)="fixateWorkData($event)"
-   ></app-work-table>
-</div>
-
-<div>
-   <app-norm-config
-      *ngIf="isWithNormConfig"
-      [normConfig]="normConfig"
-      (showNormDays)="showNormDays = $event"
-      (normConfigChange)="recalcNormDays($event)"
-   ></app-norm-config>
-</div>
-

@@ -1,22 +1,23 @@
 import {ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {BarData, ChartTitles} from '../../app.interfaces';
+import {ChartTitles} from '../../app.interfaces';
+import {Chart, SeriesBarOptions} from 'highcharts';
 import {ChartsService} from '../charts.service';
 import * as Highcharts from 'highcharts';
-import {Chart, SeriesBarOptions} from 'highcharts';
 import * as Z from 'zebras';
 
 @Component({
-   selector: 'app-bar-chart',
-   templateUrl: './bar-chart.component.html',
-   styleUrls: ['./bar-chart.component.sass']
+  selector: 'app-line-chart',
+  templateUrl: './line-chart.component.html',
+  styleUrls: ['./line-chart.component.sass']
 })
-export class BarChartComponent implements OnInit, OnChanges {
-   @Input() barData: BarData;
+export class LineChartComponent implements OnInit, OnChanges {
+
+   @Input() lineData: number[][];
    @Input() titles: ChartTitles;
    @Input() cumulative = false;
 
    Highcharts: typeof Highcharts;
-   barChartOptions: Highcharts.Options;
+   lineChartOptions: Highcharts.Options;
    chart: Chart;
    updateFlag: boolean;
    showChart: boolean;
@@ -26,9 +27,9 @@ export class BarChartComponent implements OnInit, OnChanges {
       private cdr: ChangeDetectorRef
    ) {
       this.Highcharts = chartService.Highcharts;
-      this.barChartOptions = {
+      this.lineChartOptions = {
          chart: {
-            type: 'column'
+            type: 'line'
          },
 
          legend: {
@@ -45,18 +46,17 @@ export class BarChartComponent implements OnInit, OnChanges {
    }
 
    ngOnChanges(changes: SimpleChanges): void {
-      if (changes.barData && changes.barData.currentValue) {
-         const barData = this.cumulative ? Z.cumulative(Z.sum, this.barData) : this.barData;
-         console.log('barData: ', barData);
+      if (changes.lineData && changes.lineData.currentValue) {
+         this.lineChartOptions.series = [] as SeriesBarOptions[];
 
-         const barSeriesData = barData.map((v, i) => ({x: i, y: v}));
-         console.log('barSeriesData: ', barSeriesData);
+         this.lineData.forEach(data => {
+            const lineData = this.cumulative ? Z.cumulative(Z.sum, data) : data;
 
-         this.barChartOptions.series = [{
-            data: barData
-         }] as SeriesBarOptions[];
+            const lineSeriesData = lineData.map((v, i) => ({x: i, y: v}));
 
-         this.showChart = true;
+            this.lineChartOptions.series.push({data: lineSeriesData} as SeriesBarOptions);
+            this.showChart = true;
+         });
       }
 
       if (changes.titles && changes.titles) {

@@ -47,4 +47,20 @@ export interface Indicators {
    }[];
 }
 
+export class CalcResults2 {
+   normDays: number[];
+   daData: Column[];
+   dbData: Column[];
+   da: number[];
+   db: number[];
+   simulatedCohortTotal: number[];
+   simulatedCohortDistrTotal: number[];
+   simulatedCohortA: number[];
+   simulatedCohortB: number[];
+   simulatedCohortDistrA: number[];
+   simulatedCohortDistrB: number[];
+   criteriaB: number[];
+   criteriaDistrB: number[];
+}
+
 export type ColAddMode = 'days' | 'virus' | 'therapy' | 'indicator';
