@@ -69,6 +69,8 @@ export class CalculationService {
    }
 
    calculation2(da, db) {
-      return da.map((x, i) => da[i] - db[i]);
+      // return da.map((x, i) => da[i] - db[i]);
+      // return da.map((x, i) => da[i] - db[i]);
+      return da.map((x, i) => da[i]);
    }
 }

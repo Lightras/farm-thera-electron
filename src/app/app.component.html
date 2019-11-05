@@ -2,6 +2,35 @@
    <app-file-loader (fileChange)="onFileChange($event)"></app-file-loader>
 </section>
 
+<!--<app-categories-bar-chart-->
+<!--   [titles]="{yAxisTitle: 'Відсоток виявлення'}"-->
+<!--   [categories]="categories1"-->
+<!--   [barData]="series1"-->
+<!--&gt;</app-categories-bar-chart>-->
+
+<!--<app-categories-bar-chart-->
+<!--   [titles]="{yAxisTitle: 'Відсоток виявлення'}"-->
+<!--   [categories]="categories2"-->
+<!--   [barData]="series2"-->
+<!--&gt;</app-categories-bar-chart>-->
+
+<!--<app-stacked-percentage-chart [data]="stackedDataTempPrep"></app-stacked-percentage-chart>-->
+<!--<app-stacked-percentage-chart [data]="stackedDataTempNoPrep"></app-stacked-percentage-chart>-->
+
+<!--<div>-->
+<!--   <app-stacked-percentage-chart [data]="stackedDataESRPrep"></app-stacked-percentage-chart>-->
+<!--   <app-stacked-percentage-chart [data]="stackedDataESRNoPrep"></app-stacked-percentage-chart>-->
+<!--</div>-->
+
+<!--<div>-->
+<!--   <app-stacked-percentage-chart [data]="stackedDataLcPrep"></app-stacked-percentage-chart>-->
+<!--   <app-stacked-percentage-chart [data]="stackedDataLcNoPrep"></app-stacked-percentage-chart>-->
+<!--</div>-->
+
+
+<!--<app-stacked-percentage-chart [data]="stackedDataSputumPrep"></app-stacked-percentage-chart>-->
+<!--<app-stacked-percentage-chart [data]="stackedDataSputumNoPrep"></app-stacked-percentage-chart>-->
+
 <section>
    <app-data-viewer
       [fileData]="fileData"
@@ -15,12 +44,8 @@
 <!--   ></app-data-viewer>-->
 </section>
 
-<!--<section>-->
-<!--   <app-calculation-->
-<!--      [workData]="workDataChange"-->
-<!--      (calcResults)="calcResults = $event"-->
-<!--   ></app-calculation>-->
-<!--</section>-->
+<section>
+</section>
 
 <!--<section *ngIf="calcResults">-->
 <!--   <app-continuous-bar-chart [data]="calcResults.costCriteriaB" [bins]="30" [titles]="{chartTitle: 'CT_to_C B'}"></app-continuous-bar-chart>-->

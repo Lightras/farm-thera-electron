@@ -20,8 +20,11 @@ export class DataService {
       return this.http.get('assets/mock-normalization-data.json');
    }
 
+   getMockFileData(fileName: string): Observable<any> {
+      return this.http.get(`assets/json/${fileName}.json`);
+   }
+
    buildDistribution(data: number[], isNormalized?: boolean, includeNegative?: boolean): number[] {
-      console.log('data: ', data);
       const max = Math.max(...data);
       const start = includeNegative ? Math.min(...data) : 0;
       const valueCounts = Z.valueCounts(data);
@@ -70,5 +73,15 @@ export class DataService {
 
    getCol(colSet: Column[], colType: ColAddMode): Column {
       return colSet.find(col => col.meta.type === colType);
+   }
+
+   normalizeXY(data: {x: number, y: number}[], total?: number): {x: number, y: number}[] {
+      const sum = data.reduce((accum, n) => accum + n.y, 0);
+      return data.map(n => ({x: n.x, y: n.y / (total ? total : sum)}));
+   }
+
+   normalize(data: number[], total?: number): number[] {
+      const sum = data.reduce((accum, n) => accum + n, 0);
+      return data.map(n => n / sum);
    }
 }

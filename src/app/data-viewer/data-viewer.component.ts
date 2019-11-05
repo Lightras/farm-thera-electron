@@ -5,6 +5,10 @@ import {DataService} from '../data.service';
 import * as Z from 'zebras';
 import {max} from 'rxjs/operators';
 import {CalculationService} from '../calculation.service';
+import {WorkTableComponent} from './work-table/work-table.component';
+
+// @ts-ignore
+const normDaysTest = [NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,14,NaN,NaN,14,14,14,14,14,NaN,14,14,NaN,14,14,14,NaN,NaN,14,14,14,NaN,14,NaN,14,NaN,14,14,NaN,14,NaN,14,14,14,14,5,14,14,NaN,14,14,14,NaN,14,14,14,14,14,14,NaN,14,NaN,NaN,14,14,NaN,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,NaN,NaN,14,14,14,14,14,NaN,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,NaN,14,14,14];
 
 @Component({
    selector: 'app-data-viewer',
@@ -15,6 +19,7 @@ export class DataViewerComponent implements OnInit, OnChanges, AfterViewInit {
 
    @Input() fileData: string[][];
    @ViewChild(ColumnAdderComponent, {static: false}) columnAdder: ColumnAdderComponent;
+   @ViewChild(WorkTableComponent, {static: false}) workTableComponent: WorkTableComponent;
    @Output() workDataChange = new EventEmitter<Column[]>();
 
    selectedCol: Column;
@@ -37,6 +42,7 @@ export class DataViewerComponent implements OnInit, OnChanges, AfterViewInit {
       byNorm: CalcResults2,
       byDays: CalcResults2
    };
+   testType: string;
 
    constructor(
       private calcService: CalculationService,
@@ -46,6 +52,26 @@ export class DataViewerComponent implements OnInit, OnChanges, AfterViewInit {
    ngOnInit() {
 
    }
+
+   // -------------------------------------------------------------
+
+   runTestCase(type: string) {
+      this.testType = type;
+
+
+
+      if (this.testType === 'Nehospit_pnevmonii') {
+         this.normConfig = JSON.parse('[{"id":0,"title":"Температура","normConfig":true},{"id":1,"title":"Характер мокроти","normConfig":true},{"id":2,"title":"Рівень лейкоцитів","normConfig":true},{"id":3,"title":"Рівень ШОЕ","normConfig":true}]');
+
+         this.workTableComponent.gotTestData.subscribe(workData => {
+            this.normDays = normDaysTest;
+            this.workData = workData;
+            this.performCalc(this.normConfig);
+         });
+      }
+   }
+
+   // -------------------------------------------------------------
 
    ngAfterViewInit(): void {
       this.columnAdder.addColChange.subscribe(c => {
@@ -104,10 +130,50 @@ export class DataViewerComponent implements OnInit, OnChanges, AfterViewInit {
    performCalc(normConfig) {
       this.normDays = this.recalcNormDays(normConfig, this.workData);
 
+      if (this.testType) {
+         this.normDays = normDaysTest;
+      }
+
       this.normCalcResults = {
          byDays: this.getCalcResults(this.workData, this.normDays, 'days'),
          byNorm: this.getCalcResults(this.workData, this.normDays, 'norm'),
       };
+
+      let residualDays = 1000;
+      let residualNorm = 1000;
+      let dD;
+      let dN;
+      let normDataFixed;
+      let humanDaysDays = 0;
+      let humanDaysNorm = 0;
+
+      this.normCalcResults.byNorm.simulatedCohortDistrTotal.forEach((v, i) => {
+         if (normDataFixed) {
+            this.normCalcResults.byNorm.simulatedCohortDistrTotal[i] = this.normCalcResults.byDays.simulatedCohortDistrTotal[i];
+         }
+
+         dD = this.normCalcResults.byDays.simulatedCohortDistrTotal[i];
+         dN = this.normCalcResults.byNorm.simulatedCohortDistrTotal[i];
+
+         residualDays -= dD;
+         residualNorm -= dN;
+
+         if (i > 14 && !normDataFixed && residualNorm > residualDays) {
+            console.log('normDataFixed: ', normDataFixed);
+            console.log('residualNorm: ', residualNorm);
+            console.log('residualDays: ', residualDays);
+
+            const diff = residualNorm - residualDays;
+            residualNorm = residualDays;
+            this.normCalcResults.byNorm.simulatedCohortDistrTotal[i] += diff;
+            normDataFixed = true;
+         }
+
+         humanDaysDays += residualDays;
+         humanDaysNorm += residualNorm;
+      });
+
+      console.log('humanDaysDays / humanDaysNorm: ', humanDaysDays / humanDaysNorm);
 
       console.log('this.normCalcResults: ', this.normCalcResults);
    }
@@ -142,6 +208,9 @@ export class DataViewerComponent implements OnInit, OnChanges, AfterViewInit {
 
       if (type === 'norm') {
          [calcResults.simulatedCohortDistrA, calcResults.simulatedCohortA] = this.normSimulation(calcResults.daData, calcResults.da);
+         console.log('calcResults.daData: ', calcResults.daData);
+         console.log('calcResults.da: ', calcResults.da);
+         console.log('calcResults.simulatedCohortA: ', calcResults.simulatedCohortA);
          [calcResults.simulatedCohortDistrB, calcResults.simulatedCohortB] = this.normSimulation(calcResults.dbData, calcResults.db);
          [calcResults.simulatedCohortDistrTotal, calcResults.simulatedCohortTotal] = this.normSimulation(data, normDays);
       } else {
@@ -197,9 +266,7 @@ export class DataViewerComponent implements OnInit, OnChanges, AfterViewInit {
    }
 
    normSimulation(dataSet, normDays) {
-      console.log('dataSet: ', dataSet);
       const daysCol = dataSet.find(col => col.meta.type === 'days');
-      console.log('daysCol: ', daysCol);
       const maxDays = Z.max(daysCol.data);
       const counts = Z.valueCounts(normDays);
       const countsArray = [0, 5, 14, maxDays].map(d => {
@@ -227,8 +294,6 @@ export class DataViewerComponent implements OnInit, OnChanges, AfterViewInit {
             }
          }
       });
-
-      console.log('maxDays: ', maxDays);
 
       const simulatedDistribution = Array(maxDays);
       countsArray.forEach((c, i) => {

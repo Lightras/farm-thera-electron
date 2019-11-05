@@ -21,6 +21,9 @@ import { CalculationComponent } from './calculation/calculation.component';
 import { ContinuousBarChartComponent } from './charts/continuous-bar-chart/continuous-bar-chart.component';
 import { NormConfigComponent } from './data-viewer/norm-config/norm-config.component';
 import { LineChartComponent } from './charts/line-chart/line-chart.component';
+import { MultiBarChartComponent } from './charts/multi-bar-chart/multi-bar-chart.component';
+import { CategoriesBarChartComponent } from './charts/categories-bar-chart/categories-bar-chart.component';
+import { StackedPercentageChartComponent } from './charts/stacked-percentage-chart/stacked-percentage-chart.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
    return new TranslateHttpLoader(http);
@@ -43,6 +46,9 @@ export function HttpLoaderFactory(http: HttpClient) {
       ContinuousBarChartComponent,
       NormConfigComponent,
       LineChartComponent,
+      MultiBarChartComponent,
+      CategoriesBarChartComponent,
+      StackedPercentageChartComponent,
    ],
    imports: [
       BrowserModule,

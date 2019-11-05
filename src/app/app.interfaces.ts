@@ -10,8 +10,8 @@ export interface PieData extends Array<[string, number]> {
    [index: number]: [string, number];
 }
 
-export interface BarData extends Array<number> {
-   [index: number]: number;
+export interface BarData extends Array<any> {
+   [index: number]: {x: number, y: number};
 }
 
 export interface ChartTitles {

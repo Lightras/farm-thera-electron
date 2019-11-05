@@ -4,6 +4,7 @@ import {Chart, SeriesBarOptions} from 'highcharts';
 import {ChartsService} from '../charts.service';
 import * as Highcharts from 'highcharts';
 import * as Z from 'zebras';
+import {DataService} from '../../data.service';
 
 @Component({
   selector: 'app-line-chart',
@@ -15,6 +16,8 @@ export class LineChartComponent implements OnInit, OnChanges {
    @Input() lineData: number[][];
    @Input() titles: ChartTitles;
    @Input() cumulative = false;
+   @Input() skipZeros = false;
+   @Input() normalize: boolean;
 
    Highcharts: typeof Highcharts;
    lineChartOptions: Highcharts.Options;
@@ -24,16 +27,19 @@ export class LineChartComponent implements OnInit, OnChanges {
 
    constructor(
       private chartService: ChartsService,
-      private cdr: ChangeDetectorRef
+      private cdr: ChangeDetectorRef,
+      private dataService: DataService
    ) {
       this.Highcharts = chartService.Highcharts;
       this.lineChartOptions = {
          chart: {
-            type: 'line'
+            type: 'spline',
+            width: 900,
+            height: 600
          },
 
          legend: {
-            enabled: false
+            useHTML: true
          },
 
          tooltip: {
@@ -49,12 +55,41 @@ export class LineChartComponent implements OnInit, OnChanges {
       if (changes.lineData && changes.lineData.currentValue) {
          this.lineChartOptions.series = [] as SeriesBarOptions[];
 
-         this.lineData.forEach(data => {
+         const titles = [
+            'Ротавірус - &nbsp;&nbsp; Цинка сульфат -',
+            'Ротавірус + &nbsp;&nbsp; Цинка сульфат -',
+            'Ротавірус - &nbsp;&nbsp; Цинка сульфат +',
+            'Ротавірус + &nbsp;&nbsp; Цинка сульфат +',
+         ];
+         //
+         // const titles = [
+         //    'дні нормалізації показників',
+         //    'дні госпіталізації'
+         // ];
+
+         this.lineData.forEach((data, i) => {
             const lineData = this.cumulative ? Z.cumulative(Z.sum, data) : data;
 
-            const lineSeriesData = lineData.map((v, i) => ({x: i, y: v}));
+            let lineSeriesData = [];
 
-            this.lineChartOptions.series.push({data: lineSeriesData} as SeriesBarOptions);
+            if (this.skipZeros) {
+               lineData.forEach((v, j) => {
+                  if (v) {
+                     lineSeriesData.push({x: j, y: v});
+                  }
+               });
+            } else {
+               lineSeriesData = lineData.map((v, j) => ({x: j, y: v}));
+            }
+
+            if (this.normalize) {
+               const total = this.lineData.reduce((accum, p) => accum + p.reduce((subAccum, subP) => subAccum + subP, 0), 0) / 2;
+               lineSeriesData = this.dataService.normalizeXY(lineSeriesData, total);
+            }
+
+            this.lineChartOptions.series.push({
+               name: titles[i],
+               data: lineSeriesData, zIndex: !i ? 2 : 0} as SeriesBarOptions);
             this.showChart = true;
          });
       }

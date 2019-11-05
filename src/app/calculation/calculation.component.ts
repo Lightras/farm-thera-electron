@@ -3,6 +3,7 @@ import {Column} from '../app.interfaces';
 import * as Z from 'zebras';
 // @ts-ignore
 import * as random from 'random';
+import {DataService} from '../data.service';
 
 @Component({
    selector: 'app-calculation',
@@ -11,23 +12,30 @@ import * as random from 'random';
 })
 export class CalculationComponent implements OnInit, OnChanges {
    @Input() workData: Column[];
-   @Output() calcResults: EventEmitter<any> = new EventEmitter<any>();
+   // @Output() calcResults: EventEmitter<any> = new EventEmitter<any>();
 
    dna: number[];
    dva: number[];
    dnb: number[];
    dvb: number[];
 
-   p = 0.62;
-   Se = 0.72;
-   Sp = 0.69;
+   p: number;
+   Se = 0.8;
+   Sp = 0.9 ;
 
    dnaDistr: number[];
    dvaDistr: number[];
    dnbDistr: number[];
    dvbDistr: number[];
 
-   constructor() { }
+   calcResults: any;
+
+   hypothesis = [];
+
+
+   constructor(
+      private dataService: DataService
+   ) { }
 
    ngOnInit() {
    }
@@ -37,6 +45,12 @@ export class CalculationComponent implements OnInit, OnChanges {
       window.s = this;
 
       if (changes.workData && changes.workData.currentValue) {
+         console.log('this.workData calculation', this.workData);
+
+         const virusCol = this.dataService.getCol(this.workData, 'virus');
+
+         this.p = virusCol.data.reduce((withVirus, n) => withVirus + n, 0) / virusCol.data.length;
+
          [this.dna, this.dva, this.dnb, this.dvb] = this.getSubsets(this.workData);
 
          this.dnaDistr = this.buildDistribution(this.dna);
@@ -44,7 +58,7 @@ export class CalculationComponent implements OnInit, OnChanges {
          this.dnbDistr = this.buildDistribution(this.dnb);
          this.dvbDistr = this.buildDistribution(this.dvb);
 
-         const N = 100;
+         const N = 10000;
 
          const simulation = {
             dna: this.randomizeFromDistribution(this.dnaDistr, N),
@@ -73,23 +87,23 @@ export class CalculationComponent implements OnInit, OnChanges {
             pRange.push(calcResults.pBoundaryDB - calcResults.pBoundaryDA);
          });
 
-         this.calcResults.emit({
+         this.calcResults = {
             costCriteriaB: costCriteriaBResults,
             costCriteriaDB: costCriteriaDBResults,
             costCriteriaDA: costCriteriaDAResults,
             pRange,
             pBoundaryB: pBoundaryBResults,
-         });
+         };
 
-         console.log('costCriteriaBResults: ', costCriteriaBResults);
-         console.log('costCriteriaDAResults: ', costCriteriaDAResults);
-         console.log('costCriteriaDBResults: ', costCriteriaDBResults);
-
-         console.log('pBoundaryBResults: ', pBoundaryBResults);
-         console.log('pBoundaryDAResults: ', pBoundaryDAResults);
-         console.log('pBoundaryDBResults: ', pBoundaryDBResults);
-
-         console.log('pRange: ', pRange);
+         // console.log('costCriteriaBResults: ', costCriteriaBResults);
+         // console.log('costCriteriaDAResults: ', costCriteriaDAResults);
+         // console.log('costCriteriaDBResults: ', costCriteriaDBResults);
+         //
+         // console.log('pBoundaryBResults: ', pBoundaryBResults);
+         // console.log('pBoundaryDAResults: ', pBoundaryDAResults);
+         // console.log('pBoundaryDBResults: ', pBoundaryDBResults);
+         //
+         // console.log('pRange: ', pRange);
       }
    }
 
@@ -144,7 +158,7 @@ export class CalculationComponent implements OnInit, OnChanges {
       }
    }
 
-   buildDistribution(data: number[], isNormalized?: boolean): number[] {
+   buildDistribution(data: number[], isNormalized?: boolean, total?: number): number[] {
       const max = Math.max(...data);
       const valueCounts = Z.valueCounts(data);
       const distribution = [];
@@ -154,7 +168,7 @@ export class CalculationComponent implements OnInit, OnChanges {
       }
 
       const sum = distribution.reduce((s, n) => s + n);
-      const distributionNormalized = distribution.map(x => x / sum);
+      const distributionNormalized = distribution.map(x => x / (total ? total : sum));
 
       return isNormalized ? distributionNormalized : distribution;
    }
@@ -165,7 +179,7 @@ export class CalculationComponent implements OnInit, OnChanges {
       const max = Z.max(cumulativeDistr);
 
       for (let j = 0; j < N; j++) {
-         const rnd = random.int(0, max);
+         const rnd = random.float(0, max);
 
          cumulativeDistr.some((prob, i) => {
             if (rnd <= prob) {
@@ -178,7 +192,20 @@ export class CalculationComponent implements OnInit, OnChanges {
       return rand;
    }
 
+   getValidSeSp(): [number, number] {
+      const Se = random.float(0.8, 1);
+      const Sp = random.float(0.8, 1);
+
+      if ((Se / (1 - Sp)) > 1) {
+         return [Se, Sp];
+      } else {
+         return this.getValidSeSp();
+      }
+   }
+
    calculate(dna: number, dva: number, dnb: number, dvb: number) {
+      [this.Se, this.Sp] = this.getValidSeSp();
+
       const D_A = this.p * dva + (1 - this.p) * dna;
       const D_B = this.p * dvb + (1 - this.p) * dnb;
       const D_DB = this.p * (this.Se * dvb + (1 - this.Se) * dva) + (1 - this.p) * (this.Sp * dna + (1 - this.Sp) * dnb);
@@ -188,7 +215,7 @@ export class CalculationComponent implements OnInit, OnChanges {
 
 
       const costCriteriaB = D_A - D_B;
-      let pBoundaryB = (dna - dnb + CT_to_C) / (dvb - dnb + dna - dva);
+      let pBoundaryB = (dna - dnb - CT_to_C) / (dvb - dnb + dna - dva);
 
       const costCriteriaDA = (D_A - D_DB - CD_to_C) / (this.p * this.Se + (1 - this.p) * (1 - this.Sp));
       const pBoundaryDA = ((1 - this.Sp) * (dna - dnb) - ((1 - this.Sp) * CT_to_C + CD_to_C)) /
@@ -197,7 +224,6 @@ export class CalculationComponent implements OnInit, OnChanges {
       const costCriteriaDB = (D_B - D_DB - CD_to_C) / (this.p * this.Se + (1 - this.p) * (1 - this.Sp) - 1);
       const pBoundaryDB = (this.Sp * (dna - dnb) + CD_to_C - this.Sp * CT_to_C) /
                           ((1 - this.Se) * (dvb - dva) - this.Sp * (dnb - dna) + (1 - this.Sp - this.Se) * CT_to_C);
-
 
       if (!isFinite(pBoundaryB)) {
          pBoundaryB = NaN;

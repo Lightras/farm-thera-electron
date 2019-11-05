@@ -13,7 +13,10 @@ export class WorkTableComponent implements OnInit, OnChanges {
    @Input() showNormDays: boolean;
    @Input() normDays: number[];
 
+   @Input() testType: string;
+
    @Output() workData = new EventEmitter<Column[]>();
+   @Output() gotTestData = new EventEmitter<Column[]>();
 
    workTableData: Column[] = [];
    withIndicator: boolean;
@@ -23,12 +26,12 @@ export class WorkTableComponent implements OnInit, OnChanges {
    ) { }
 
    ngOnInit() {
-      this.dataService.getMockData().subscribe(data => {
-         this.workTableData = data;
-         this.workData.emit(this.workTableData);
-         this.withIndicator = true;
-         this.showWorkTable = true;
-      });
+      // this.dataService.getMockData().subscribe(data => {
+      //    this.workTableData = data;
+      //    this.workData.emit(this.workTableData);
+      //    this.withIndicator = true;
+      //    this.showWorkTable = true;
+      // });
    }
 
    ngOnChanges(changes: SimpleChanges): void {
@@ -47,6 +50,21 @@ export class WorkTableComponent implements OnInit, OnChanges {
       if (changes.showWorkTable && changes.showWorkTable.currentValue) {
          console.log(JSON.stringify(this.workTableData));
          this.workData.emit(this.workTableData);
+      }
+
+      if (changes.testType && changes.testType.currentValue) {
+         this.dataService.getMockFileData(this.testType).subscribe(data => {
+            this.workTableData = data;
+            this.workData.emit(this.workTableData);
+
+            if (this.testType === 'Nehospit_pnevmonii') {
+               this.withIndicator = true;
+            }
+
+            this.gotTestData.emit(this.workTableData);
+
+            this.showWorkTable = true;
+         });
       }
    }
 }
