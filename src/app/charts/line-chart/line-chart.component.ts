@@ -34,12 +34,14 @@ export class LineChartComponent implements OnInit, OnChanges {
       this.lineChartOptions = {
          chart: {
             type: 'spline',
-            width: 900,
-            height: 600
+            width: 600,
+            height: 400
          },
 
          legend: {
-            useHTML: true
+            useHTML: true,
+            width: 600,
+            align: 'center'
          },
 
          tooltip: {
@@ -55,12 +57,18 @@ export class LineChartComponent implements OnInit, OnChanges {
       if (changes.lineData && changes.lineData.currentValue) {
          this.lineChartOptions.series = [] as SeriesBarOptions[];
 
+         // const titles = [
+         //    'Ротавірус - &nbsp;&nbsp; Цинка сульфат -',
+         //    'Ротавірус + &nbsp;&nbsp; Цинка сульфат -',
+         //    'Ротавірус - &nbsp;&nbsp; Цинка сульфат +',
+         //    'Ротавірус + &nbsp;&nbsp; Цинка сульфат +',
+         // ];
+
          const titles = [
-            'Ротавірус - &nbsp;&nbsp; Цинка сульфат -',
-            'Ротавірус + &nbsp;&nbsp; Цинка сульфат -',
-            'Ротавірус - &nbsp;&nbsp; Цинка сульфат +',
-            'Ротавірус + &nbsp;&nbsp; Цинка сульфат +',
+            'без цинка сульфату',
+            'з цинка сульфатом'
          ];
+
          //
          // const titles = [
          //    'дні нормалізації показників',

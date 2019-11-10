@@ -71,7 +71,6 @@ export class BarChartComponent implements OnInit, OnChanges {
             barData.forEach((v, i) => {
                cumulativeLineData.push(i ? {x: v.x, y: v.y + cumulativeLineData[i - 1].y} : v);
             });
-            console.log('cumulativeLineData: ', cumulativeLineData);
 
             this.barChartOptions.yAxis = [
                {},

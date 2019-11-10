@@ -74,7 +74,6 @@ export class ContinuousBarChartComponent implements OnInit, OnChanges {
             barData.forEach((v, i) => {
                cumulativeLineData.push(i ? {x: v.x, y: v.y + cumulativeLineData[i - 1].y} : v);
             });
-            console.log('cumulativeLineData: ', cumulativeLineData);
 
             this.barChartOptions.yAxis = [
                {},
@@ -128,7 +127,11 @@ export class ContinuousBarChartComponent implements OnInit, OnChanges {
       }
 
       if (this.debug) {
-         console.log('Z.mean(data): ', Z.mean(dataFiltered));
+         console.log('dataFiltered: ', dataFiltered);
+         console.log('Середнє: ', Z.mean(dataFiltered));
+         const negativeCount =  dataFiltered.reduce((negCount, v) => v < 0 ? ++negCount : negCount, 0);
+         console.log('negativeCount: ', negativeCount / 10000);
+         console.log('max: ', Z.max(dataFiltered));
       }
 
 
