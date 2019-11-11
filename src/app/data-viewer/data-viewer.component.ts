@@ -4,8 +4,8 @@ import {ColumnAdderComponent} from './column-adder/column-adder.component';
 import {DataServiceOld} from '../data-service-old.service';
 import * as Z from 'zebras';
 import {max} from 'rxjs/operators';
-import {CalculationService} from '../calculation.service';
-import {WorkTableComponent} from './work-table/work-table.component';
+import {CalculationService} from '../services/calculation.service';
+import {WorkTableComponent} from '../calc-analysis/work-table/work-table.component';
 
 // @ts-ignore
 const normDaysTest = [NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,14,NaN,NaN,14,14,14,14,14,NaN,14,14,NaN,14,14,14,NaN,NaN,14,14,14,NaN,14,NaN,14,NaN,14,14,NaN,14,NaN,14,14,14,14,5,14,14,NaN,14,14,14,NaN,14,14,14,14,14,14,NaN,14,NaN,NaN,14,14,NaN,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,NaN,NaN,14,14,14,14,14,NaN,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,NaN,14,14,14];

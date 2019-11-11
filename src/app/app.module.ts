@@ -13,13 +13,13 @@ import {GroupedCategoriesChartComponent} from './charts/grouped-categories-chart
 import {GroupedCategoriesComponent} from './grouped-categories/grouped-categories.component';
 import {YesNoTranslatePipe} from './yes-no-translate.pipe';
 import {ColumnAdderComponent} from './data-viewer/column-adder/column-adder.component';
-import {WorkTableComponent} from './data-viewer/work-table/work-table.component';
+import {WorkTableComponent} from './calc-analysis/work-table/work-table.component';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {FormsModule} from '@angular/forms';
 import {CalculationComponent} from './calculation/calculation.component';
 import {ContinuousBarChartComponent} from './charts/continuous-bar-chart/continuous-bar-chart.component';
-import {NormConfigComponent} from './data-viewer/norm-config/norm-config.component';
+import {NormConfigComponent} from './calc-analysis/norm-config/norm-config.component';
 import {LineChartComponent} from './charts/line-chart/line-chart.component';
 import {MultiBarChartComponent} from './charts/multi-bar-chart/multi-bar-chart.component';
 import {CategoriesBarChartComponent} from './charts/categories-bar-chart/categories-bar-chart.component';
@@ -29,6 +29,7 @@ import {CalcAnalysisComponent} from './calc-analysis/calc-analysis.component';
 import {PreviewComponent} from './file-loader/preview/preview.component';
 import {DataService} from './services/data.service';
 import { DataViewMarkupComponent } from './data-view-markup/data-view-markup.component';
+import { NormDayPipe } from './shared/norm-day.pipe';
 
 export function HttpLoaderFactory(http: HttpClient) {
    return new TranslateHttpLoader(http);
@@ -72,6 +73,7 @@ const routes: Routes = [
       CalcAnalysisComponent,
       PreviewComponent,
       DataViewMarkupComponent,
+      NormDayPipe,
    ],
    imports: [
       BrowserModule,

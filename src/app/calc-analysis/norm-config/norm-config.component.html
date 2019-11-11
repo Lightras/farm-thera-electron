@@ -1,0 +1,19 @@
+<div class="norm-config-wrapper">
+   <div class="norm-config-description">
+      Задайте комбінацію показників, нормалізація яких означатиме нормалізацію загального стану пацієнта
+   </div>
+
+   <div>
+      <button
+         *ngFor="let indicator of normConfig"
+         (click)="indicator.normConfig = !indicator.normConfig"
+         [class.active]="indicator.normConfig"
+      >
+         {{indicator.title}}
+      </button>
+   </div>
+
+   <button class="save-config-btn" (click)="saveNormConfig()">
+      Зберегти і <span *ngIf="!normConfig.length">додати в</span><span *ngIf="normConfig.length > 0">оновити</span> таблицю
+   </button>
+</div>

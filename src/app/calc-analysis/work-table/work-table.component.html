@@ -1,8 +1,8 @@
-<div class="work-table table-wrapper" *ngIf="showWorkTable">
+<div class="work-table table-wrapper">
    <table>
       <thead *ngIf="withIndicator; else withoutIndicator">
       <tr>
-         <ng-container *ngFor="let col of workTableData">
+         <ng-container *ngFor="let col of workData">
             <th *ngIf="col.meta.type !== 'indicator' || col.meta.mainCol"
                [colSpan]="col.meta.type === 'indicator' ? 3 : 1"
                [rowSpan]="col.meta.type === 'indicator' ? 1 : 2"
@@ -10,11 +10,11 @@
                {{col.meta.title}}
             </th>
          </ng-container>
-            <th *ngIf="showNormDays" rowspan="2">Дні нормалізації показників</th>
+            <th *ngIf="normDays?.length" rowspan="2">Дні нормалізації показників</th>
       </tr>
 
       <tr>
-         <ng-container *ngFor="let col of workTableData">
+         <ng-container *ngFor="let col of workData">
             <th *ngIf="col.meta.type === 'indicator'">
                {{col.meta.observation.title}}
             </th>
@@ -26,18 +26,18 @@
       <ng-template #withoutIndicator>
          <thead>
          <tr>
-            <th *ngFor="let col of workTableData">{{col.meta.title}}</th>
+            <th *ngFor="let col of workData">{{col.meta.title}}</th>
          </tr>
          </thead>
       </ng-template>
 
       <tbody>
-      <tr *ngFor="let row of workTableData[0].data; let i = index">
-         <td *ngFor="let col of workTableData">
+      <tr *ngFor="let row of workData[0].data; let i = index">
+         <td *ngFor="let col of workData">
             {{col.data[i] | yesNoTranslate:col.meta.type}}
          </td>
 
-         <td *ngIf="showNormDays">{{normDays[i]}}</td>
+         <td *ngIf="normDays?.length">{{normDays[i] | normDay}}</td>
       </tr>
       </tbody>
    </table>

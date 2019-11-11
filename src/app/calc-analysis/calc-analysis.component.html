@@ -1,1 +1,33 @@
-<p>calc-analysis works!</p>
+<div class="content">
+   <section>
+      <div class="section-header">
+         Робоча таблиця
+      </div>
+
+      <div class="section-body">
+         <app-work-table
+            [workData]="workData"
+            [normDays]="normDays"
+            *ngIf="workData"
+         ></app-work-table>
+      </div>
+   </section>
+
+   <section>
+      <div class="section-header">
+         Клініко-лабораторні показники
+      </div>
+      <div class="section-body">
+         <app-norm-config [(normConfig)]="normConfig" (normConfigChange)="recalcNormDays($event)"></app-norm-config>
+      </div>
+   </section>
+
+   <section>
+      <div class="section-header">
+         Розрахунки та аналіз
+      </div>
+      <div class="section-body">
+
+      </div>
+   </section>
+</div>

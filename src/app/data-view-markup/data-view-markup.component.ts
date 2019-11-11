@@ -64,7 +64,10 @@ export class DataViewMarkupComponent implements OnInit {
             this.workData.push(cols[0]);
             this.selectedColsNumbers.push(cols[0].meta.initialColIndex);
          } else {
-            cols.forEach(col => {
+            cols.forEach((col, i) => {
+               if (i === 0) {
+                  col.meta.mainCol = true;
+               }
                this.workData.push(col);
                this.selectedColsNumbers.push(col.meta.initialColIndex);
             });

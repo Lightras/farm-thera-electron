@@ -9,9 +9,6 @@ export class NormConfigComponent implements OnInit, OnChanges {
    @Input() normConfig: any[];
 
    @Output() normConfigChange: EventEmitter<any> = new EventEmitter<any>();
-   @Output() showNormDays: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-   isWithNorm: boolean;
 
    constructor() { }
 
@@ -19,16 +16,9 @@ export class NormConfigComponent implements OnInit, OnChanges {
    }
 
    ngOnChanges(changes: SimpleChanges): void {
-      if (changes.normConfig && changes.normConfig.currentValue) {
-
-      }
    }
 
    saveNormConfig() {
       this.normConfigChange.emit(this.normConfig);
-   }
-
-   showNormDaysChange() {
-      this.showNormDays.emit(this.isWithNorm);
    }
 }
