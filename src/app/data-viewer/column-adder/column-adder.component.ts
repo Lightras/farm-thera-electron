@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges
 import {ColAddMode, Column, Indicators} from '../../app.interfaces';
 import * as Z from 'zebras';
 import {isNull} from 'util';
+import {DataService} from '../../services/data.service';
 
 @Component({
    selector: 'app-column-adder',
@@ -37,7 +38,9 @@ export class ColumnAdderComponent implements OnInit, OnChanges {
    boundaryIndicatorValue: number;
    isIndicatorNormHigher: boolean;
 
-   constructor() { }
+   constructor(
+      private dataService: DataService
+   ) { }
 
    ngOnInit() {
    }
@@ -123,6 +126,7 @@ export class ColumnAdderComponent implements OnInit, OnChanges {
 
    startAddingColumn(colType: ColAddMode) {
       this.addingMode = colType;
+      this.uniqueValues = [];
 
       switch (this.addingMode) {
          case 'days': {
@@ -185,13 +189,16 @@ export class ColumnAdderComponent implements OnInit, OnChanges {
             };
             c.data = c.data.map(x => this.translateNorm(x, c.meta.norm.boundaryValue, c.meta.norm.isGreaterThanBoundary));
          });
+
          this.addColChange.emit(this.indicatorColumnsForAdding);
          this.cancelAddingColumn();
          return;
       }
 
       this.columnForAdding.meta.type = this.addingMode;
+
       this.addColChange.emit([this.columnForAdding]);
+
       this.columnForAdding = null;
       this.cancelAddingColumn();
    }

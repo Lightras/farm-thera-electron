@@ -1,0 +1,23 @@
+@import "../shared/variables"
+
+.table-wrapper
+   width: calc(100vw - 140px)
+   height: calc(100vh - 140px)
+
+   overflow: scroll
+   position: relative
+
+table
+   position: absolute
+   top: 30px
+
+   th
+      &:hover
+         cursor: pointer
+         background: rgba($highlight-color, 0.7)
+
+      &.selected
+         background: $warning-color
+
+      &.current
+         background: $highlight-color

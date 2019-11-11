@@ -1,38 +1,77 @@
+@import "../../shared/variables"
+
 .column-adder
    flex-direction: column
    margin: 20px 0
 
    .col-add-area
       flex-direction: column
+      align-items: center
 
       .col-add-editor
          flex-direction: column
+         align-items: center
          margin: 10px 0
 
+         .interpret-block
+            margin-top: 20px
+            align-items: center
+
+            .value-translate
+               margin: 5px 0
+
+            span
+               line-height: 30px
+
+         input[type=text]
+            width: 250px
+            text-align: center
+
          .unique-value
-            width: 80px
+            width: 60px
+            justify-content: center
+            align-items: center
 
-         .indicator-day-value
-            width: 80px
+         .indicator-day
+            margin: 5px 0
 
-         .indicator-day-title
-            width: 200px
+            .indicator-day-value
+               display: flex
+               justify-content: center
+               align-items: center
+               width: 60px
+
+            .indicator-day-title
+               width: 200px
+
+         .indicator-controls
+            display: flex
+            align-items: center
+
+            button.delete
+               width: 30px
+               height: 30px
 
          .indicator-norm-radio-btn
+            width: 50px
+
             &:first-of-type
                margin-left: 10px
 
             &.active
-               background: lightblue
+               background: $highlight-color
 
          .yes-no
             button
+               width: 50px
+
                &.active
-                  background: lightblue
+                  background: $highlight-color
 
          .days-range
             flex-direction: column
 
          .indicator-boundary-value-input
+            text-align: center
             width: 40px
             margin: 0 10px

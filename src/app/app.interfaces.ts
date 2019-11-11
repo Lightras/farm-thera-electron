@@ -26,6 +26,7 @@ export interface Column {
       title: string;
       type: ColAddMode;
       mainCol?: boolean;
+      initialColIndex?: number,
       observation?: {
          id: number;
          day: number;
