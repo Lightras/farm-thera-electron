@@ -3,7 +3,7 @@ import {Column} from '../app.interfaces';
 import * as Z from 'zebras';
 // @ts-ignore
 import * as random from 'random';
-import {DataService} from '../data.service';
+import {DataServiceOld} from '../data-service-old.service';
 
 @Component({
    selector: 'app-calculation',
@@ -34,7 +34,7 @@ export class CalculationComponent implements OnInit, OnChanges {
 
 
    constructor(
-      private dataService: DataService
+      private dataService: DataServiceOld
    ) { }
 
    ngOnInit() {

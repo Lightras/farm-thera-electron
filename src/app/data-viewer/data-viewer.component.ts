@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
 import {CalcResults2, ColAddMode, Column} from '../app.interfaces';
 import {ColumnAdderComponent} from './column-adder/column-adder.component';
-import {DataService} from '../data.service';
+import {DataServiceOld} from '../data-service-old.service';
 import * as Z from 'zebras';
 import {max} from 'rxjs/operators';
 import {CalculationService} from '../calculation.service';
@@ -46,7 +46,7 @@ export class DataViewerComponent implements OnInit, OnChanges, AfterViewInit {
 
    constructor(
       private calcService: CalculationService,
-      private dataService: DataService
+      private dataService: DataServiceOld
    ) { }
 
    ngOnInit() {

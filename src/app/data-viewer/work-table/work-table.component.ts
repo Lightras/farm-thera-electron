@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Column} from '../../app.interfaces';
-import {DataService} from '../../data.service';
+import {DataServiceOld} from '../../data-service-old.service';
 
 @Component({
    selector: 'app-work-table',
@@ -22,7 +22,7 @@ export class WorkTableComponent implements OnInit, OnChanges {
    withIndicator: boolean;
 
    constructor(
-      private dataService: DataService
+      private dataService: DataServiceOld
    ) { }
 
    ngOnInit() {

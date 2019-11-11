@@ -3,7 +3,7 @@ import * as Z from 'zebras';
 import * as random from 'random';
 import * as superRandom from 'random-js';
 import {Column} from './app.interfaces';
-import {DataService} from './data.service';
+import {DataServiceOld} from './data-service-old.service';
 import * as deepcopy from 'deepcopy';
 
 @Injectable({
@@ -12,7 +12,7 @@ import * as deepcopy from 'deepcopy';
 export class CalculationService {
 
   constructor(
-     private dataService: DataService
+     private dataService: DataServiceOld
   ) { }
 
    randomizeFromDistribution(distr: number[], N: number, isCumulative?: boolean): number[] {

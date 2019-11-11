@@ -1,0 +1,17 @@
+<table>
+   <thead>
+   <tr>
+      <th></th>
+      <th *ngFor="let title of titles, let i = index"
+          (click)="selectColumn(i)"
+      >{{title}}</th>
+   </tr>
+   </thead>
+
+   <tbody>
+   <tr *ngFor="let dataRow of fileData, let i = index">
+      <td>{{i + 1}}</td>
+      <td *ngFor="let item of dataRow">{{item}}</td>
+   </tr>
+   </tbody>
+</table>

@@ -8,7 +8,7 @@ import * as random from 'random';
 @Injectable({
    providedIn: 'root'
 })
-export class DataService {
+export class DataServiceOld {
 
    constructor(
       private http: HttpClient

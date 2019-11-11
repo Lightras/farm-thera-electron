@@ -1,0 +1,18 @@
+<div class="preview-wrapper">
+   <table>
+      <thead>
+      <tr>
+         <th></th>
+         <th *ngFor="let title of this.titles, let i = index"
+         >{{title}}</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let dataRow of data, let i = index">
+         <td>{{i + 1}}</td>
+         <td *ngFor="let item of dataRow">{{item}}</td>
+      </tr>
+      </tbody>
+   </table>
+</div>

@@ -1,0 +1,21 @@
+@import "shared/variables"
+
+nav
+   display: flex
+   justify-content: center
+
+   .section-link
+      width: 170px
+      justify-content: center
+      align-items: center
+      cursor: pointer
+      background: $main-color
+      color: white
+      text-align: center
+      padding: 5px 15px
+
+      &:hover
+         background: $highlight-color
+
+      &.active-link
+         background: $highlight-color

@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ChartTitles, DataObj, PieData} from '../app.interfaces';
 import * as z from 'zebras';
-import {DataService} from '../data.service';
+import {DataServiceOld} from '../data-service-old.service';
 
 @Component({
    selector: 'app-basic-charts',
@@ -24,7 +24,7 @@ export class BasicChartsComponent implements OnInit, OnChanges {
    private dnbDistr: number[];
 
    constructor(
-      private dataService: DataService,
+      private dataService: DataServiceOld,
    ) {
       this.daysChartTitles = {
          chartTitle: 'Розподіл днів одужання',

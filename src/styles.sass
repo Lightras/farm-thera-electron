@@ -1,3 +1,12 @@
+@import "app/shared/variables"
+
+body
+   padding: 0
+   margin: 0
+
+html
+   min-height: 100vh
+
 div
    display: inline-flex
 
@@ -5,21 +14,47 @@ div
    flex-direction: column
 
 button
-   &.active
-      background: lightblue
+   display: flex
+   align-items: center
+   justify-content: center
+   text-align: center
+   background: $main-color
+   color: white
 
-.table-wrapper
-   max-height: 500px
-   max-width: 800px
-   overflow: auto
-   border: 1px solid black
-
-   table
-      border-collapse: collapse
-
-      td, th
-         border: 1px solid
-         width: 100px
+   width: 170px
+   min-height: 30px
+   padding: 5px
+   margin: 0 5px
+   cursor: pointer
+   border: none
 
 
+   &:hover
+      background: $highlight-color
 
+.content
+   display: flex
+   flex-direction: column
+   align-items: center
+   margin-top: 30px
+   max-width: 100%
+
+table
+   border-collapse: collapse
+   border: 1px solid $disabled-color
+
+   th
+      color: white
+      background: $main-color
+      border-right: 1px solid white
+
+   th:last-child
+      border-right: 1px solid $disabled-color
+
+   th, td
+      text-align: center
+      padding: 3px 5px
+      width: 100px
+
+   td
+      border: 1px solid $disabled-color

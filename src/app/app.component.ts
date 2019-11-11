@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit} from '@angular/core';
-import {DataService} from './data.service';
+import {DataServiceOld} from './data-service-old.service';
 import {TranslateService} from '@ngx-translate/core';
 import {Column} from './app.interfaces';
 
@@ -161,7 +161,7 @@ export class AppComponent implements OnInit {
    ];
 
    constructor(
-      private dataService: DataService,
+      private dataService: DataServiceOld,
       private translate: TranslateService
    ) {
       translate.setDefaultLang('ua');

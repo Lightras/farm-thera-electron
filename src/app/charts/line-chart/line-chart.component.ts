@@ -4,7 +4,7 @@ import {Chart, SeriesBarOptions} from 'highcharts';
 import {ChartsService} from '../charts.service';
 import * as Highcharts from 'highcharts';
 import * as Z from 'zebras';
-import {DataService} from '../../data.service';
+import {DataServiceOld} from '../../data-service-old.service';
 
 @Component({
   selector: 'app-line-chart',
@@ -28,7 +28,7 @@ export class LineChartComponent implements OnInit, OnChanges {
    constructor(
       private chartService: ChartsService,
       private cdr: ChangeDetectorRef,
-      private dataService: DataService
+      private dataService: DataServiceOld
    ) {
       this.Highcharts = chartService.Highcharts;
       this.lineChartOptions = {
