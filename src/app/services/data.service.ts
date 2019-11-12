@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Column} from '../app.interfaces';
+import {ColAddMode, Column} from '../app.interfaces';
 
 @Injectable({
    providedIn: 'root'
@@ -10,4 +10,8 @@ export class DataService {
    workData: Column[] = [];
 
    constructor() { }
+
+   getCol(colSet: Column[], colType: ColAddMode): Column {
+      return colSet.find(col => col.meta.type === colType);
+   }
 }
