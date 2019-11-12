@@ -1,17 +1,16 @@
 import {ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {BarData, ChartTitles} from '../../app.interfaces';
+import {ChartTitles} from '../../app.interfaces';
 import {ChartsService} from '../charts.service';
 import * as Highcharts from 'highcharts';
-import {Chart, SeriesBarOptions} from 'highcharts';
-import * as Z from 'zebras'
-import {SeriesLineOptions} from 'highcharts';
+import {Chart, SeriesBarOptions, SeriesLineOptions} from 'highcharts';
+import * as Z from 'zebras';
 
 @Component({
    selector: 'app-continuous-bar-chart',
-   templateUrl: './continuous-bar-chart.component.html',
+   templateUrl: './continuous-bar-chart-component-old.component.html',
    styleUrls: ['./continuous-bar-chart.component.sass']
 })
-export class ContinuousBarChartComponent implements OnInit, OnChanges {
+export class ContinuousBarChartOldComponent implements OnInit, OnChanges {
    @Input() data: number[];
    @Input() titles: ChartTitles;
    @Input() bins: number;

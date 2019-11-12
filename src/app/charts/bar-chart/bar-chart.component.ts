@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {BarData, ChartTitles} from '../../app.interfaces';
+import {BasicChartData, ChartTitles} from '../../app.interfaces';
 import {ChartsService} from '../charts.service';
 import * as Highcharts from 'highcharts';
 import {Chart, SeriesBarOptions, SeriesLineOptions, YAxisOptions} from 'highcharts';
@@ -11,7 +11,7 @@ import * as Z from 'zebras';
    styleUrls: ['./bar-chart.component.sass']
 })
 export class BarChartComponent implements OnInit, OnChanges {
-   @Input() barData: BarData;
+   @Input() barData: BasicChartData;
    @Input() titles: ChartTitles;
    @Input() cumulative = false;
    @Input() normalized = false;

@@ -53,26 +53,6 @@ export class DataViewerComponent implements OnInit, OnChanges, AfterViewInit {
 
    }
 
-   // -------------------------------------------------------------
-
-   runTestCase(type: string) {
-      this.testType = type;
-
-
-
-      if (this.testType === 'Nehospit_pnevmonii') {
-         this.normConfig = JSON.parse('[{"id":0,"title":"Температура","normConfig":true},{"id":1,"title":"Характер мокроти","normConfig":true},{"id":2,"title":"Рівень лейкоцитів","normConfig":true},{"id":3,"title":"Рівень ШОЕ","normConfig":true}]');
-
-         this.workTableComponent.gotTestData.subscribe(workData => {
-            this.normDays = normDaysTest;
-            this.workData = workData;
-            this.performCalc(this.normConfig);
-         });
-      }
-   }
-
-   // -------------------------------------------------------------
-
    ngAfterViewInit(): void {
       this.columnAdder.addColChange.subscribe(c => {
          this.addedColumns = c;

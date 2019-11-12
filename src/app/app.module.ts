@@ -18,7 +18,7 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {FormsModule} from '@angular/forms';
 import {CalculationComponent} from './calculation/calculation.component';
-import {ContinuousBarChartComponent} from './charts/continuous-bar-chart/continuous-bar-chart.component';
+import {ContinuousBarChartOldComponent} from './charts/continuous-bar-chart/continuous-bar-chart-component-old.component';
 import {NormConfigComponent} from './calc-analysis/norm-config/norm-config.component';
 import {LineChartComponent} from './charts/line-chart/line-chart.component';
 import {MultiBarChartComponent} from './charts/multi-bar-chart/multi-bar-chart.component';
@@ -30,6 +30,8 @@ import {PreviewComponent} from './file-loader/preview/preview.component';
 import {DataService} from './services/data.service';
 import { DataViewMarkupComponent } from './data-view-markup/data-view-markup.component';
 import { NormDayPipe } from './shared/norm-day.pipe';
+import { ChartForemotherComponent } from './charts/chart-foremother/chart-foremother.component';
+import { ContinuousColumnChartComponent } from './charts/continuous-column-chart/continuous-column-chart.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
    return new TranslateHttpLoader(http);
@@ -64,7 +66,7 @@ const routes: Routes = [
       ColumnAdderComponent,
       WorkTableComponent,
       CalculationComponent,
-      ContinuousBarChartComponent,
+      ContinuousBarChartOldComponent,
       NormConfigComponent,
       LineChartComponent,
       MultiBarChartComponent,
@@ -74,6 +76,8 @@ const routes: Routes = [
       PreviewComponent,
       DataViewMarkupComponent,
       NormDayPipe,
+      ChartForemotherComponent,
+      ContinuousColumnChartComponent,
    ],
    imports: [
       BrowserModule,

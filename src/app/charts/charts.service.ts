@@ -10,6 +10,10 @@ const globalChartOptions: Highcharts.Options = {
       style: {
          fontSize: '14px',
       }
+   },
+
+   tooltip: {
+      valueDecimals: 3
    }
 };
 

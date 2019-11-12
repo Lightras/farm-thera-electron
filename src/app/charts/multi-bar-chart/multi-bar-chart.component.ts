@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {BarData, ChartTitles} from '../../app.interfaces';
+import {BasicChartData, ChartTitles} from '../../app.interfaces';
 import {ChartsService} from '../charts.service';
 import * as Highcharts from 'highcharts';
 import {Chart, SeriesBarDataOptions, SeriesBarOptions} from 'highcharts';
@@ -11,7 +11,7 @@ import * as Z from 'zebras';
    styleUrls: ['./multi-bar-chart.component.sass']
 })
 export class MultiBarChartComponent implements OnInit, OnChanges {
-   @Input() barData: BarData[];
+   @Input() barData: BasicChartData[];
    @Input() titles: ChartTitles;
 
    Highcharts: typeof Highcharts;
