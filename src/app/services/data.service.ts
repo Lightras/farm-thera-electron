@@ -11,6 +11,7 @@ export class DataService {
    rawData: any;
    titles: string[];
    workData: Column[] = [];
+   normDays: number[];
 
    sampleSize = 1000;
 
@@ -55,6 +56,11 @@ export class DataService {
       });
 
       return [daData, dbData, da, db];
+   }
+
+   normalizeXY(data: {x: number, y: number}[], total?: number): {x: number, y: number}[] {
+      const sum = data.reduce((accum, n) => accum + n.y, 0);
+      return data.map(n => ({x: n.x, y: n.y / (total ? total : sum)}));
    }
 
    buildDistribution(data: number[], isNormalized?: boolean, includeNegative?: boolean): number[] {

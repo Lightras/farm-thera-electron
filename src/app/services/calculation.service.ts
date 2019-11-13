@@ -1,10 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import * as Z from 'zebras';
 import * as random from 'random';
-import * as superRandom from 'random-js';
 import {CalcResults2, Column} from '../app.interfaces';
-import {DataServiceOld} from '../data-service-old.service';
-import * as deepcopy from 'deepcopy';
 import {DataService} from './data.service';
 
 @Injectable({
@@ -36,9 +33,7 @@ export class CalculationService {
    }
 
    calculation2(da, db) {
-      // return da.map((x, i) => da[i] - db[i]);
-      // return da.map((x, i) => da[i] - db[i]);
-      return da.map((x, i) => da[i]);
+      return da.map((x, i) => da[i] - db[i]);
    }
 
    recalcNormDays(normConfig, dataSet) {
@@ -115,6 +110,70 @@ export class CalculationService {
       });
    }
 
+   normSimulation(dataSet, normDays) {
+      const daysCol = dataSet.find(col => col.meta.type === 'days');
+      const maxDays = Z.max(daysCol.data);
+      const counts = Z.valueCounts(normDays);
+      const countsArray = [0, 5, 14, maxDays].map(d => {
+         return {
+            day: d,
+            count: (d === maxDays) ? counts.NaN : counts[d] || 0,
+            cumCount: 0
+         };
+      });
+      countsArray.sort((a, b) => a.day - b.day);
+      countsArray.forEach((v, i) => {
+         if (i) {
+            v.cumCount = countsArray[i - 1].cumCount + v.count;
+         } else {
+            v.cumCount = v.count;
+         }
+      });
+
+      [0, 5, 14, maxDays].forEach(d => {
+         if (typeof counts[d] === 'undefined') {
+            if ([0, 5, 14].includes(d)) {
+               counts[d] = 0;
+            } else {
+               counts[d] = counts.NaN;
+            }
+         }
+      });
+
+      const simulatedDistribution = Array(maxDays);
+      countsArray.forEach((c, i) => {
+         simulatedDistribution[c.day] = c.cumCount;
+
+         let leap;
+         let daysDiff;
+         let step;
+
+         if (countsArray[i + 1]) {
+            leap = countsArray[i + 1].count;
+            daysDiff = countsArray[i + 1].day - countsArray[i].day;
+            step = leap / (daysDiff);
+
+            for (let j = 0; j < daysDiff; j++) {
+               if (j) {
+                  simulatedDistribution[c.day + j] = c.cumCount + step * j;
+               }
+            }
+         }
+      });
+
+      // this.simulatedDistribution = simulatedDistribution;
+      const simulatedCohort = this.randomizeFromDistribution(simulatedDistribution, this.dataService.sampleSize, true);
+      const simulatedCohortValueCounts = Z.valueCounts(simulatedCohort);
+      const simulatedCohortMaxValue = Z.max(simulatedCohort);
+      const simulatedCohortDistr = [];
+      for (let i = 0; i <= simulatedCohortMaxValue; i++) {
+         simulatedCohortDistr.push(simulatedCohortValueCounts[i] ? simulatedCohortValueCounts[i] : 0);
+      }
+      // this.simulatedCohortDistr = simulatedCohortDistr;
+
+      return [simulatedCohortDistr, simulatedCohort];
+   }
+
    getCalcResults(data: Column[], normDays: number[], type: 'norm' | 'days'): CalcResults2 {
       const calcResults: CalcResults2 = {
          normDays: null,
@@ -164,7 +223,7 @@ export class CalculationService {
          calcResults.simulatedCohortDistrTotal = this.dataService.buildDistribution(calcResults.simulatedCohortTotal);
       }
 
-      calcResults.criteriaB = this.calcService.calculation2(calcResults.simulatedCohortA, calcResults.simulatedCohortB);
+      calcResults.criteriaB = this.calculation2(calcResults.simulatedCohortA, calcResults.simulatedCohortB);
       calcResults.criteriaDistrB = this.dataService.buildIntDistributionWithNegatives(calcResults.criteriaB);
 
       return calcResults;

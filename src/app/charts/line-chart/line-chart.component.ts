@@ -1,10 +1,10 @@
 import {ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ChartTitles} from '../../app.interfaces';
+import * as Highcharts from 'highcharts';
 import {Chart, SeriesBarOptions} from 'highcharts';
 import {ChartsService} from '../charts.service';
-import * as Highcharts from 'highcharts';
 import * as Z from 'zebras';
-import {DataServiceOld} from '../../data-service-old.service';
+import {DataService} from '../../services/data.service';
 
 @Component({
   selector: 'app-line-chart',
@@ -28,7 +28,7 @@ export class LineChartComponent implements OnInit, OnChanges {
    constructor(
       private chartService: ChartsService,
       private cdr: ChangeDetectorRef,
-      private dataService: DataServiceOld
+      private dataService: DataService
    ) {
       this.Highcharts = chartService.Highcharts;
       this.lineChartOptions = {
@@ -57,24 +57,6 @@ export class LineChartComponent implements OnInit, OnChanges {
       if (changes.lineData && changes.lineData.currentValue) {
          this.lineChartOptions.series = [] as SeriesBarOptions[];
 
-         // const titles = [
-         //    'Ротавірус - &nbsp;&nbsp; Цинка сульфат -',
-         //    'Ротавірус + &nbsp;&nbsp; Цинка сульфат -',
-         //    'Ротавірус - &nbsp;&nbsp; Цинка сульфат +',
-         //    'Ротавірус + &nbsp;&nbsp; Цинка сульфат +',
-         // ];
-
-         const titles = [
-            'без цинка сульфату',
-            'з цинка сульфатом'
-         ];
-
-         //
-         // const titles = [
-         //    'дні нормалізації показників',
-         //    'дні госпіталізації'
-         // ];
-
          this.lineData.forEach((data, i) => {
             const lineData = this.cumulative ? Z.cumulative(Z.sum, data) : data;
 
@@ -96,28 +78,8 @@ export class LineChartComponent implements OnInit, OnChanges {
             }
 
             this.lineChartOptions.series.push({
-               name: titles[i],
                data: lineSeriesData, zIndex: !i ? 2 : 0} as SeriesBarOptions);
             this.showChart = true;
-         });
-      }
-
-      if (changes.titles && changes.titles) {
-         this.cdr.detectChanges();
-         this.chart.setTitle({
-            text: this.titles.chartTitle
-         });
-
-         this.chart.xAxis[0].update({
-            title: {
-               text: this.titles.xAxisTitle
-            }
-         });
-
-         this.chart.yAxis[0].update({
-            title: {
-               text: this.titles.yAxisTitle
-            }
          });
       }
    }

@@ -24,6 +24,7 @@ import {NormDayPipe} from './shared/norm-day.pipe';
 import {ChartForemotherComponent} from './charts/chart-foremother/chart-foremother.component';
 import {ContinuousColumnChartComponent} from './charts/continuous-column-chart/continuous-column-chart.component';
 import {SimpleAnalysisComponent} from './calc-analysis/simple-analysis/simple-analysis.component';
+import {BarChartComponent} from './charts/bar-chart/bar-chart.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
    return new TranslateHttpLoader(http);
@@ -62,6 +63,7 @@ const routes: Routes = [
       ChartForemotherComponent,
       ContinuousColumnChartComponent,
       SimpleAnalysisComponent,
+      BarChartComponent
    ],
    imports: [
       BrowserModule,

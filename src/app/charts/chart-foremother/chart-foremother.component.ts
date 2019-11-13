@@ -2,7 +2,7 @@ import {ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges} f
 import {Chart} from 'highcharts';
 import {ChartsService} from '../charts.service';
 import * as Highcharts from 'highcharts';
-import {ChartTitles} from '../../app.interfaces';
+import {BasicChartData, ChartTitles} from '../../app.interfaces';
 
 @Component({
    selector: 'app-chart-foremother',
@@ -11,7 +11,7 @@ import {ChartTitles} from '../../app.interfaces';
 })
 export class ChartForemotherComponent implements OnInit, OnChanges {
    @Input() titles: ChartTitles;
-   @Input() data: number[];
+   @Input() data: number[] | BasicChartData;
 
    Highcharts: typeof Highcharts;
    barChartOptions: Highcharts.Options;
@@ -24,6 +24,8 @@ export class ChartForemotherComponent implements OnInit, OnChanges {
       private cdr: ChangeDetectorRef
    ) {
       console.log('super constructon');
+      console.log('chartService: ', chartService);
+      console.log('cdr: ', cdr);
       this.Highcharts = chartService.Highcharts;
    }
 

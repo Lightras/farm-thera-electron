@@ -1,1 +1,16 @@
-<p>simple-analysis works!</p>
+<div class="content">
+   <app-bar-chart
+      *ngIf="calc.byDays"
+      [data]="calc.byDays.criteriaDistrB"
+      [cumulative]="false" [normalized]="true" [withCumulativeLine]="true"
+      [titles]="{xAxisTitle: 'Відношення витрат на додаткову фармакотерапію до витрат на добу базисної фармакотерапії', yAxisTitle: 'Ймовірність'}"
+   ></app-bar-chart>
+
+   <app-bar-chart
+      *ngIf="calc.byNorm"
+      [data]="calc.byNorm.criteriaDistrB"
+      [cumulative]="false" [normalized]="true" [withCumulativeLine]="true"
+      [titles]="{xAxisTitle: 'Відношення витрат на додаткову фармакотерапію до витрат на добу базисної фармакотерапії', yAxisTitle: 'Ймовірність'}"
+   ></app-bar-chart>
+
+</div>
