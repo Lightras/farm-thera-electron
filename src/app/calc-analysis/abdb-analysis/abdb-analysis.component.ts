@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {CalculationService} from '../../services/calculation.service';
 import {DataService} from '../../services/data.service';
+import {Column} from '../../app.interfaces';
 
 @Component({
    selector: 'app-abdb-analysis',
@@ -8,6 +9,8 @@ import {DataService} from '../../services/data.service';
    styleUrls: ['./abdb-analysis.component.sass']
 })
 export class AbdbAnalysisComponent implements OnInit {
+   @Input() data: Column[];
+
    calcResults: any;
 
    constructor(
@@ -16,7 +19,21 @@ export class AbdbAnalysisComponent implements OnInit {
    }
 
    ngOnInit() {
-      this.calcResults = this.dataService.fullCalc;
+      this.getCalcResults();
+   }
+
+   getCalcResults() {
+      this.calcResults = this.dataService.calcABDB(this.data);
+   }
+
+   onSeSpChange(seSpConfig) {
+      console.log('seSpConfig: ', seSpConfig);
+
+      ['seMin', 'seMax', 'spMin', 'spMax'].forEach(v => {
+         this.dataService[v] = seSpConfig[v];
+      });
+
+      this.getCalcResults();
    }
 
 }

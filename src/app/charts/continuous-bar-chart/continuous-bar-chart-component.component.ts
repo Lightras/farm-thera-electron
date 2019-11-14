@@ -46,9 +46,13 @@ export class ContinuousBarChartComponent extends ChartForemotherComponent implem
    }
 
    ngOnChanges(changes: SimpleChanges): void {
+      console.log('calcresultschange');
       super.ngOnChanges(changes);
 
       this.showChart = false;
+      if (changes.data) {
+         console.log('changes.data: ', changes.data);
+      }
 
       if (this.data && this.bins) {
          let barData = this.convertData(changes.data.currentValue);

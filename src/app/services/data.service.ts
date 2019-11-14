@@ -18,6 +18,10 @@ export class DataService {
    p: number;
    Se = 0.8;
    Sp = 0.9 ;
+   seMin = 0.8;
+   seMax = 1;
+   spMin = 0.8;
+   spMax = 1;
 
    constructor() { }
 
@@ -25,7 +29,7 @@ export class DataService {
       return colSet.find(col => col.meta.type === colType);
    }
 
-   getFullCalc(data: Column[]) {
+   calcAB(data: Column[]) {
       const virusCol = this.getCol(data, 'virus');
 
       let dna;
@@ -55,32 +59,17 @@ export class DataService {
       };
 
       const costCriteriaBResults = [];
-      const costCriteriaDAResults = [];
-      const costCriteriaDBResults = [];
       const pBoundaryBResults = [];
-      const pBoundaryDAResults = [];
-      const pBoundaryDBResults = [];
-      const pRange = [];
 
       simulation.dna.forEach((v, i) => {
          const calcResults = this.calculate(simulation.dna[i], simulation.dva[i], simulation.dnb[i], simulation.dvb[i]);
 
          costCriteriaBResults.push(calcResults.costCriteriaB);
          pBoundaryBResults.push(calcResults.pBoundaryB);
-         costCriteriaDAResults.push(calcResults.costCriteriaDA);
-         pBoundaryDAResults.push(calcResults.pBoundaryDA);
-         costCriteriaDBResults.push(calcResults.costCriteriaDB);
-         pBoundaryDBResults.push(calcResults.pBoundaryDB);
-         pRange.push(calcResults.pBoundaryDB - calcResults.pBoundaryDA);
       });
 
       this.fullCalc = {
          costCriteriaB: costCriteriaBResults,
-         costCriteriaDB: costCriteriaDBResults,
-         costCriteriaDA: costCriteriaDAResults,
-         pRange,
-         pBoundaryDA: pBoundaryDAResults,
-         pBoundaryDB: pBoundaryDBResults,
          pBoundaryB: pBoundaryBResults,
       };
 
@@ -93,9 +82,70 @@ export class DataService {
       ];
    }
 
+   calcABDB(data: Column[]) {
+      console.log('this.seMin: ', this.seMin);
+      console.log('this.seMax: ', this.seMax);
+      console.log('this.spMin: ', this.spMin);
+      console.log('this.spMax: ', this.spMax);
+
+      const virusCol = this.getCol(data, 'virus');
+
+      let dna;
+      let dnb;
+      let dva;
+      let dvb;
+      let dnaDistr;
+      let dnbDistr;
+      let dvaDistr;
+      let dvbDistr;
+
+
+      this.p = virusCol.data.reduce((withVirus, n) => withVirus + n, 0) / virusCol.data.length;
+
+      [dna, dva, dnb, dvb] = this.getSubsets(data);
+
+      dnaDistr = this.buildDistribution(dna);
+      dvaDistr = this.buildDistribution(dva);
+      dnbDistr = this.buildDistribution(dnb);
+      dvbDistr = this.buildDistribution(dvb);
+
+      const simulation = {
+         dna: this.randomizeFromDistribution(dnaDistr),
+         dva: this.randomizeFromDistribution(dvaDistr),
+         dnb: this.randomizeFromDistribution(dnbDistr),
+         dvb: this.randomizeFromDistribution(dvbDistr),
+      };
+
+      const costCriteriaDAResults = [];
+      const costCriteriaDBResults = [];
+      const pBoundaryDAResults = [];
+      const pBoundaryDBResults = [];
+      const pRange = [];
+
+      simulation.dna.forEach((v, i) => {
+         const calcResults = this.calculate(simulation.dna[i], simulation.dva[i], simulation.dnb[i], simulation.dvb[i]);
+
+         costCriteriaDAResults.push(calcResults.costCriteriaDA);
+         pBoundaryDAResults.push(calcResults.pBoundaryDA);
+         costCriteriaDBResults.push(calcResults.costCriteriaDB);
+         pBoundaryDBResults.push(calcResults.pBoundaryDB);
+         pRange.push(calcResults.pBoundaryDB - calcResults.pBoundaryDA);
+      });
+
+      this.fullCalc = {
+         costCriteriaDB: costCriteriaDBResults,
+         costCriteriaDA: costCriteriaDAResults,
+         pRange,
+         pBoundaryDA: pBoundaryDAResults,
+         pBoundaryDB: pBoundaryDBResults,
+      };
+
+      return this.fullCalc;
+   }
+
    getValidSeSp(): [number, number] {
-      const Se = random.float(0.8, 1);
-      const Sp = random.float(0.8, 1);
+      const Se = random.float(this.seMin, this.seMax);
+      const Sp = random.float(this.spMin, this.spMax);
 
       if ((Se / (1 - Sp)) > 1) {
          return [Se, Sp];

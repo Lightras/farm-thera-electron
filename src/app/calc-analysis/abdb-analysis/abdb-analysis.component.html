@@ -1,5 +1,9 @@
 <div class="content" *ngIf="calcResults">
    <div class="section-row">
+      <app-se-sp-config (seSpChange)="onSeSpChange($event)"></app-se-sp-config>
+   </div>
+
+   <div class="section-row">
       <app-continuous-bar-chart
          [data]="calcResults.costCriteriaDA"
          [bins]="30"

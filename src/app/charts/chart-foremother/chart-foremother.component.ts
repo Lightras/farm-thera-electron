@@ -30,26 +30,7 @@ export class ChartForemotherComponent implements OnInit, OnChanges {
    }
 
    ngOnChanges(changes: SimpleChanges): void {
-      console.log('this.showChart: ', this.showChart);
-      // if (changes.titles && changes.titles && this.chart) {
-      //
-      //    this.cdr.detectChanges();
-      //    this.chart.setTitle({
-      //       text: this.titles.chartTitle
-      //    });
-      //
-      //    this.chart.xAxis[0].update({
-      //       title: {
-      //          text: this.titles.xAxisTitle
-      //       }
-      //    });
-      //
-      //    this.chart.yAxis[0].update({
-      //       title: {
-      //          text: this.titles.yAxisTitle
-      //       }
-      //    });
-      // }
+      this.updateFlag = true;
    }
 
    onChartInstance(chart) {

@@ -28,6 +28,7 @@ import {SimpleAnalysisNormComponent} from './calc-analysis/simple-analysis-norm/
 import {AbAnalysisComponent} from './calc-analysis/ab-analysis/ab-analysis.component';
 import {ContinuousBarChartComponent} from './charts/continuous-bar-chart/continuous-bar-chart-component.component';
 import {AbdbAnalysisComponent} from './calc-analysis/abdb-analysis/abdb-analysis.component';
+import { SeSpConfigComponent } from './calc-analysis/abdb-analysis/se-sp-config/se-sp-config.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
    return new TranslateHttpLoader(http);
@@ -69,7 +70,8 @@ const routes: Routes = [
       SimpleAnalysisNormComponent,
       AbAnalysisComponent,
       ContinuousBarChartComponent,
-      AbdbAnalysisComponent
+      AbdbAnalysisComponent,
+      SeSpConfigComponent
    ],
    imports: [
       BrowserModule,
