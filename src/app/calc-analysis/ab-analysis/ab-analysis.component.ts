@@ -37,7 +37,6 @@ export class AbAnalysisComponent implements OnInit, OnChanges {
    ngOnChanges(changes: SimpleChanges): void {
       if (changes.data && changes.data.currentValue) {
          [this.calc, this.dnaDistr, this.dvaDistr, this.dnbDistr, this.dvbDistr] = this.dataService.getFullCalc(this.data);
-         console.log('this.calc: ', this.calc);
       }
    }
 

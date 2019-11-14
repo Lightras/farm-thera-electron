@@ -2,6 +2,7 @@
    <app-line-chart
       *ngIf="calc"
       [lineData]="[calc.simulatedCohortDistrA, calc.simulatedCohortDistrB]"
+      [dataNames]="['без препарату', 'з препаратом']"
       [cumulative]="true" [normalize]="true"
       [titles]="{xAxisTitle: 'Кількість днів госпіталізації', yAxisTitle: 'Частка пацієнтів'}"
    >

@@ -82,7 +82,6 @@ export class ColumnAdderComponent implements OnInit, OnChanges {
                currentDay.meta.observation.title = this.selectedCol.meta.title;
                currentDay.data = this.selectedCol.data.map(x => parseInt(x, 10));
 
-               console.log('this.indicatorColumnsForAdding: ', this.indicatorColumnsForAdding);
                if (this.indicatorColumnsForAdding.every(col => !!col.data)) {
                   this.showValuesInterpretation = true;
 
@@ -103,10 +102,6 @@ export class ColumnAdderComponent implements OnInit, OnChanges {
             }
          }
       }
-   }
-
-   finishAddingMode() {
-      this.finishAdding.emit();
    }
 
    getNewIndicatorId(): number {

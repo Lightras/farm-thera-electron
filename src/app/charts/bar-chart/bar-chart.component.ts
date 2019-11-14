@@ -21,7 +21,7 @@ export class BarChartComponent extends ChartForemotherComponent implements OnIni
    ) {
       super(chartService, cdr);
 
-      this.barChartOptions = {
+      this.chartOptions = {
          chart: {
             type: 'column'
          },
@@ -43,7 +43,6 @@ export class BarChartComponent extends ChartForemotherComponent implements OnIni
 
    ngOnChanges(changes: SimpleChanges): void {
       if (this.data) {
-         console.log('this.data: ', this.data);
          let barData;
 
          if (!(this.data as BasicChartData)[0].x) {
@@ -58,9 +57,7 @@ export class BarChartComponent extends ChartForemotherComponent implements OnIni
             barData = barData.map(v => ({x: v.x, y: v.y / sum}));
          }
 
-         console.log('this.barChartOptions: ', this.barChartOptions);
-
-         this.barChartOptions.series = [{
+         this.chartOptions.series = [{
             data: barData
          }] as SeriesBarOptions[];
 
@@ -69,7 +66,7 @@ export class BarChartComponent extends ChartForemotherComponent implements OnIni
                cumulativeLineData.push(i ? {x: v.x, y: v.y + cumulativeLineData[i - 1].y} : v);
             });
 
-            this.barChartOptions.yAxis = [
+            this.chartOptions.yAxis = [
                {},
                {
                   opposite: true,
@@ -79,7 +76,7 @@ export class BarChartComponent extends ChartForemotherComponent implements OnIni
                }
             ];
 
-            this.barChartOptions.series.push({
+            this.chartOptions.series.push({
                type: 'line',
                data: cumulativeLineData,
                yAxis: 1,

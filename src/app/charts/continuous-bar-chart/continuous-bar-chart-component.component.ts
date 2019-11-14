@@ -8,7 +8,7 @@ import {ChartForemotherComponent} from '../chart-foremother/chart-foremother.com
 
 @Component({
    selector: 'app-continuous-bar-chart',
-   templateUrl: './continuous-bar-chart-component.component.html',
+   templateUrl: '../chart-foremother/chart-foremother.component.html',
    styleUrls: ['./continuous-bar-chart.component.sass']
 })
 export class ContinuousBarChartComponent extends ChartForemotherComponent implements OnInit, OnChanges {
@@ -19,7 +19,7 @@ export class ContinuousBarChartComponent extends ChartForemotherComponent implem
    @Input() debug: boolean;
    @Input() withCumulativeLine = true;
 
-   barChartOptions: Highcharts.Options;
+   chartOptions: Highcharts.Options;
 
    constructor(
       chartService: ChartsService,
@@ -27,7 +27,7 @@ export class ContinuousBarChartComponent extends ChartForemotherComponent implem
    ) {
       super(chartService, cdr);
 
-      this.barChartOptions = {
+      this.chartOptions = {
          chart: {
             type: 'column'
          },
@@ -46,6 +46,8 @@ export class ContinuousBarChartComponent extends ChartForemotherComponent implem
    }
 
    ngOnChanges(changes: SimpleChanges): void {
+      super.ngOnChanges(changes);
+
       this.showChart = false;
 
       if (this.data && this.bins) {
@@ -61,7 +63,7 @@ export class ContinuousBarChartComponent extends ChartForemotherComponent implem
             barData = barData.filter(v => v.y >= this.threshold);
          }
 
-         this.barChartOptions.series = [{
+         this.chartOptions.series = [{
             data: barData
          }] as SeriesBarOptions[];
 
@@ -71,7 +73,7 @@ export class ContinuousBarChartComponent extends ChartForemotherComponent implem
                cumulativeLineData.push(i ? {x: v.x, y: v.y + cumulativeLineData[i - 1].y} : v);
             });
 
-            this.barChartOptions.yAxis = [
+            this.chartOptions.yAxis = [
                {},
                {
                   opposite: true,
@@ -81,7 +83,7 @@ export class ContinuousBarChartComponent extends ChartForemotherComponent implem
                }
             ];
 
-            this.barChartOptions.series.push({
+            this.chartOptions.series.push({
                type: 'line',
                data: cumulativeLineData,
                yAxis: 1,
@@ -104,11 +106,11 @@ export class ContinuousBarChartComponent extends ChartForemotherComponent implem
       }
 
       if (this.debug) {
-         console.log('dataFiltered: ', dataFiltered);
-         console.log('Середнє: ', Z.mean(dataFiltered));
-         const negativeCount =  dataFiltered.reduce((negCount, v) => v < 0 ? ++negCount : negCount, 0);
-         console.log('negativeCount: ', negativeCount / 10000);
-         console.log('max: ', Z.max(dataFiltered));
+         // console.log('dataFiltered: ', dataFiltered);
+         // console.log('Середнє: ', Z.mean(dataFiltered));
+         // const negativeCount =  dataFiltered.reduce((negCount, v) => v < 0 ? ++negCount : negCount, 0);
+         // console.log('negativeCount: ', negativeCount / 10000);
+         // console.log('max: ', Z.max(dataFiltered));
       }
 
 

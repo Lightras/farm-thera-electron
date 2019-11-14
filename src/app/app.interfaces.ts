@@ -19,7 +19,7 @@ export interface MultiChartData extends Array<any> {
 }
 
 export interface ChartTitles {
-   chartTitle: string;
+   chartTitle?: string;
    xAxisTitle?: string;
    yAxisTitle?: string;
 }

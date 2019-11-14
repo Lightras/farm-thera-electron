@@ -26,6 +26,19 @@
       </div>
    </section>
 
+   <section *ngIf="!noVirusData">
+      <div class="section-header">
+         A/B/DB аналіз
+      </div>
+      <div class="section-body">
+         <div class="section-subtitle">
+            Аналіз доцільності введення додаткової фармакотерапії з попередньою діагностикою
+         </div>
+
+         <app-abdb-analysis></app-abdb-analysis>
+      </div>
+   </section>
+
    <section *ngIf="noVirusData">
       <div class="section-header">
          Простий A/B аналіз

@@ -22,12 +22,12 @@ import {DataService} from './services/data.service';
 import {DataViewMarkupComponent} from './data-view-markup/data-view-markup.component';
 import {NormDayPipe} from './shared/norm-day.pipe';
 import {ChartForemotherComponent} from './charts/chart-foremother/chart-foremother.component';
-import {ContinuousColumnChartComponent} from './charts/continuous-column-chart/continuous-column-chart.component';
 import {SimpleAnalysisComponent} from './calc-analysis/simple-analysis/simple-analysis.component';
 import {BarChartComponent} from './charts/bar-chart/bar-chart.component';
-import { SimpleAnalysisNormComponent } from './calc-analysis/simple-analysis-norm/simple-analysis-norm.component';
-import { AbAnalysisComponent } from './calc-analysis/ab-analysis/ab-analysis.component';
+import {SimpleAnalysisNormComponent} from './calc-analysis/simple-analysis-norm/simple-analysis-norm.component';
+import {AbAnalysisComponent} from './calc-analysis/ab-analysis/ab-analysis.component';
 import {ContinuousBarChartComponent} from './charts/continuous-bar-chart/continuous-bar-chart-component.component';
+import {AbdbAnalysisComponent} from './calc-analysis/abdb-analysis/abdb-analysis.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
    return new TranslateHttpLoader(http);
@@ -64,12 +64,12 @@ const routes: Routes = [
       DataViewMarkupComponent,
       NormDayPipe,
       ChartForemotherComponent,
-      ContinuousColumnChartComponent,
       SimpleAnalysisComponent,
       BarChartComponent,
       SimpleAnalysisNormComponent,
       AbAnalysisComponent,
-      ContinuousBarChartComponent
+      ContinuousBarChartComponent,
+      AbdbAnalysisComponent
    ],
    imports: [
       BrowserModule,

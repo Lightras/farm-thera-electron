@@ -14,7 +14,7 @@ export class ChartForemotherComponent implements OnInit, OnChanges {
    @Input() data: number[] | BasicChartData;
 
    Highcharts: typeof Highcharts;
-   barChartOptions: Highcharts.Options;
+   chartOptions: Highcharts.Options;
    chart: Chart;
    updateFlag: boolean;
    showChart: boolean;
@@ -23,37 +23,54 @@ export class ChartForemotherComponent implements OnInit, OnChanges {
       private chartService: ChartsService,
       private cdr: ChangeDetectorRef
    ) {
-      console.log('super constructon');
-      console.log('chartService: ', chartService);
-      console.log('cdr: ', cdr);
       this.Highcharts = chartService.Highcharts;
    }
 
    ngOnInit() {
-      console.log('super onInit');
    }
 
    ngOnChanges(changes: SimpleChanges): void {
-      console.log('super onChanges');
+      console.log('this.showChart: ', this.showChart);
+      // if (changes.titles && changes.titles && this.chart) {
+      //
+      //    this.cdr.detectChanges();
+      //    this.chart.setTitle({
+      //       text: this.titles.chartTitle
+      //    });
+      //
+      //    this.chart.xAxis[0].update({
+      //       title: {
+      //          text: this.titles.xAxisTitle
+      //       }
+      //    });
+      //
+      //    this.chart.yAxis[0].update({
+      //       title: {
+      //          text: this.titles.yAxisTitle
+      //       }
+      //    });
+      // }
+   }
 
-      if (changes.titles && changes.titles) {
-         this.cdr.detectChanges();
-         this.chart.setTitle({
-            text: this.titles.chartTitle
-         });
+   onChartInstance(chart) {
+      this.chart = chart;
+      this.cdr.detectChanges();
 
-         this.chart.xAxis[0].update({
-            title: {
-               text: this.titles.xAxisTitle
-            }
-         });
+      this.chart.setTitle({
+         text: this.titles.chartTitle
+      });
 
-         this.chart.yAxis[0].update({
-            title: {
-               text: this.titles.yAxisTitle
-            }
-         });
-      }
+      this.chart.xAxis[0].update({
+         title: {
+            text: this.titles.xAxisTitle
+         }
+      });
+
+      this.chart.yAxis[0].update({
+         title: {
+            text: this.titles.yAxisTitle
+         }
+      });
    }
 
 }

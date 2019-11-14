@@ -1,46 +1,43 @@
 import {ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {ChartTitles} from '../../app.interfaces';
 import * as Highcharts from 'highcharts';
-import {Chart, SeriesBarOptions} from 'highcharts';
+import {SeriesBarOptions} from 'highcharts';
 import {ChartsService} from '../charts.service';
 import * as Z from 'zebras';
 import {DataService} from '../../services/data.service';
+import {ChartForemotherComponent} from '../chart-foremother/chart-foremother.component';
 
 @Component({
   selector: 'app-line-chart',
-  templateUrl: './line-chart.component.html',
+  templateUrl: '../chart-foremother/chart-foremother.component.html',
   styleUrls: ['./line-chart.component.sass']
 })
-export class LineChartComponent implements OnInit, OnChanges {
+export class LineChartComponent extends ChartForemotherComponent implements OnInit, OnChanges {
 
    @Input() lineData: number[][];
-   @Input() titles: ChartTitles;
+   @Input() dataNames: string[];
    @Input() cumulative = false;
    @Input() skipZeros = false;
    @Input() normalize: boolean;
 
-   Highcharts: typeof Highcharts;
-   lineChartOptions: Highcharts.Options;
-   chart: Chart;
-   updateFlag: boolean;
-   showChart: boolean;
+   @Input() width: number;
+   @Input() height: number;
+
+   chartOptions: Highcharts.Options;
 
    constructor(
-      private chartService: ChartsService,
-      private cdr: ChangeDetectorRef,
+      chartService: ChartsService,
+      cdr: ChangeDetectorRef,
       private dataService: DataService
    ) {
-      this.Highcharts = chartService.Highcharts;
-      this.lineChartOptions = {
+      super(chartService, cdr);
+
+      this.chartOptions = {
          chart: {
             type: 'spline',
-            width: 600,
-            height: 400
          },
 
          legend: {
             useHTML: true,
-            width: 600,
             align: 'center'
          },
 
@@ -54,10 +51,17 @@ export class LineChartComponent implements OnInit, OnChanges {
    }
 
    ngOnChanges(changes: SimpleChanges): void {
-      if (changes.lineData && changes.lineData.currentValue) {
-         this.lineChartOptions.series = [] as SeriesBarOptions[];
+      this.showChart = false;
+      super.ngOnChanges(changes);
 
-         console.log('this.lineData: ', this.lineData);
+      if (this.width && this.height) {
+         this.chartOptions.chart.width = this.width;
+         this.chartOptions.chart.height = this.height;
+         this.updateFlag = true;
+      }
+
+      if (changes.lineData && changes.lineData.currentValue) {
+         this.chartOptions.series = [] as SeriesBarOptions[];
 
          this.lineData.forEach((data, i) => {
             const lineData = this.cumulative ? Z.cumulative(Z.sum, data) : data;
@@ -79,11 +83,14 @@ export class LineChartComponent implements OnInit, OnChanges {
                lineSeriesData = this.dataService.normalizeXY(lineSeriesData, total);
             }
 
-            this.lineChartOptions.series.push({
-               data: lineSeriesData, zIndex: !i ? 2 : 0} as SeriesBarOptions);
-            this.showChart = true;
-         });
+            this.chartOptions.series.push({
+               data: lineSeriesData, zIndex: !i ? 2 : 0,
+               name: this.dataNames ? this.dataNames[i] : null
+            } as SeriesBarOptions);
+            });
       }
+
+      this.showChart = true;
    }
 
 }

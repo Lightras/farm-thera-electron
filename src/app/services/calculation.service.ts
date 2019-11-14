@@ -42,10 +42,6 @@ export class CalculationService {
          residualNorm -= dN;
 
          if (i > 14 && !normDataFixed && residualNorm > residualDays) {
-            console.log('normDataFixed: ', normDataFixed);
-            console.log('residualNorm: ', residualNorm);
-            console.log('residualDays: ', residualDays);
-
             const diff = residualNorm - residualDays;
             residualNorm = residualDays;
             this.daysVsNorm.byNorm.simulatedCohortDistrTotal[i] += diff;
@@ -139,10 +135,6 @@ export class CalculationService {
          residualNorm -= dN;
 
          if (i > 14 && !normDataFixed && residualNorm > residualDays) {
-            console.log('normDataFixed: ', normDataFixed);
-            console.log('residualNorm: ', residualNorm);
-            console.log('residualDays: ', residualDays);
-
             const diff = residualNorm - residualDays;
             residualNorm = residualDays;
             daysVsNorm.byNorm.simulatedCohortDistrTotal[i] += diff;
@@ -248,9 +240,6 @@ export class CalculationService {
 
       if (type === 'norm') {
          [calcResults.simulatedCohortDistrA, calcResults.simulatedCohortA] = this.normSimulation(calcResults.daData, calcResults.da);
-         console.log('calcResults.daData: ', calcResults.daData);
-         console.log('calcResults.da: ', calcResults.da);
-         console.log('calcResults.simulatedCohortA: ', calcResults.simulatedCohortA);
          [calcResults.simulatedCohortDistrB, calcResults.simulatedCohortB] = this.normSimulation(calcResults.dbData, calcResults.db);
          [calcResults.simulatedCohortDistrTotal, calcResults.simulatedCohortTotal] = this.normSimulation(data, normDays);
       } else {

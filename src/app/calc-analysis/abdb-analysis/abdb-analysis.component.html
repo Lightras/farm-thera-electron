@@ -1,0 +1,65 @@
+<div class="content" *ngIf="calcResults">
+   <div class="section-row">
+      <app-continuous-bar-chart
+         [data]="calcResults.costCriteriaDA"
+         [bins]="30"
+         [normalized]="true"
+         [threshold]="0.001"
+         [titles]="{
+      xAxisTitle: 'Відношення витрат на додаткову фармакотерапію до витрат надобу базисної фармакотерапії',
+      yAxisTitle: 'Ймовірність'
+   }"
+      ></app-continuous-bar-chart>
+
+      <app-continuous-bar-chart
+         [data]="calcResults.costCriteriaDB"
+         [bins]="30"
+         [normalized]="true"
+         [threshold]="0.001"
+         [titles]="{
+         xAxisTitle: 'Відношення витрат на додаткову фармакотерапію до витрат на добу базисної фармакотерапії',
+         yAxisTitle: 'Ймовірність'
+      }"
+      ></app-continuous-bar-chart>
+   </div>
+
+   <div class="section-row">
+      <app-continuous-bar-chart
+         [data]="calcResults.pBoundaryDA"
+         [bins]="100"
+         [normalized]="true"
+         [cutPercent]="10"
+         [threshold]="0.002"
+         [titles]="{
+         xAxisTitle: 'Гранична розповсюдженість вірусної інфекції',
+         yAxisTitle: 'Ймовірність'
+      }"
+      ></app-continuous-bar-chart>
+
+      <app-continuous-bar-chart
+         [data]="calcResults.pBoundaryDB"
+         [bins]="100"
+         [normalized]="true"
+         [cutPercent]="10"
+         [threshold]="0.002"
+         [titles]="{
+         xAxisTitle: 'Гранична розповсюдженість вірусної інфекції',
+         yAxisTitle: 'Ймовірність'
+      }"
+      ></app-continuous-bar-chart>
+   </div>
+
+   <div class="section-row">
+      <app-continuous-bar-chart
+         [data]="calcResults.pRange"
+         [bins]="100"
+         [normalized]="true"
+         [cutPercent]="10"
+         [threshold]="0.002"
+         [titles]="{
+         xAxisTitle: 'Відстань між граничними значеннями розповсюдженості вірусної інфекції',
+         yAxisTitle: 'Ймовірність'
+      }"
+      ></app-continuous-bar-chart>
+   </div>
+</div>

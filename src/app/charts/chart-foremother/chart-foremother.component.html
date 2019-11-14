@@ -1,6 +1,6 @@
 <highcharts-chart *ngIf="showChart"
                   [(update)]="updateFlag"
                   [Highcharts]="Highcharts"
-                  [options]="barChartOptions"
-                  (chartInstance)="chart = $event"
+                  [options]="chartOptions"
+                  (chartInstance)="onChartInstance($event)"
 ></highcharts-chart>

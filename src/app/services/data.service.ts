@@ -12,6 +12,7 @@ export class DataService {
    titles: string[];
    workData: Column[] = [];
    normDays: number[];
+   fullCalc: any;
 
    sampleSize = 1000;
    p: number;
@@ -73,14 +74,18 @@ export class DataService {
          pRange.push(calcResults.pBoundaryDB - calcResults.pBoundaryDA);
       });
 
+      this.fullCalc = {
+         costCriteriaB: costCriteriaBResults,
+         costCriteriaDB: costCriteriaDBResults,
+         costCriteriaDA: costCriteriaDAResults,
+         pRange,
+         pBoundaryDA: pBoundaryDAResults,
+         pBoundaryDB: pBoundaryDBResults,
+         pBoundaryB: pBoundaryBResults,
+      };
+
       return [
-         {
-            costCriteriaB: costCriteriaBResults,
-            costCriteriaDB: costCriteriaDBResults,
-            costCriteriaDA: costCriteriaDAResults,
-            pRange,
-            pBoundaryB: pBoundaryBResults,
-         },
+         this.fullCalc,
          dnaDistr,
          dvaDistr,
          dnbDistr,
