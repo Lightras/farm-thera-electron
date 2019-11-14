@@ -25,6 +25,9 @@ import {ChartForemotherComponent} from './charts/chart-foremother/chart-foremoth
 import {ContinuousColumnChartComponent} from './charts/continuous-column-chart/continuous-column-chart.component';
 import {SimpleAnalysisComponent} from './calc-analysis/simple-analysis/simple-analysis.component';
 import {BarChartComponent} from './charts/bar-chart/bar-chart.component';
+import { SimpleAnalysisNormComponent } from './calc-analysis/simple-analysis-norm/simple-analysis-norm.component';
+import { AbAnalysisComponent } from './calc-analysis/ab-analysis/ab-analysis.component';
+import {ContinuousBarChartComponent} from './charts/continuous-bar-chart/continuous-bar-chart-component.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
    return new TranslateHttpLoader(http);
@@ -63,7 +66,10 @@ const routes: Routes = [
       ChartForemotherComponent,
       ContinuousColumnChartComponent,
       SimpleAnalysisComponent,
-      BarChartComponent
+      BarChartComponent,
+      SimpleAnalysisNormComponent,
+      AbAnalysisComponent,
+      ContinuousBarChartComponent
    ],
    imports: [
       BrowserModule,

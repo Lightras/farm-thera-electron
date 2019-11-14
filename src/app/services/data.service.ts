@@ -14,12 +14,127 @@ export class DataService {
    normDays: number[];
 
    sampleSize = 1000;
+   p: number;
+   Se = 0.8;
+   Sp = 0.9 ;
 
    constructor() { }
 
    getCol(colSet: Column[], colType: ColAddMode): Column {
       return colSet.find(col => col.meta.type === colType);
    }
+
+   getFullCalc(data: Column[]) {
+      const virusCol = this.getCol(data, 'virus');
+
+      let dna;
+      let dnb;
+      let dva;
+      let dvb;
+      let dnaDistr;
+      let dnbDistr;
+      let dvaDistr;
+      let dvbDistr;
+
+
+      this.p = virusCol.data.reduce((withVirus, n) => withVirus + n, 0) / virusCol.data.length;
+
+      [dna, dva, dnb, dvb] = this.getSubsets(data);
+
+      dnaDistr = this.buildDistribution(dna);
+      dvaDistr = this.buildDistribution(dva);
+      dnbDistr = this.buildDistribution(dnb);
+      dvbDistr = this.buildDistribution(dvb);
+
+      const simulation = {
+         dna: this.randomizeFromDistribution(dnaDistr),
+         dva: this.randomizeFromDistribution(dvaDistr),
+         dnb: this.randomizeFromDistribution(dnbDistr),
+         dvb: this.randomizeFromDistribution(dvbDistr),
+      };
+
+      const costCriteriaBResults = [];
+      const costCriteriaDAResults = [];
+      const costCriteriaDBResults = [];
+      const pBoundaryBResults = [];
+      const pBoundaryDAResults = [];
+      const pBoundaryDBResults = [];
+      const pRange = [];
+
+      simulation.dna.forEach((v, i) => {
+         const calcResults = this.calculate(simulation.dna[i], simulation.dva[i], simulation.dnb[i], simulation.dvb[i]);
+
+         costCriteriaBResults.push(calcResults.costCriteriaB);
+         pBoundaryBResults.push(calcResults.pBoundaryB);
+         costCriteriaDAResults.push(calcResults.costCriteriaDA);
+         pBoundaryDAResults.push(calcResults.pBoundaryDA);
+         costCriteriaDBResults.push(calcResults.costCriteriaDB);
+         pBoundaryDBResults.push(calcResults.pBoundaryDB);
+         pRange.push(calcResults.pBoundaryDB - calcResults.pBoundaryDA);
+      });
+
+      return [
+         {
+            costCriteriaB: costCriteriaBResults,
+            costCriteriaDB: costCriteriaDBResults,
+            costCriteriaDA: costCriteriaDAResults,
+            pRange,
+            pBoundaryB: pBoundaryBResults,
+         },
+         dnaDistr,
+         dvaDistr,
+         dnbDistr,
+         dvbDistr
+      ];
+   }
+
+   getValidSeSp(): [number, number] {
+      const Se = random.float(0.8, 1);
+      const Sp = random.float(0.8, 1);
+
+      if ((Se / (1 - Sp)) > 1) {
+         return [Se, Sp];
+      } else {
+         return this.getValidSeSp();
+      }
+   }
+
+   calculate(dna: number, dva: number, dnb: number, dvb: number) {
+      [this.Se, this.Sp] = this.getValidSeSp();
+
+      const D_A = this.p * dva + (1 - this.p) * dna;
+      const D_B = this.p * dvb + (1 - this.p) * dnb;
+      const D_DB = this.p * (this.Se * dvb + (1 - this.Se) * dva) + (1 - this.p) * (this.Sp * dna + (1 - this.Sp) * dnb);
+
+      const CD_to_C = random.float(0, 10);
+      const CT_to_C = random.float(0, 10);
+
+
+      const costCriteriaB = D_A - D_B;
+      let pBoundaryB = (dna - dnb - CT_to_C) / (dvb - dnb + dna - dva);
+
+      const costCriteriaDA = (D_A - D_DB - CD_to_C) / (this.p * this.Se + (1 - this.p) * (1 - this.Sp));
+      const pBoundaryDA = ((1 - this.Sp) * (dna - dnb) - ((1 - this.Sp) * CT_to_C + CD_to_C)) /
+         (this.Se * (dvb - dva) - (1 - this.Sp) * (dnb - dna) + (this.Se + this.Sp - 1) * CT_to_C);
+
+      const costCriteriaDB = (D_B - D_DB - CD_to_C) / (this.p * this.Se + (1 - this.p) * (1 - this.Sp) - 1);
+      const pBoundaryDB = (this.Sp * (dna - dnb) + CD_to_C - this.Sp * CT_to_C) /
+         ((1 - this.Se) * (dvb - dva) - this.Sp * (dnb - dna) + (1 - this.Sp - this.Se) * CT_to_C);
+
+      if (!isFinite(pBoundaryB)) {
+         pBoundaryB = NaN;
+      }
+
+      return {
+         costCriteriaB,
+         costCriteriaDA,
+         costCriteriaDB,
+         pBoundaryB,
+         pBoundaryDA,
+         pBoundaryDB
+      };
+   }
+
 
    getSubSetsTherapy(workData: Column[], normDays?: number[]) {
       const da = [];
@@ -76,6 +191,57 @@ export class DataService {
       const distributionNormalized = distribution.map(x => x / max);
 
       return isNormalized ? distributionNormalized : distribution;
+   }
+
+   getSubsets(data: Column[]): number[][] {
+      const dva: number[] = [];
+      const dna: number[] = [];
+      const dvb: number[] = [];
+      const dnb: number[] = [];
+
+      if (data) {
+         let daysColData;
+         let virusColData;
+         let therapyColData;
+
+         data.forEach(col => {
+            const colType = col.meta.type;
+
+            if (colType === 'days') {
+               daysColData = col.data;
+            } else if (colType === 'virus') {
+               virusColData = col.data;
+            } else if (colType === 'therapy') {
+               therapyColData = col.data;
+            }
+         });
+
+         daysColData.forEach((v, i) => {
+            switch ('' + virusColData[i] + therapyColData[i]) {
+               case '00': {
+                  dna.push(v);
+                  break;
+               }
+
+               case '01': {
+                  dnb.push(v);
+                  break;
+               }
+
+               case '10': {
+                  dva.push(v);
+                  break;
+               }
+
+               case '11': {
+                  dvb.push(v);
+                  break;
+               }
+            }
+         });
+
+         return [dna, dva, dnb, dvb];
+      }
    }
 
    randomizeFromDistribution(distr: number[], isCumulative?: boolean): number[] {

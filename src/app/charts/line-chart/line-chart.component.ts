@@ -57,6 +57,8 @@ export class LineChartComponent implements OnInit, OnChanges {
       if (changes.lineData && changes.lineData.currentValue) {
          this.lineChartOptions.series = [] as SeriesBarOptions[];
 
+         console.log('this.lineData: ', this.lineData);
+
          this.lineData.forEach((data, i) => {
             const lineData = this.cumulative ? Z.cumulative(Z.sum, data) : data;
 

@@ -1,0 +1,35 @@
+<div class="content">
+   <app-line-chart
+      *ngIf="calc"
+      [lineData]="[dnaDistr, dvaDistr, dnbDistr, dvbDistr]"
+      [skipZeros]="true"
+      [normalize]="true"
+      [titles]="{xAxisTitle: 'Кількість днів госпіталізації', yAxisTitle: 'Частка'}"
+   ></app-line-chart>
+
+   <app-continuous-bar-chart
+      [data]="calc.costCriteriaB"
+      [bins]="30"
+      [normalized]="true"
+      [threshold]="0.001"
+      [debug]="true"
+      [titles]="{
+      xAxisTitle: 'Відношення витрат на додаткову фармакотерапію до витрат на добу базисної фармакотерапії',
+      yAxisTitle: 'Ймовірність',
+      chartTitle: 'CT/C B'
+   }"
+   ></app-continuous-bar-chart>
+
+   <app-continuous-bar-chart
+      [data]="calc.pBoundaryB"
+      [bins]="100"
+      [normalized]="true"
+      [threshold]="0.003"
+      [debug]="true"
+      [titles]="{
+      chartTitle: 'p boundary B',
+      xAxisTitle: 'Гранична розповсюдженість вірусної інфекції',
+      yAxisTitle: 'Ймовірність'
+   }"
+   ></app-continuous-bar-chart>
+</div>

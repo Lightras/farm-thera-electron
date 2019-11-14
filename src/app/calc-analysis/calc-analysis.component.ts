@@ -15,6 +15,7 @@ export class CalcAnalysisComponent implements OnInit {
    normConfig: any[] = [];
    isWithNormConfig: boolean;
    normDays: number[];
+   noVirusData = true;
 
    constructor(
       private dataService: DataService,
@@ -25,12 +26,16 @@ export class CalcAnalysisComponent implements OnInit {
    }
 
    ngOnInit() {
+      // this.mockService.getMockData('RVI_novorozhdennykh').subscribe(d => {
       this.mockService.getMockData('Nehospit_pnevmonii').subscribe(d => {
          this.workData = d;
          this.normConfig = [];
 
          this.workData.forEach(col => {
-            if (col.meta.type === 'indicator') {
+            if (col.meta.type === 'virus') {
+               this.noVirusData = false;
+
+            } else if (col.meta.type === 'indicator') {
                this.isWithNormConfig = true;
 
                if (!this.normConfig.some(indicator => indicator.id === col.meta.observation.id)) {

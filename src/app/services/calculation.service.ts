@@ -5,13 +5,57 @@ import {CalcResults2, Column} from '../app.interfaces';
 import {DataService} from './data.service';
 
 @Injectable({
-  providedIn: 'root'
+   providedIn: 'root'
 })
 export class CalculationService {
+   daysVsNorm = {
+      byDays: {
+         simulatedCohortDistrTotal: null
+      },
+      byNorm: {
+         simulatedCohortDistrTotal: null
+      }
+   };
 
-  constructor(
-     private dataService: DataService
-  ) { }
+   constructor(
+      private dataService: DataService
+   ) { }
+
+   fixNormSimulation() {
+      let residualDays = 1000;
+      let residualNorm = 1000;
+      let dD;
+      let dN;
+      let normDataFixed;
+      let humanDaysDays = 0;
+      let humanDaysNorm = 0;
+
+      this.daysVsNorm.byNorm.simulatedCohortDistrTotal.forEach((v, i) => {
+         if (normDataFixed) {
+            this.daysVsNorm.byNorm.simulatedCohortDistrTotal[i] = this.daysVsNorm.byDays.simulatedCohortDistrTotal[i];
+         }
+
+         dD = this.daysVsNorm.byDays.simulatedCohortDistrTotal[i];
+         dN = this.daysVsNorm.byNorm.simulatedCohortDistrTotal[i];
+
+         residualDays -= dD;
+         residualNorm -= dN;
+
+         if (i > 14 && !normDataFixed && residualNorm > residualDays) {
+            console.log('normDataFixed: ', normDataFixed);
+            console.log('residualNorm: ', residualNorm);
+            console.log('residualDays: ', residualDays);
+
+            const diff = residualNorm - residualDays;
+            residualNorm = residualDays;
+            this.daysVsNorm.byNorm.simulatedCohortDistrTotal[i] += diff;
+            normDataFixed = true;
+         }
+
+         humanDaysDays += residualDays;
+         humanDaysNorm += residualNorm;
+      });
+   }
 
    randomizeFromDistribution(distr: number[], N: number, isCumulative?: boolean): number[] {
       const rand = [];
@@ -70,7 +114,7 @@ export class CalculationService {
    }
 
    performCalc(workData, normDays) {
-      const normCalcResults = {
+      const daysVsNorm = {
          byDays: this.getCalcResults(workData, normDays, 'days'),
          byNorm: this.getCalcResults(workData, normDays, 'norm'),
       };
@@ -83,13 +127,13 @@ export class CalculationService {
       let humanDaysDays = 0;
       let humanDaysNorm = 0;
 
-      normCalcResults.byNorm.simulatedCohortDistrTotal.forEach((v, i) => {
+      daysVsNorm.byNorm.simulatedCohortDistrTotal.forEach((v, i) => {
          if (normDataFixed) {
-            normCalcResults.byNorm.simulatedCohortDistrTotal[i] = normCalcResults.byDays.simulatedCohortDistrTotal[i];
+            daysVsNorm.byNorm.simulatedCohortDistrTotal[i] = daysVsNorm.byDays.simulatedCohortDistrTotal[i];
          }
 
-         dD = normCalcResults.byDays.simulatedCohortDistrTotal[i];
-         dN = normCalcResults.byNorm.simulatedCohortDistrTotal[i];
+         dD = daysVsNorm.byDays.simulatedCohortDistrTotal[i];
+         dN = daysVsNorm.byNorm.simulatedCohortDistrTotal[i];
 
          residualDays -= dD;
          residualNorm -= dN;
@@ -101,7 +145,7 @@ export class CalculationService {
 
             const diff = residualNorm - residualDays;
             residualNorm = residualDays;
-            normCalcResults.byNorm.simulatedCohortDistrTotal[i] += diff;
+            daysVsNorm.byNorm.simulatedCohortDistrTotal[i] += diff;
             normDataFixed = true;
          }
 

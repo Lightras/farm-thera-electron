@@ -13,4 +13,11 @@
       [cumulative]="false" [normalized]="true" [withCumulativeLine]="true"
       [titles]="{xAxisTitle: 'Відношення витрат на додаткову фармакотерапію до витрат на добу базисної фармакотерапії', yAxisTitle: 'Ймовірність'}"
    ></app-bar-chart>
+
+   <app-line-chart
+      [lineData]="[calcService.daysVsNorm.byNorm.simulatedCohortDistrTotal, calcService.daysVsNorm.byDays.simulatedCohortDistrTotal]"
+      [cumulative]="true" [normalize]="true"
+      [titles]="{xAxisTitle: 'Кількість днів госпіталізації', yAxisTitle: 'Частка пацієнтів'}"
+   >
+   </app-line-chart>
 </div>
