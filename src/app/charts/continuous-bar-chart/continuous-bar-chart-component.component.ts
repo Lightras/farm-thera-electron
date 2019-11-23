@@ -46,13 +46,9 @@ export class ContinuousBarChartComponent extends ChartForemotherComponent implem
    }
 
    ngOnChanges(changes: SimpleChanges): void {
-      console.log('calcresultschange');
       super.ngOnChanges(changes);
 
       this.showChart = false;
-      if (changes.data) {
-         console.log('changes.data: ', changes.data);
-      }
 
       if (this.data && this.bins) {
          let barData = this.convertData(changes.data.currentValue);
@@ -109,13 +105,11 @@ export class ContinuousBarChartComponent extends ChartForemotherComponent implem
          dataFiltered = dataFiltered.filter(v => v < 12 && v > -12);
       }
 
-      if (this.debug) {
-         // console.log('dataFiltered: ', dataFiltered);
-         // console.log('Середнє: ', Z.mean(dataFiltered));
-         // const negativeCount =  dataFiltered.reduce((negCount, v) => v < 0 ? ++negCount : negCount, 0);
-         // console.log('negativeCount: ', negativeCount / 10000);
-         // console.log('max: ', Z.max(dataFiltered));
-      }
+      // if (this.debug) {
+      console.log('Середнє: ', Z.mean(dataFiltered));
+      const negativeCount =  dataFiltered.reduce((negCount, v) => v < 0 ? ++negCount : negCount, 0);
+      console.log('negativeCount: ', negativeCount / 1000);
+      // }
 
 
       const min = Math.min(...dataFiltered);

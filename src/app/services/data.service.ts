@@ -83,11 +83,6 @@ export class DataService {
    }
 
    calcABDB(data: Column[]) {
-      console.log('this.seMin: ', this.seMin);
-      console.log('this.seMax: ', this.seMax);
-      console.log('this.spMin: ', this.spMin);
-      console.log('this.spMax: ', this.spMax);
-
       const virusCol = this.getCol(data, 'virus');
 
       let dna;

@@ -27,8 +27,6 @@ export class AbdbAnalysisComponent implements OnInit {
    }
 
    onSeSpChange(seSpConfig) {
-      console.log('seSpConfig: ', seSpConfig);
-
       ['seMin', 'seMax', 'spMin', 'spMax'].forEach(v => {
          this.dataService[v] = seSpConfig[v];
       });
