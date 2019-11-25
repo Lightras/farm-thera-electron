@@ -22,8 +22,9 @@
          [data]="calc.costCriteriaB"
          [bins]="30"
          [normalized]="true"
-         [threshold]="0.001"
+         [threshold]="0.002"
          [debug]="true"
+         [realityBounds]="[0]"
          [titles]="{
       xAxisTitle: 'Відношення витрат на додаткову фармакотерапію до витрат на добу базисної фармакотерапії',
       yAxisTitle: 'Ймовірність'
@@ -32,14 +33,15 @@
 
       <app-continuous-bar-chart
          [data]="calc.pBoundaryB"
-         [bins]="100"
+         [bins]="70"
          [normalized]="true"
-         [threshold]="0.003"
+         [threshold]="0.001"
          [debug]="true"
+         [realityBounds]="[0, 1]"
          [titles]="{
-      xAxisTitle: 'Гранична розповсюдженість вірусної інфекції',
-      yAxisTitle: 'Ймовірність'
-   }"
+            xAxisTitle: 'Граничне значення поширеності вірусної інфекції',
+            yAxisTitle: 'Ймовірність'
+         }"
       ></app-continuous-bar-chart>
    </div>
 </div>

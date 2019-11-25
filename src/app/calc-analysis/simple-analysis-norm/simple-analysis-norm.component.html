@@ -11,6 +11,7 @@
    <app-bar-chart
       *ngIf="calc"
       [data]="calc.criteriaDistrB"
+      [realityBounds]="[0]"
       [cumulative]="false" [normalized]="true" [withCumulativeLine]="true"
       [titles]="{xAxisTitle: 'Відношення витрат на додаткову фармакотерапію до витрат на добу базисної фармакотерапії', yAxisTitle: 'Ймовірність'}"
    ></app-bar-chart>

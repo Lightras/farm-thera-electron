@@ -6,8 +6,9 @@
    <div class="section-row">
       <app-continuous-bar-chart
          [data]="calcResults.costCriteriaDA"
-         [bins]="30"
+         [bins]="50"
          [normalized]="true"
+         [realityBounds]="[0]"
          [threshold]="0.001"
          [titles]="{
       xAxisTitle: 'Відношення витрат на додаткову фармакотерапію до витрат надобу базисної фармакотерапії',
@@ -17,8 +18,9 @@
 
       <app-continuous-bar-chart
          [data]="calcResults.costCriteriaDB"
-         [bins]="30"
+         [bins]="50"
          [normalized]="true"
+         [realityBounds]="[0]"
          [threshold]="0.001"
          [titles]="{
          xAxisTitle: 'Відношення витрат на додаткову фармакотерапію до витрат на добу базисної фармакотерапії',
@@ -31,11 +33,12 @@
       <app-continuous-bar-chart
          [data]="calcResults.pBoundaryDA"
          [bins]="100"
+         [realityBounds]="[0, 1]"
          [normalized]="true"
          [cutPercent]="10"
          [threshold]="0.002"
          [titles]="{
-         xAxisTitle: 'Гранична розповсюдженість вірусної інфекції',
+         xAxisTitle: 'Граничне значення поширеності вірусної інфекції',
          yAxisTitle: 'Ймовірність'
       }"
       ></app-continuous-bar-chart>
@@ -43,11 +46,12 @@
       <app-continuous-bar-chart
          [data]="calcResults.pBoundaryDB"
          [bins]="100"
+         [realityBounds]="[0, 1]"
          [normalized]="true"
          [cutPercent]="10"
          [threshold]="0.002"
          [titles]="{
-         xAxisTitle: 'Гранична розповсюдженість вірусної інфекції',
+         xAxisTitle: 'Граничне значення поширеності вірусної інфекції',
          yAxisTitle: 'Ймовірність'
       }"
       ></app-continuous-bar-chart>
@@ -58,10 +62,11 @@
          [data]="calcResults.pRange"
          [bins]="100"
          [normalized]="true"
+         [realityBounds]="[0, 1]"
          [cutPercent]="10"
          [threshold]="0.002"
          [titles]="{
-         xAxisTitle: 'Відстань між граничними значеннями розповсюдженості вірусної інфекції',
+         xAxisTitle: 'Відстань між граничними значеннями поширеності вірусної інфекції',
          yAxisTitle: 'Ймовірність'
       }"
       ></app-continuous-bar-chart>

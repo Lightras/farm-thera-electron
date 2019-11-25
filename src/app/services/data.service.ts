@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ColAddMode, Column} from '../app.interfaces';
 import * as deepcopy from 'deepcopy';
 import * as Z from 'zebras';
@@ -14,7 +14,7 @@ export class DataService {
    normDays: number[];
    fullCalc: any;
 
-   sampleSize = 1000;
+   sampleSize = 10000;
    p: number;
    Se = 0.8;
    Sp = 0.9 ;

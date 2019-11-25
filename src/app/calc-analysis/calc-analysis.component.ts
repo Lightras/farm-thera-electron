@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DataService} from '../services/data.service';
 import {Column} from '../app.interfaces';
 import {MockService} from '../services/mock.service';
@@ -26,8 +26,9 @@ export class CalcAnalysisComponent implements OnInit {
    }
 
    ngOnInit() {
-      this.mockService.getMockData('RVI_novorozhdennykh').subscribe(d => {
-      // this.mockService.getMockData('Nehospit_pnevmonii').subscribe(d => {
+      // this.mockService.getMockData('RVI_novorozhdennykh').subscribe(d => {
+      // this.mockService.getMockData('RVI_Indonesia_2').subscribe(d => {
+      this.mockService.getMockData('Nehospit_pnevmonii').subscribe(d => {
          this.workData = d;
          this.normConfig = [];
 
