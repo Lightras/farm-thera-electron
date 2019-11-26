@@ -1,6 +1,10 @@
 {
    "name": "farm-thera",
    "version": "0.0.0",
+   "author": {
+      "name": "Rabota Alexander",
+      "email": "o.v.rabota@gmail.com"
+   },
    "main": "main.ts",
    "scripts": {
       "ng": "ng",
@@ -10,7 +14,35 @@
       "test": "ng test",
       "lint": "ng lint",
       "e2e": "ng e2e",
-      "electron": "electron ."
+      "electron": "electron .",
+      "pack-exe": "build"
+   },
+   "build": {
+      "appId": "farm-thera",
+      "dmg": {
+         "contents": [
+            {
+               "x": 110,
+               "y": 150
+            },
+            {
+               "x": 240,
+               "y": 150,
+               "type": "link",
+               "path": "/Applications"
+            }
+         ]
+      },
+      "linux": {
+         "target": [
+            "AppImage",
+            "deb"
+         ]
+      },
+      "win": {
+         "target": "squirrel",
+         "icon": "build/icon.ico"
+      }
    },
    "private": true,
    "dependencies": {
@@ -25,7 +57,6 @@
       "@ngx-translate/core": "^11.0.1",
       "@ngx-translate/http-loader": "^4.0.0",
       "deepcopy": "^2.0.0",
-      "electron": "^6.0.12",
       "highcharts": "^7.1.3",
       "highcharts-angular": "^2.4.0",
       "highcharts-grouped-categories": "^1.1.3",
@@ -45,10 +76,12 @@
       "@angular/cli": "~8.1.2",
       "@angular/compiler-cli": "~8.1.2",
       "@angular/language-service": "~8.1.2",
-      "@types/node": "~8.9.4",
       "@types/jasmine": "~3.3.8",
       "@types/jasminewd2": "~2.0.3",
+      "@types/node": "~8.9.4",
       "codelyzer": "^5.0.0",
+      "electron": "^6.0.12",
+      "electron-builder": "^21.2.0",
       "jasmine-core": "~3.4.0",
       "jasmine-spec-reporter": "~4.2.1",
       "karma": "~4.1.0",

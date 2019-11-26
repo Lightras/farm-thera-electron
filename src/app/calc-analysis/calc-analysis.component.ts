@@ -27,8 +27,8 @@ export class CalcAnalysisComponent implements OnInit {
 
    ngOnInit() {
       // this.mockService.getMockData('RVI_novorozhdennykh').subscribe(d => {
-      // this.mockService.getMockData('RVI_Indonesia_2').subscribe(d => {
-      this.mockService.getMockData('Nehospit_pnevmonii').subscribe(d => {
+      this.mockService.getMockData('RVI_Indonesia_1').subscribe(d => {
+      // this.mockService.getMockData('Nehospit_pnevmonii').subscribe(d => {
          this.workData = d;
          this.normConfig = [];
 
