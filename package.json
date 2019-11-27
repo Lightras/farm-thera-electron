@@ -33,6 +33,11 @@
             }
          ]
       },
+      "files": [
+         "*.ts",
+         "dist/farm-thera",
+         "node_modules"
+      ],
       "linux": {
          "target": [
             "AppImage",
@@ -40,7 +45,15 @@
          ]
       },
       "win": {
-         "target": "squirrel",
+         "target": [
+            {
+               "target": "nsis",
+               "arch": [
+                  "x64",
+                  "ia32"
+               ]
+            }
+         ],
          "icon": "build/icon.ico"
       }
    },

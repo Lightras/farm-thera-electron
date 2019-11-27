@@ -8,13 +8,16 @@ function createWindow() {
       height: 670,
       icon: `file://${__dirname}/dist/assets/logo.png`,
       width: 800,
+      webPreferences: {
+         webSecurity: false
+      }
    });
 
-   // win.loadURL(`file://${__dirname}/dist/index.html`);
-   win.loadURL(`http://localhost:4200/`);
+   win.loadURL(`file://${__dirname}/dist/farm-thera/index.html`);
+   // win.loadURL(`http://localhost:4200/`);
 
    // uncomment below to open the DevTools.
-   // win.webContents.openDevTools();
+   win.webContents.openDevTools();
    win.setMenuBarVisibility(false);
 
    // Event when the window is closed.

@@ -3,6 +3,7 @@
 nav
    display: flex
    justify-content: center
+   align-items: center
 
    .section-link
       width: 170px
@@ -19,3 +20,10 @@ nav
 
       &.active-link
          background: $highlight-color
+
+      &.fix-height
+         align-self: stretch
+
+   img.next
+      width: 20px
+      height: 20px
