@@ -7,10 +7,10 @@ import {DataService} from '../../../services/data.service';
    styleUrls: ['./se-sp-config.component.sass']
 })
 export class SeSpConfigComponent implements OnInit {
-   @Input() seMin: number;
-   @Input() seMax: number;
-   @Input() spMin: number;
-   @Input() spMax: number;
+   @Input() seMin = 0.8;
+   @Input() seMax = 1;
+   @Input() spMin = 0.8;
+   @Input() spMax = 1;
 
    showError: boolean;
 

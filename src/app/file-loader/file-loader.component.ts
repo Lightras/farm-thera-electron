@@ -2,6 +2,7 @@ import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@a
 import * as papa from 'papaparse';
 import {Router} from '@angular/router';
 import {DataService} from '../services/data.service';
+import {MockService} from '../services/mock.service';
 
 
 @Component({
@@ -16,8 +17,9 @@ export class FileLoaderComponent implements OnInit {
 
    constructor(
       private router: Router,
-      private dataService: DataService
-   ) { }
+      private dataService: DataService,
+   ) {
+   }
 
    file = {
       name: null,

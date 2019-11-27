@@ -109,43 +109,6 @@ export class CalculationService {
       return normDays;
    }
 
-   performCalc(workData, normDays) {
-      const daysVsNorm = {
-         byDays: this.getCalcResults(workData, normDays, 'days'),
-         byNorm: this.getCalcResults(workData, normDays, 'norm'),
-      };
-
-      let residualDays = 1000;
-      let residualNorm = 1000;
-      let dD;
-      let dN;
-      let normDataFixed;
-      let humanDaysDays = 0;
-      let humanDaysNorm = 0;
-
-      daysVsNorm.byNorm.simulatedCohortDistrTotal.forEach((v, i) => {
-         if (normDataFixed) {
-            daysVsNorm.byNorm.simulatedCohortDistrTotal[i] = daysVsNorm.byDays.simulatedCohortDistrTotal[i];
-         }
-
-         dD = daysVsNorm.byDays.simulatedCohortDistrTotal[i];
-         dN = daysVsNorm.byNorm.simulatedCohortDistrTotal[i];
-
-         residualDays -= dD;
-         residualNorm -= dN;
-
-         if (i > 14 && !normDataFixed && residualNorm > residualDays) {
-            const diff = residualNorm - residualDays;
-            residualNorm = residualDays;
-            daysVsNorm.byNorm.simulatedCohortDistrTotal[i] += diff;
-            normDataFixed = true;
-         }
-
-         humanDaysDays += residualDays;
-         humanDaysNorm += residualNorm;
-      });
-   }
-
    normSimulation(dataSet, normDays) {
       const daysCol = dataSet.find(col => col.meta.type === 'days');
       const maxDays = Z.max(daysCol.data);
@@ -208,57 +171,5 @@ export class CalculationService {
       // this.simulatedCohortDistr = simulatedCohortDistr;
 
       return [simulatedCohortDistr, simulatedCohort];
-   }
-
-   getCalcResults(data: Column[], normDays: number[], type: 'norm' | 'days'): CalcResults2 {
-      const calcResults: CalcResults2 = {
-         normDays: null,
-         daData: null,
-         dbData: null,
-         da: null,
-         db: null,
-         simulatedCohortTotal: null,
-         simulatedCohortDistrTotal: null,
-         simulatedCohortA: null,
-         simulatedCohortB: null,
-         simulatedCohortDistrA: null,
-         simulatedCohortDistrB: null,
-         criteriaB: null,
-         criteriaDistrB: null,
-      };
-
-      if (type === 'days') {
-         normDays = this.dataService.getCol(data, 'days').data;
-      }
-
-      [
-         calcResults.daData,
-         calcResults.dbData,
-         calcResults.da,
-         calcResults.db
-      ] = this.dataService.getSubSetsTherapy(data, normDays);
-
-      if (type === 'norm') {
-         [calcResults.simulatedCohortDistrA, calcResults.simulatedCohortA] = this.normSimulation(calcResults.daData, calcResults.da);
-         [calcResults.simulatedCohortDistrB, calcResults.simulatedCohortB] = this.normSimulation(calcResults.dbData, calcResults.db);
-         [calcResults.simulatedCohortDistrTotal, calcResults.simulatedCohortTotal] = this.normSimulation(data, normDays);
-      } else {
-
-         calcResults.simulatedCohortA =
-            this.dataService.randomizeFromDistribution(this.dataService.buildDistribution(calcResults.da));
-         calcResults.simulatedCohortB =
-            this.dataService.randomizeFromDistribution(this.dataService.buildDistribution(calcResults.db));
-         calcResults.simulatedCohortTotal =
-            this.dataService.randomizeFromDistribution(this.dataService.buildDistribution(normDays));
-
-         calcResults.simulatedCohortDistrA = this.dataService.buildDistribution(calcResults.simulatedCohortA);
-         calcResults.simulatedCohortDistrB = this.dataService.buildDistribution(calcResults.simulatedCohortB);
-         calcResults.simulatedCohortDistrTotal = this.dataService.buildDistribution(calcResults.simulatedCohortTotal);
-      }
-
-      calcResults.criteriaB = this.calculation2(calcResults.simulatedCohortA, calcResults.simulatedCohortB);
-      calcResults.criteriaDistrB = this.dataService.buildIntDistributionWithNegatives(calcResults.criteriaB);
-
-      return calcResults;
    }
 }

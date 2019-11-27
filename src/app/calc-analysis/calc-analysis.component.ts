@@ -22,14 +22,14 @@ export class CalcAnalysisComponent implements OnInit {
       private mockService: MockService,
       private calcService: CalculationService
    ) {
-      // this.workData = dataService.workData;
+      this.workData = dataService.workData;
    }
 
    ngOnInit() {
       // this.mockService.getMockData('RVI_novorozhdennykh').subscribe(d => {
-      this.mockService.getMockData('RVI_Indonesia_1').subscribe(d => {
+      // this.mockService.getMockData('RVI_Indonesia_1').subscribe(d => {
       // this.mockService.getMockData('Nehospit_pnevmonii').subscribe(d => {
-         this.workData = d;
+      //    this.workData = d;
          this.normConfig = [];
 
          this.workData.forEach(col => {
@@ -48,7 +48,7 @@ export class CalcAnalysisComponent implements OnInit {
                }
             }
          });
-      });
+      // });
    }
 
    recalcNormDays(normConfig: any[]) {

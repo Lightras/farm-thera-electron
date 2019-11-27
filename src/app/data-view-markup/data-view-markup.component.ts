@@ -25,14 +25,15 @@ export class DataViewMarkupComponent implements OnInit {
       private router: Router
    ) {
       //
-      mockService.getMockData('Nehospit_pnevmonii_RAW').subscribe(r => {
-         dataService.rawData = r;
-         dataService.titles = dataService.rawData.shift();
-
-
+      // mockService.getMockData('Nehospit_pnevmonii_RAW').subscribe(r => {
+      //    dataService.rawData = r;
+      //    dataService.rawData = r;
+      //    dataService.titles = dataService.rawData.shift();
+      //
+      //
          this.fileData = dataService.rawData;
          this.titles = dataService.titles;
-      });
+      // });
       //
 
 

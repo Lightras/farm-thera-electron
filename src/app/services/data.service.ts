@@ -11,7 +11,6 @@ export class DataService {
    rawData: any;
    titles: string[];
    workData: Column[] = [];
-   normDays: number[];
    fullCalc: any;
 
    sampleSize = 10000;

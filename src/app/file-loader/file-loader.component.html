@@ -6,6 +6,8 @@
       <button (click)="goToMarkup()" *ngIf="file.data">Перейти до розмітки даних</button>
    </div>
 
+   <app-demo></app-demo>
+
    <div>
       <app-preview *ngIf="file.data" [data]="file.data" [titles]="titles"></app-preview>
    </div>

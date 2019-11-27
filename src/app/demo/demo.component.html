@@ -1,0 +1,3 @@
+<div class="demo-files" *ngIf="demoFiles">
+   <div class="demo-file-link" *ngFor="let file of demoFiles" (click)="showDemoFor(file.name)">{{file.viewName}}</div>
+</div>
