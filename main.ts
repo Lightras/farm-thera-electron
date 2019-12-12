@@ -5,9 +5,9 @@ let win;
 function createWindow() {
    // Create the browser window.
    win = new BrowserWindow({
-      height: 670,
+      height: 700,
       icon: `file://${__dirname}/dist/assets/logo.png`,
-      width: 800,
+      width: 1200,
       webPreferences: {
          webSecurity: false
       }
@@ -17,7 +17,7 @@ function createWindow() {
    // win.loadURL(`http://localhost:4200/`);
 
    // uncomment below to open the DevTools.
-   win.webContents.openDevTools();
+   // win.webContents.openDevTools();
    win.setMenuBarVisibility(false);
 
    // Event when the window is closed.
