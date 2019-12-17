@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {Chart} from 'highcharts';
+import {Chart, DataOptions} from 'highcharts';
 import {ChartsService} from '../charts.service';
 import * as Highcharts from 'highcharts';
 import {BasicChartData, ChartTitles} from '../../app.interfaces';
@@ -37,21 +37,23 @@ export class ChartForemotherComponent implements OnInit, OnChanges {
       this.chart = chart;
       this.cdr.detectChanges();
 
-      this.chart.setTitle({
-         text: this.titles.chartTitle
-      });
+      if (this.titles) {
+         this.chart.setTitle({
+            text: this.titles.chartTitle
+         });
 
-      this.chart.xAxis[0].update({
-         title: {
-            text: this.titles.xAxisTitle
-         }
-      });
+         this.chart.xAxis[0].update({
+            title: {
+               text: this.titles.xAxisTitle
+            }
+         });
 
-      this.chart.yAxis[0].update({
-         title: {
-            text: this.titles.yAxisTitle
-         }
-      });
+         this.chart.yAxis[0].update({
+            title: {
+               text: this.titles.yAxisTitle
+            }
+         });
+      }
    }
 
 }

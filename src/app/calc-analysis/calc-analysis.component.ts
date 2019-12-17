@@ -3,6 +3,7 @@ import {DataService} from '../services/data.service';
 import {Column} from '../app.interfaces';
 import {MockService} from '../services/mock.service';
 import {CalculationService} from '../services/calculation.service';
+import {CalcService} from '../services/calc.service';
 
 @Component({
    selector: 'app-calc-analysis',
@@ -17,20 +18,31 @@ export class CalcAnalysisComponent implements OnInit {
    normDays: number[];
    noVirusData = true;
 
+   AvsDBdata: any[];
+   BvsDBdata: any[];
+   scatterCtc: any[];
+
    constructor(
       private dataService: DataService,
       private mockService: MockService,
-      private calcService: CalculationService
+      private calculationService: CalculationService,
+      private calcService: CalcService
    ) {
       this.workData = dataService.workData;
    }
 
    ngOnInit() {
-      // this.mockService.getMockData('RVI_novorozhdennykh').subscribe(d => {
+      this.mockService.getMockData('RVI_novorozhdennykh').subscribe(d => {
       // this.mockService.getMockData('RVI_Indonesia_1').subscribe(d => {
       // this.mockService.getMockData('Nehospit_pnevmonii').subscribe(d => {
-      //    this.workData = d;
+         this.workData = d;
          this.normConfig = [];
+
+         this.dataService.workData = this.workData;
+         this.calcService.getSubsetsDistributions();
+         this.AvsDBdata = this.calcService.getDataABvsDB('A');
+         this.BvsDBdata = this.calcService.getDataABvsDB('B');
+         // this.scatterCtc = this.calcService.getScatterCtC();
 
          this.workData.forEach(col => {
             if (col.meta.type === 'virus') {
@@ -48,10 +60,10 @@ export class CalcAnalysisComponent implements OnInit {
                }
             }
          });
-      // });
+      });
    }
 
    recalcNormDays(normConfig: any[]) {
-      this.normDays = this.calcService.recalcNormDays(normConfig, this.workData);
+      this.normDays = this.calculationService.recalcNormDays(normConfig, this.workData);
    }
 }

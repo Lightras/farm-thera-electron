@@ -1,5 +1,5 @@
 <div class="content">
-   <section>
+   <!--<section>
       <div class="section-header">
          Робоча таблиця
       </div>
@@ -68,5 +68,19 @@
       <div class="section-body">
          <app-simple-analysis-norm [data]="workData" [normDays]="normDays"></app-simple-analysis-norm>
       </div>
-   </section>
+   </section>-->
+
+<!--   <section>-->
+<!--      <div class="section-header">-->
+<!--         Простий A/B аналіз з урахуванням нормалізації показників-->
+<!--      </div>-->
+<!--      <div class="section-body">-->
+<!--         <app-scatter [data]="scatterCtc" [withMean]="true"></app-scatter>-->
+<!--      </div>-->
+<!--   </section>-->
+
+
+   <app-success-bar-chart [data]="AvsDBdata"></app-success-bar-chart>
+   <app-success-bar-chart [data]="BvsDBdata"></app-success-bar-chart>
+
 </div>
