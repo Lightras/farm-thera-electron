@@ -18,30 +18,24 @@ export class CalcAnalysisComponent implements OnInit {
    normDays: number[];
    noVirusData = true;
 
-   AvsDBdata: any[];
-   BvsDBdata: any[];
    scatterCtc: any[];
 
    constructor(
       private dataService: DataService,
       private mockService: MockService,
       private calculationService: CalculationService,
-      private calcService: CalcService
    ) {
       this.workData = dataService.workData;
    }
 
    ngOnInit() {
-      this.mockService.getMockData('RVI_novorozhdennykh').subscribe(d => {
-      // this.mockService.getMockData('RVI_Indonesia_1').subscribe(d => {
+      // this.mockService.getMockData('RVI_novorozhdennykh').subscribe(d => {
+      this.mockService.getMockData('RVI_Indonesia_2').subscribe(d => {
       // this.mockService.getMockData('Nehospit_pnevmonii').subscribe(d => {
          this.workData = d;
          this.normConfig = [];
 
          this.dataService.workData = this.workData;
-         this.calcService.getSubsetsDistributions();
-         this.AvsDBdata = this.calcService.getDataABvsDB('A');
-         this.BvsDBdata = this.calcService.getDataABvsDB('B');
          // this.scatterCtc = this.calcService.getScatterCtC();
 
          this.workData.forEach(col => {

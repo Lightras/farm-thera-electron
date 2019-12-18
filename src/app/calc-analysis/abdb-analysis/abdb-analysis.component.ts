@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CalculationService} from '../../services/calculation.service';
 import {DataService} from '../../services/data.service';
 import {Column} from '../../app.interfaces';
+import {CalcService} from '../../services/calc.service';
 
 @Component({
    selector: 'app-abdb-analysis',
@@ -13,13 +14,21 @@ export class AbdbAnalysisComponent implements OnInit {
 
    calcResults: any;
 
+   AvsDBdata: any[];
+   BvsDBdata: any[];
+
    constructor(
-      private dataService: DataService
+      private dataService: DataService,
+      private calcService: CalcService
    ) {
    }
 
    ngOnInit() {
       this.getCalcResults();
+
+      this.calcService.getSubsetsDistributions();
+      this.AvsDBdata = this.calcService.getDataABvsDB('A');
+      this.BvsDBdata = this.calcService.getDataABvsDB('B');
    }
 
    getCalcResults() {

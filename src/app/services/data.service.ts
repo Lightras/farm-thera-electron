@@ -253,8 +253,6 @@ export class DataService {
          let virusColData;
          let therapyColData;
 
-         console.log('data: ', data);
-
          data.forEach(col => {
             const colType = col.meta.type;
 

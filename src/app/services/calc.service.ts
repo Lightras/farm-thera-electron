@@ -36,8 +36,6 @@ export class CalcService {
    ) { }
 
    getSubsetsDistributions() {
-      const virusCol = this.dataService.getCol(this.dataService.workData, 'virus');
-
       let dna;
       let dnb;
       let dva;
@@ -126,14 +124,14 @@ export class CalcService {
       const D_A = p * dva + (1 - p) * dna;
       const D_DB = p * (Se * dvb + (1 - Se) * dva) + (1 - p) * (Sp * dna + (1 - Sp) * dnb);
 
-      return Ct_to_C < (D_A - D_DB - CD_to_C) / (p * Se + (1 - p) * (1 - Sp));
+      return Ct_to_C < ((D_A - D_DB - CD_to_C) / (p * Se + (1 - p) * (1 - Sp)));
    }
 
    checkCtCdConditionB(dna, dva, dnb, dvb, p, Se, Sp, Ct_to_C, CD_to_C): boolean {
       const D_B = p * dvb + (1 - p) * dnb;
       const D_DB = p * (Se * dvb + (1 - Se) * dva) + (1 - p) * (Sp * dna + (1 - Sp) * dnb);
 
-      return Ct_to_C < (D_B - D_DB - CD_to_C) / (p * Se + (1 - p) * (1 - Sp) - 1);
+      return Ct_to_C < ((D_B - D_DB - CD_to_C) / (p * Se + (1 - p) * (1 - Sp) - 1));
    }
 
    getRandomOtherValues() {
@@ -159,7 +157,7 @@ export class CalcService {
       let dnb;
       let dvb;
 
-      const terminateThreshold = 0.1;
+      const terminateThreshold = 0.01;
       const terminateLength = 5;
       const xDensity = 10;
       const yDensity = 100;
@@ -216,12 +214,6 @@ export class CalcService {
          });
 
          terminateConditionMet = (successRateHistory.length === terminateLength) && successRateHistory.every(v => v < terminateThreshold);
-
-         console.log('successCount: ', successCount);
-         console.log('successRate: ', successRate);
-         console.log('AvsDB: ', AvsDB);
-         console.log('successRateHistory: ', successRateHistory);
-         console.log('------------------------------\n');
       }
 
       return AvsDB;

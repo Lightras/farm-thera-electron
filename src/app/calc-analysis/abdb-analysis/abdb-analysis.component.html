@@ -4,29 +4,46 @@
    </div>
 
    <div class="section-row">
-      <app-continuous-bar-chart
-         [data]="calcResults.costCriteriaDA"
-         [bins]="50"
-         [normalized]="true"
-         [realityBounds]="[0]"
-         [threshold]="0.001"
+      <app-success-bar-chart
+         [data]="AvsDBdata"
          [titles]="{
-      xAxisTitle: 'Відношення витрат на додаткову фармакотерапію до витрат надобу базисної фармакотерапії',
-      yAxisTitle: 'Ймовірність'
-   }"
-      ></app-continuous-bar-chart>
+            xAxisTitle: 'Відношення суми витрат на додаткову фармакотерапію і діагностику до витрат на добу базисної фармакотерапії',
+            yAxisTitle: 'Ймовірність успіху',
+            chartTitle: ''
+         }"
+      ></app-success-bar-chart>
 
-      <app-continuous-bar-chart
-         [data]="calcResults.costCriteriaDB"
-         [bins]="50"
-         [normalized]="true"
-         [realityBounds]="[0]"
-         [threshold]="0.001"
+      <app-success-bar-chart
+         [data]="BvsDBdata"
          [titles]="{
-         xAxisTitle: 'Відношення витрат на додаткову фармакотерапію до витрат на добу базисної фармакотерапії',
-         yAxisTitle: 'Ймовірність'
-      }"
-      ></app-continuous-bar-chart>
+            xAxisTitle: 'Відношення суми витрат на додаткову фармакотерапію і діагностику до витрат на добу базисної фармакотерапії',
+            yAxisTitle: 'Ймовірність успіху',
+            chartTitle: ''
+         }"
+      ></app-success-bar-chart>
+<!--      <app-continuous-bar-chart-->
+<!--         [data]="calcResults.costCriteriaDA"-->
+<!--         [bins]="50"-->
+<!--         [normalized]="true"-->
+<!--         [realityBounds]="[0]"-->
+<!--         [threshold]="0.001"-->
+<!--         [titles]="{-->
+<!--      xAxisTitle: 'Відношення витрат на додаткову фармакотерапію до витрат надобу базисної фармакотерапії',-->
+<!--      yAxisTitle: 'Ймовірність'-->
+<!--   }"-->
+<!--      ></app-continuous-bar-chart>-->
+
+<!--      <app-continuous-bar-chart-->
+<!--         [data]="calcResults.costCriteriaDB"-->
+<!--         [bins]="50"-->
+<!--         [normalized]="true"-->
+<!--         [realityBounds]="[0]"-->
+<!--         [threshold]="0.001"-->
+<!--         [titles]="{-->
+<!--         xAxisTitle: 'Відношення витрат на додаткову фармакотерапію до витрат на добу базисної фармакотерапії',-->
+<!--         yAxisTitle: 'Ймовірність'-->
+<!--      }"-->
+<!--      ></app-continuous-bar-chart>-->
    </div>
 
    <div class="section-row">
