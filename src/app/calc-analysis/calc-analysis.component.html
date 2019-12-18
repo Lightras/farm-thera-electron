@@ -15,12 +15,12 @@
 
    <section *ngIf="!noVirusData">
       <div class="section-header">
-         A/B аналіз
+         Порівняння базисної технології фармакотерапії з технологєю фармакотерапії з включенням фармацевтичного препарату, що представляє інтерес
       </div>
       <div class="section-body">
-         <div class="section-subtitle">
-            Аналіз доцільності введення додаткової фармакотерапії
-         </div>
+<!--         <div class="section-subtitle">-->
+<!--            Аналіз доцільності введення додаткової фармакотерапії-->
+<!--         </div>-->
 
          <app-ab-analysis [data]="workData"></app-ab-analysis>
       </div>
@@ -28,12 +28,12 @@
 
    <section *ngIf="!noVirusData">
       <div class="section-header">
-         A/B/DB аналіз
+         Порівняння базисної технології фармакотерапії з технологєю фармакотерапії з включенням фармацевтичного препарату, що представляє інтерес та попередньою етіологічною діагностикою
       </div>
       <div class="section-body">
-         <div class="section-subtitle">
-            Аналіз доцільності введення додаткової фармакотерапії з попередньою діагностикою
-         </div>
+<!--         <div class="section-subtitle">-->
+<!--            Аналіз доцільності введення додаткової фармакотерапії з попередньою діагностикою-->
+<!--         </div>-->
 
          <app-abdb-analysis [data]="workData"></app-abdb-analysis>
       </div>
@@ -41,11 +41,11 @@
 
    <section *ngIf="noVirusData">
       <div class="section-header">
-         Простий A/B аналіз
+         Порівняння базисної технології фармакотерапії з технологєю фармакотерапії з включенням фармацевтичного препарату, що представляє інтерес
       </div>
       <div class="section-body">
          <div class="section-subtitle">
-            A/B аналіз на основі даних про використання препарату і динаміки одужання
+            Аналіз на основі даних про використання препарату і динаміки одужання
          </div>
 
          <app-simple-analysis [data]="workData"></app-simple-analysis>
@@ -63,20 +63,17 @@
 
    <section *ngIf="normDays">
       <div class="section-header">
-         Простий A/B аналіз з урахуванням нормалізації показників
+         Аналіз з урахуванням нормалізації показників
       </div>
       <div class="section-body">
          <app-simple-analysis-norm [data]="workData" [normDays]="normDays"></app-simple-analysis-norm>
       </div>
    </section>
 
-   <section>
-      <div class="section-header">
-         Простий A/B аналіз з урахуванням нормалізації показників
-      </div>
-      <div class="section-body">
-         <app-scatter [data]="scatterCtc" [withMean]="true"></app-scatter>
-      </div>
-   </section>
+<!--   <section>-->
+<!--      <div class="section-body">-->
+<!--         <app-scatter [data]="scatterCtc" [withMean]="true"></app-scatter>-->
+<!--      </div>-->
+<!--   </section>-->
 
 </div>

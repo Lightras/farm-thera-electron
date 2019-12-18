@@ -77,10 +77,13 @@ export class CalculationService {
    }
 
    recalcNormDays(normConfig, dataSet) {
+      const daysCol = dataSet.find(col => col.meta.type === 'days');
+
       const normDays = [];
       const indicatorDays = [0, 5, 14];
 
       dataSet[0].data.forEach((v, i) => {
+         // let normDay = daysCol.data[i];
          let normDay = NaN;
          let indicatorDayCol: Column;
 
